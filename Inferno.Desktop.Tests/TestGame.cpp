@@ -1,5 +1,4 @@
 #include "TestGame.h"
-#include "Game.h"
 
 using namespace Inferno;
 

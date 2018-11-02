@@ -1,6 +1,5 @@
 #include <cstdio>
 #include "TestGame.h"
-#include "Vector2.h"
 
 int main()
 {
