@@ -11,6 +11,10 @@ compiler:
 before_script:
   - mkdir build
   - cd build
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install sdl2; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then apt-get update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then apt-get install libsdl2-dev; fi
   - cmake ..
 
 script: make

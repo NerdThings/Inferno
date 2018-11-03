@@ -12,7 +12,16 @@ file(GLOB_RECURSE src
 )
 
 # Include SDL Headers
+IF (WIN32)
+
 include_directories("../deps/SDL2/include")
+
+ELSE()
+
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
+ENDIF()
 
 # Include Inferno shared headers
 include_directories("../include")
@@ -23,11 +32,21 @@ add_library (Inferno.Desktop SHARED ${src})
 # Set definitions
 target_compile_definitions(Inferno.Desktop PRIVATE SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
+# Link SDL
+
+IF (WIN32)
+
 # Set SDL Directory
 set (SDL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib)
-
-# Link SDL
 target_link_libraries(Inferno.Desktop ${SDL_DIR}/SDL2.lib ${SDL_DIR}/SDL2main.lib)
+
+ELSE()
+
+target_link_libraries(Inferno.Desktop ${SDL2_LIBRARIES})
+
+ENDIF()
+
+
 
 # Copy DLL to output path
 add_custom_command(TARGET Inferno.Desktop POST_BUILD
