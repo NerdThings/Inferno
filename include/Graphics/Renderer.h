@@ -5,13 +5,24 @@
 
 namespace Inferno
 {
+	struct Matrix;
 	namespace Graphics
 	{
+		class PlatformRenderer;
 		class INFERNO_API Renderer
 		{
+			const PlatformRenderer* _platformRenderer;
 		public:
-			void Begin();
-			void End();
+			//Constructor
+
+			Renderer();
+
+			//Batch controls
+
+			void begin(Matrix* translationMatrix);
+			void end();
+
+			//Draw methods
 		};
 	}
 }

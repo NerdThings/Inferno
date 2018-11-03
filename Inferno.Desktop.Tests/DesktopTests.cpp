@@ -4,6 +4,6 @@
 int main()
 {
 	TestGame* t = new TestGame();
-	t->Run();
+	t->run();
 	return 0;
 }

@@ -3,9 +3,6 @@
 //This file contains all Inferno definitions
 #ifndef INFERNO_API
 
-//Includes
-#include <cstdio>
-
 //Define version numbers
 #define INFERNO_MAJOR = 1;
 #define INFERNO_MINOR = 0;

@@ -8,7 +8,7 @@ namespace Inferno
 		_parentGame = parentGame;
 	}
 
-	bool PlatformGame::RunEvents()
+	bool PlatformGame::runEvents()
 	{
 		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0)

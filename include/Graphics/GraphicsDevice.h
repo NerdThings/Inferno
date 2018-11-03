@@ -1,6 +1,8 @@
 #ifndef Inferno_Graphics_GraphicsDevice
 #define Inferno_Graphics_GraphicsDevice
 
+#include "Inferno.h"
+
 namespace Inferno
 {
 	class GameWindow;
@@ -10,7 +12,7 @@ namespace Inferno
 		{
 			const GameWindow* _pairedWindow;
 		public:
-			void PairWindow(GameWindow *window);
+			void pairWindow(GameWindow *window);
 			GraphicsDevice();
 		};
 	}

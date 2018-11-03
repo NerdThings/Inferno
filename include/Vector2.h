@@ -9,14 +9,14 @@ namespace Inferno
 	{
 		//Constants
 
-		static const Vector2* Zero;
-		static const Vector2* UnitX;
-		static const Vector2* UnitY;
+		static const Vector2* zero;
+		static const Vector2* unitX;
+		static const Vector2* unitY;
 
 		//Fields
 
-		float X;
-		float Y;
+		float x;
+		float y;
 
 		Vector2(float x, float y);
 
@@ -24,13 +24,13 @@ namespace Inferno
 
 		//Get Functions
 
-		float GetMagnitude() const;
+		float getMagnitude() const;
 
-		float GetMagnitudeSquared() const;
+		float getMagnitudeSquared() const;
 
-		float Dot(Vector2* b) const;
+		float dot(Vector2* b) const;
 
-		float Distance(Vector2* b) const;
+		float distance(Vector2* b) const;
 
 		//Operators
 

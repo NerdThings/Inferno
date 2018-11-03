@@ -7,13 +7,13 @@ namespace Inferno
 {
 	Game::Game(int width, int height, const char* title, int fps, bool fullscreen)
 	{
-		FramesPerSecond = fps;
+		framesPerSecond = fps;
 
 		_platformGame = new PlatformGame(this);
 		_gameWindow = new GameWindow(title, width, height);
 	}
 
-	void Game::Run()
+	void Game::run()
 	{
 		int previous = ((double)clock() / CLOCKS_PER_SEC) * 1000;
 		float lag = 0.0f;
@@ -25,31 +25,31 @@ namespace Inferno
 			previous = current;
 			lag += delta;
 
-			while (lag >= 1000.0f / FramesPerSecond)
+			while (lag >= 1000.0f / framesPerSecond)
 			{
 				//Logic
-				Update();
-				lag -= 1000.0f / FramesPerSecond;
+				update();
+				lag -= 1000.0f / framesPerSecond;
 
 				//Inform of beginning draw
-				_gameWindow->BeginDraw();
+				_gameWindow->beginDraw();
 
 				//Draw
-				Draw();
+				draw();
 
-				//Present
-				_gameWindow->Present();
+				//present
+				_gameWindow->present();
 			}
 
 			//Run Events
-			if (!_platformGame->RunEvents())
+			if (!_platformGame->runEvents())
 			{
 				running = false;
 			}
 		}
 	}
 
-	void Game::Draw()
+	void Game::draw()
 	{
 		glColor3f(0.5f, 1.0f, 0.5f);
 		glBegin(GL_QUADS);
@@ -62,7 +62,7 @@ namespace Inferno
 		glFlush();
 	}
 
-	void Game::Update()
+	void Game::update()
 	{
 	}
 }

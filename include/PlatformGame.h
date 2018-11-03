@@ -11,7 +11,7 @@ namespace Inferno
 		const Game *_parentGame;
 	public:
 		PlatformGame(Game* parentGame);
-		bool RunEvents();
+		bool runEvents();
 	};
 }
 

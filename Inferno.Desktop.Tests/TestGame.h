@@ -6,5 +6,5 @@ using namespace Inferno;
 class TestGame : public Game {
 public:
 	TestGame();
-	void Update() override;
+	void update() override;
 };

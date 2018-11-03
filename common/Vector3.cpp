@@ -8,45 +8,45 @@ using namespace Inferno;
 
 Vector3::Vector3(float x, float y, float z)
 {
-	X = x;
-	Y = y;
-	Z = z;
+	this->x = x;
+	this->y = y;
+	this->z = z;
 }
 
 Vector3::Vector3(Vector2* value, float z)
 {
-	X = value->X;
-	Y = value->Y;
-	Z = z;
+	this->x = value->x;
+	this->y = value->y;
+	this->z = z;
 }
 
 Vector3::Vector3(float value)
 {
-	X = value;
-	Y = value;
-	Z = value;
+	this->x = value;
+	this->y = value;
+	this->z = value;
 }
 
 //Get functions
 
-float Vector3::GetMagnitude() const
+float Vector3::getMagnitude() const
 {
-	return sqrt((X * X) + (Y * Y) + (Z * Z));
+	return sqrt((x * x) + (y * y) + (z * z));
 }
 
-float Vector3::GetMagnitudeSquared() const
+float Vector3::getMagnitudeSquared() const
 {
-	return GetMagnitude() * GetMagnitude();
+	return getMagnitude() * getMagnitude();
 }
 
-float Vector3::Dot(Vector3* b) const
+float Vector3::dot(Vector3* b) const
 {
-	return (X * b->X) + (Y * b->Y) + (Z * b->Z);
+	return (x * b->x) + (y * b->y) + (z * b->z);
 }
 
-float Vector3::Distance(Vector3* b) const
+float Vector3::distance(Vector3* b) const
 {
-	return sqrtf((X - b->X) * (X - b->X) + (Y - b->Y) * (Y - b->Y) + (Z - b->Z) * (Z - b->Z));
+	return sqrtf((x - b->x) * (x - b->x) + (y - b->y) * (y - b->y) + (z - b->z) * (z - b->z));
 }
 
 //Operators
@@ -55,65 +55,67 @@ float Vector3::Distance(Vector3* b) const
 
 Vector3* Vector3::operator+(Vector3* b) const
 {
-	return new Vector3(X + b->X, Y + b->Y, Z + b->Z);
+	return new Vector3(x + b->x, y + b->y, z + b->z);
 }
 
 Vector3* Vector3::operator+(int b) const
 {
-	return new Vector3(X + b, Y + b, Z + b);
+	return new Vector3(x + b, y + b, z + b);
 }
 
 Vector3* Vector3::operator+(float b) const
 {
-	return new Vector3(X + b, Y + b, Z + b);
+	return new Vector3(x + b, y + b, z + b);
 }
 
 Vector3* Vector3::operator-(Vector3* b) const
 {
-	return new Vector3(- b->X, Y - b->Y, Z - b->Z);
+	return new Vector3(x - b->x, y - b->y, z - b->z);
 }
 
 Vector3* Vector3::operator-(int b) const
 {
-	return new Vector3(X - b, Y - b, Z - b);
+	return new Vector3(x - b, y - b, z - b);
 }
 
 Vector3* Vector3::operator-(float b) const
 {
-	return new Vector3(X - b, Y - b, Z - b);
+	return new Vector3(x - b, y - b, z - b);
 }
 
 Vector3* Vector3::operator*(Vector3* b) const
 {
-	return new Vector3(X * b->X, Y * b->Y, Z * b->Z);
+	return new Vector3(x * b->x, y * b->y, z * b->z);
 }
 
 Vector3* Vector3::operator*(int b) const
 {
-	return new Vector3(X * b, Y * b, Z * b);
+	return new Vector3(x * b, y * b, z * b);
 }
 
 Vector3* Vector3::operator*(float b) const
 {
-	return new Vector3(X * b, Y * b, Z * b);
+	return new Vector3(x * b, y * b, z * b);
 }
 
 Vector3* Vector3::operator/(Vector3* b) const
 {
-	return new Vector3(X / b->X, Y / b->Y, Z / b->Z);
+	return new Vector3(x / b->x, y / b->y, z / b->z);
 }
 
 Vector3* Vector3::operator/(int b) const
 {
-	return new Vector3(X / b, Y / b, Z / b);
+	return new Vector3(x / b, y / b, z / b);
 }
 
 Vector3* Vector3::operator/(float b) const
 {
-	return new Vector3( X / b, Y / b, Z / b);
+	return new Vector3( x / b, y / b, z / b);
 }
 
 bool Vector3::operator==(Vector3* b) const
 {
-	return (X == b->X && Y == b->Y && Z == b->Z);
+	return (x == b->x && y == b->y && z == b->z);
 }
+
+//TODO: Matrix transform

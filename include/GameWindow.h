@@ -24,17 +24,17 @@ namespace Inferno
 		int _height;
 
 	public:
-		void Resizable(bool canResize);
-		void SetBounds();//TODO: Rectangle struct
-		void CanAltF4(bool canAltf4);
-		void SetPosition(); //TODO: Point struct
-		void SetTitle(const char* title);
-		void SetFullscreen(bool fullscreen);
-		void SetVSync(bool vsync);
-		void SetCursor(bool visible);
+		void resizable(bool canResize);
+		void setBounds();//TODO: Rectangle struct
+		void canAltF4(bool canAltf4);
+		void setPosition(); //TODO: Point struct
+		void setTitle(const char* title);
+		void setFullscreen(bool fullscreen);
+		void setVSync(bool vsync);
+		void setCursor(bool visible);
 
-		void BeginDraw();
-		void Present();
+		void beginDraw();
+		void present();
 
 		GameWindow(const char* title, int width, int height);
 	};

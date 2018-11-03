@@ -14,15 +14,15 @@ namespace Inferno
 		GameWindow *_gameWindow;
 	public:
 		//Fields
-		int FramesPerSecond;
+		int framesPerSecond;
 
 		//Constructors
 		Game(int width, int height, const char* title = "Created in Inferno", int fps = 30, bool fullscreen = false);
 
 		//Methods
-		virtual void Draw();
-		void Run();
-		virtual void Update();
+		virtual void draw();
+		void run();
+		virtual void update();
 	};
 }
 

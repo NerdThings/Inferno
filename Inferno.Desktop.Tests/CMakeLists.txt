@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Include shared headers
-include_directories( "../include" )
+include_directories("../include")
 
 # Load source
 file(GLOB src

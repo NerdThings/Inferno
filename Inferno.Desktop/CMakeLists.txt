@@ -6,8 +6,7 @@ include_directories( ${OPENGL_INCLUDE_DIRS} )
 link_libraries( ${OPENGL_LIBRARIES} )
 
 # Add source files
-file(GLOB src
-    "*.h"
+file(GLOB_RECURSE src
     "*.cpp"
 	"../Common/*.cpp"
 )

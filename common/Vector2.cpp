@@ -4,44 +4,44 @@
 using namespace Inferno;
 
 //Constants
-const Vector2* Vector2::Zero = new Vector2(0, 0);
-const Vector2* Vector2::UnitX = new Vector2(1, 0);
-const Vector2* Vector2::UnitY = new Vector2(0, 1);
+const Vector2* Vector2::zero = new Vector2(0, 0);
+const Vector2* Vector2::unitX = new Vector2(1, 0);
+const Vector2* Vector2::unitY = new Vector2(0, 1);
 
 //Constructors
 
 Vector2::Vector2(float x, float y)
 {
-	X = x;
-	Y = y;
+	this->x = x;
+	this->y = y;
 }
 
 Vector2::Vector2(float value)
 {
-	X = value;
-	Y = value;
+	this->x = value;
+	this->y = value;
 }
 
 //Get functions
 
-float Vector2::GetMagnitude() const
+float Vector2::getMagnitude() const
 {
-	return sqrt((X * X) + (Y * Y));
+	return sqrt((x * x) + (y * y));
 }
 
-float Vector2::GetMagnitudeSquared() const
+float Vector2::getMagnitudeSquared() const
 {
-	return GetMagnitude() * GetMagnitude();
+	return getMagnitude() * getMagnitude();
 }
 
-float Vector2::Dot(Vector2* b) const
+float Vector2::dot(Vector2* b) const
 {
-	return (X * b->X) + (Y * b->Y);
+	return (x * b->x) + (y * b->y);
 }
 
-float Vector2::Distance(Vector2* b) const
+float Vector2::distance(Vector2* b) const
 {
-	return sqrtf((X - b->X) * (X - b->X) + (Y - b->Y) * (Y - b->Y));
+	return sqrtf((x - b->x) * (x - b->x) + (y - b->y) * (y - b->y));
 }
 
 //Operators
@@ -50,65 +50,67 @@ float Vector2::Distance(Vector2* b) const
 
 Vector2* Vector2::operator+(Vector2* b) const
 {
-	return new Vector2(X + b->X, Y + b->Y);
+	return new Vector2(x + b->x, y + b->y);
 }
 
 Vector2* Vector2::operator+(int b) const
 {
-	return new Vector2(X + b, Y + b);
+	return new Vector2(x + b, y + b);
 }
 
 Vector2* Vector2::operator+(float b) const
 {
-	return new Vector2(X + b, Y + b);
+	return new Vector2(x + b, y + b);
 }
 
 Vector2* Vector2::operator-(Vector2* b) const
 {
-	return new Vector2(X - b->X, Y - b->Y);
+	return new Vector2(x - b->x, y - b->y);
 }
 
 Vector2* Vector2::operator-(int b) const
 {
-	return new Vector2(X - b, Y - b);
+	return new Vector2(x - b, y - b);
 }
 
 Vector2* Vector2::operator-(float b) const
 {
-	return new Vector2(X - b, Y - b);
+	return new Vector2(x - b, y - b);
 }
 
 Vector2* Vector2::operator*(Vector2* b) const
 {
-	return new Vector2(X * b->X, Y * b->Y);
+	return new Vector2(x * b->x, y * b->y);
 }
 
 Vector2* Vector2::operator*(int b) const
 {
-	return new Vector2(X * b, Y * b);
+	return new Vector2(x * b, y * b);
 }
 
 Vector2* Vector2::operator*(float b) const
 {
-	return new Vector2(X * b, Y * b);
+	return new Vector2(x * b, y * b);
 }
 
 Vector2* Vector2::operator/(Vector2* b) const
 {
-	return new Vector2(X / b->X, Y / b->Y);
+	return new Vector2(x / b->x, y / b->y);
 }
 
 Vector2* Vector2::operator/(int b) const
 {
-	return new Vector2(X / b, Y / b);
+	return new Vector2(x / b, y / b);
 }
 
 Vector2* Vector2::operator/(float b) const
 {
-	return new Vector2(X / b, Y / b);
+	return new Vector2(x / b, y / b);
 }
 
 bool Vector2::operator==(Vector2* b) const
 {
-	return (X == b->X && Y == b->Y);
+	return (x == b->x && y == b->y);
 }
+
+//TODO: Matrix transform

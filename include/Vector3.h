@@ -10,9 +10,9 @@ namespace Inferno
 	{
 		//Fields
 
-		float X;
-		float Y;
-		float Z;
+		float x;
+		float y;
+		float z;
 
 		//Constructors
 
@@ -22,13 +22,13 @@ namespace Inferno
 
 		//Get Functions
 
-		float GetMagnitude() const;
+		float getMagnitude() const;
 
-		float GetMagnitudeSquared() const;
+		float getMagnitudeSquared() const;
 
-		float Dot(Vector3* b) const;
+		float dot(Vector3* b) const;
 
-		float Distance(Vector3* b) const;
+		float distance(Vector3* b) const;
 
 		//Operators
 
