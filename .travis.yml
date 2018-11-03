@@ -3,6 +3,7 @@ language: cpp
 os:
   - linux
   - osx
+  - windows
 
 compiler:
   - gcc
@@ -14,4 +15,6 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev; fi
   - cmake .
 
-script: make
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then devenv /build Release Inferno.sln; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" || "$TRAVIS_OS_NAME" == "linux" ]]; then make; fi
