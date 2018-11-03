@@ -12,14 +12,12 @@ file(GLOB_RECURSE src
 )
 
 # Include SDL Headers
-IF (WIN32)
-
 include_directories("../deps/SDL2/include")
 
-ELSE()
+# Check SDL is on the UNIX system
+IF (UNIX)
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
 
 ENDIF()
 
@@ -40,15 +38,13 @@ IF (WIN32)
 set (SDL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib)
 target_link_libraries(Inferno.Desktop ${SDL_DIR}/SDL2.lib ${SDL_DIR}/SDL2main.lib)
 
+# Copy DLL to output path
+add_custom_command(TARGET Inferno.Desktop POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
+)
+
 ELSE()
 
 target_link_libraries(Inferno.Desktop ${SDL2_LIBRARIES})
 
 ENDIF()
-
-
-
-# Copy DLL to output path
-add_custom_command(TARGET Inferno.Desktop POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
-)
