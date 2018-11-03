@@ -6,13 +6,26 @@
 namespace Inferno
 {
 	struct Matrix;
+
 	namespace Graphics
 	{
+		struct RenderItem;
+
 		class INFERNO_API PlatformRenderer
 		{
 		public:
-			void begin(Matrix* translationMatrix);
-			void end();
+
+			//Constructor
+
+			PlatformRenderer();
+
+			//Methods
+
+			void begin(Matrix* translationMatrix) const;
+
+			void end() const;
+
+			void render(RenderItem* item) const;
 		};
 	}
 }

@@ -2,6 +2,8 @@
 #define Inferno_Graphics_Renderer
 
 #include "Inferno.h"
+#include <vector>
+#include "RenderItem.h"
 
 namespace Inferno
 {
@@ -12,6 +14,11 @@ namespace Inferno
 		class INFERNO_API Renderer
 		{
 			const PlatformRenderer* _platformRenderer;
+
+			std::vector<RenderItem> _batch;
+
+			bool _rendering;
+
 		public:
 			//Constructor
 
@@ -20,6 +27,7 @@ namespace Inferno
 			//Batch controls
 
 			void begin(Matrix* translationMatrix);
+
 			void end();
 
 			//Draw methods
