@@ -25,10 +25,6 @@ void PlatformRenderer::end() const
 
 void PlatformRenderer::render(RenderItem* item) const
 {
-	switch (item->type)
-	{
-	case RenderType::lines:
-		break;
-	}
+
 }
 
