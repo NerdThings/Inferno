@@ -5,10 +5,10 @@ namespace Inferno
 {
 	PlatformGame::PlatformGame(Game* parentGame)
 	{
-		_parentGame = parentGame;
+		_parent_game = parentGame;
 	}
 
-	bool PlatformGame::runEvents()
+	bool PlatformGame::run_events()
 	{
 		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0)

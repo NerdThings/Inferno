@@ -23,7 +23,7 @@ namespace Inferno
 		glViewport(0, 0, _width, _height);
 	}
 
-	void GameWindow::beginDraw()
+	void GameWindow::begin_draw()
 	{
 		glClearColor(1.0f, 0.25f, 0.5f, 1);
 		glClear(GL_COLOR_BUFFER_BIT);

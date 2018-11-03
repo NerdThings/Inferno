@@ -6,6 +6,7 @@
 namespace Inferno
 {
 	struct Vector2;
+
 	struct INFERNO_API Point
 	{
 		//Fields
@@ -19,7 +20,7 @@ namespace Inferno
 
 		//Methods
 
-		Vector2* toVector() const;
+		Vector2* to_vector() const;
 
 		//Operators
 

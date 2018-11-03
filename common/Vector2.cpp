@@ -5,8 +5,8 @@ using namespace Inferno;
 
 //Constants
 const Vector2* Vector2::zero = new Vector2(0, 0);
-const Vector2* Vector2::unitX = new Vector2(1, 0);
-const Vector2* Vector2::unitY = new Vector2(0, 1);
+const Vector2* Vector2::unit_x = new Vector2(1, 0);
+const Vector2* Vector2::unit_y = new Vector2(0, 1);
 
 //Constructors
 
@@ -24,14 +24,14 @@ Vector2::Vector2(float value)
 
 //Get functions
 
-float Vector2::getMagnitude() const
+float Vector2::get_magnitude() const
 {
 	return sqrt((x * x) + (y * y));
 }
 
-float Vector2::getMagnitudeSquared() const
+float Vector2::get_magnitude_squared() const
 {
-	return getMagnitude() * getMagnitude();
+	return get_magnitude() * get_magnitude();
 }
 
 float Vector2::dot(Vector2* b) const

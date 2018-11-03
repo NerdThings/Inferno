@@ -10,8 +10,8 @@ namespace Inferno
 		//Constants
 
 		static const Vector2* zero;
-		static const Vector2* unitX;
-		static const Vector2* unitY;
+		static const Vector2* unit_x;
+		static const Vector2* unit_y;
 
 		//Fields
 
@@ -24,9 +24,9 @@ namespace Inferno
 
 		//Methods
 
-		float getMagnitude() const;
+		float get_magnitude() const;
 
-		float getMagnitudeSquared() const;
+		float get_magnitude_squared() const;
 
 		float dot(Vector2* b) const;
 

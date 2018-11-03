@@ -40,27 +40,27 @@ namespace Inferno
 
 		//Methods
 
-		static Matrix* createOrthographic(float width, float height, float zNear, float zFar);
+		static Matrix* create_orthographic(float width, float height, float zNear, float zFar);
 
-		static Matrix* createOrthographicOffCenter(float left, float right, float bottom, float top, float zNear, float zFar);
+		static Matrix* create_orthographic_off_center(float left, float right, float bottom, float top, float zNear, float zFar);
 
-		float* getArray() const;
+		float* get_array() const;
 
-		Vector3* getBackwardVector() const;
+		Vector3* get_backward_vector() const;
 
-		Vector3* getDownVector() const;
+		Vector3* get_down_vector() const;
 
-		Vector3* getForwardVector() const;
+		Vector3* get_forward_vector() const;
 
-		Vector3* getLeftVector() const;
+		Vector3* get_left_vector() const;
 
-		Vector3* getRightVector() const;
+		Vector3* get_right_vector() const;
 
-		Vector3* getScaleVector() const;
+		Vector3* get_scale_vector() const;
 
-		Vector3* getTranslation() const;
+		Vector3* get_translation_vector() const;
 
-		Vector3* getUpVector() const;
+		Vector3* get_up_vector() const;
 
 		Matrix* invert() const;
 

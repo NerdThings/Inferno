@@ -12,7 +12,7 @@ Vector4::Vector4(float x, float y, float z, float w)
 	this->x = x;
 	this->y = y;
 	this->z= z;
-	w = w;
+	this->w = w;
 }
 
 Vector4::Vector4(Vector2* value, float z, float w)
@@ -41,14 +41,14 @@ Vector4::Vector4(float value)
 
 //Get functions
 
-float Vector4::getMagnitude() const
+float Vector4::get_magnitude() const
 {
 	return sqrt((x * x) + (y * y) + (z * z));
 }
 
-float Vector4::getMagnitudeSquared() const
+float Vector4::get_magnitude_squared() const
 {
-	return getMagnitude() * getMagnitude();
+	return get_magnitude() * get_magnitude();
 }
 
 float Vector4::dot(Vector4* b) const

@@ -8,14 +8,18 @@
 namespace Inferno
 {
 	struct Matrix;
+	struct Rectangle;
+
 	namespace Graphics
 	{
+		struct Color;
 		class PlatformRenderer;
+
 		class INFERNO_API Renderer
 		{
-			const PlatformRenderer* _platformRenderer;
+			const PlatformRenderer* _platform_renderer;
 
-			std::vector<RenderItem> _batch;
+			std::vector<RenderItem*> _batch;
 
 			bool _rendering;
 
@@ -26,11 +30,13 @@ namespace Inferno
 
 			//Batch controls
 
-			void begin(Matrix* translationMatrix);
+			void begin(Matrix* translation_matrix = nullptr);
 
 			void end();
 
 			//Draw methods
+
+			void draw_rectangle(Rectangle* rect, Color* color, float depth);
 		};
 	}
 }

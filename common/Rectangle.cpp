@@ -43,84 +43,84 @@ bool Rectangle::contains(Vector2* value) const
 	return contains(value->x, value->y);
 }
 
-int Rectangle::getBottomCoord() const
+int Rectangle::get_bottom_coord() const
 {
 	return y + height;
 }
 
-Point* Rectangle::getCenter() const
+Point* Rectangle::get_center() const
 {
 	return new Point(x + width / 2.0f, y + height / 2.0f);
 }
 
-int Rectangle::getLeftCoord() const
+int Rectangle::get_left_coord() const
 {
 	return x;
 }
 
-Point* Rectangle::getLocation() const
+Point* Rectangle::get_location() const
 {
 	return new Point(x, y);
 }
 
-int Rectangle::getRightCoord() const
+int Rectangle::get_right_coord() const
 {
 	return x + width;
 }
 
-Point* Rectangle::getSize() const
+Point* Rectangle::get_size() const
 {
 	return new Point(width, height);
 }
 
-int Rectangle::getTopCoord() const
+int Rectangle::get_top_coord() const
 {
 	return y;
 }
 
 bool Rectangle::intersects(Rectangle* value) const
 {
-	return value->getLeftCoord() < getRightCoord() &&
-		getLeftCoord() < value->getRightCoord() &&
-		value->getTopCoord() < getBottomCoord() &&
-		getTopCoord() < value->getBottomCoord();
+	return value->get_left_coord() < get_right_coord() &&
+		get_left_coord() < value->get_right_coord() &&
+		value->get_top_coord() < get_bottom_coord() &&
+		get_top_coord() < value->get_bottom_coord();
 }
 
 bool Rectangle::touching(Rectangle* b) const
 {
-	return touchingBottom(b) || touchingLeft(b) || touchingRight(b) || touchingLeft(b);
+	return touching_bottom(b) || touching_left(b) || touching_right(b) || touching_left(b);
 }
 
-bool Rectangle::touchingBottom(Rectangle* b) const
+bool Rectangle::touching_bottom(Rectangle* b) const
 {
-	return getTopCoord() < b->getBottomCoord() &&
-		getBottomCoord() > b->getBottomCoord() &&
-		getRightCoord() > b->getLeftCoord() &&
-		getLeftCoord() < b->getRightCoord();
+	return get_top_coord() < b->get_bottom_coord() &&
+		get_bottom_coord() > b->get_bottom_coord() &&
+		get_right_coord() > b->get_left_coord() &&
+		get_left_coord() < b->get_right_coord();
 }
 
-bool Rectangle::touchingLeft(Rectangle* b) const
+bool Rectangle::touching_left(Rectangle* b) const
 {
-	return getRightCoord() > b->getLeftCoord() &&
-		getLeftCoord() < b->getLeftCoord() &&
-		getBottomCoord() > b->getTopCoord() &&
-		getTopCoord() < b->getBottomCoord();
+	return get_right_coord() > b->get_left_coord() &&
+		get_left_coord() < b->get_left_coord() &&
+		get_bottom_coord() > b->get_top_coord() &&
+		get_top_coord() < b->get_bottom_coord();
 }
 
-bool Rectangle::touchingRight(Rectangle* b) const
+bool Rectangle::touching_right(Rectangle* b) const
 {
-	return getLeftCoord() < b->getRightCoord() &&
-		getRightCoord() > b->getRightCoord() &&
-		getBottomCoord() > b->getTopCoord() &&
-		getTopCoord() < b->getBottomCoord();
+	return get_left_coord() < b->get_right_coord() &&
+		get_right_coord() > b->get_right_coord() &&
+		get_bottom_coord() > b->get_top_coord() &&
+		get_top_coord() < b->get_bottom_coord();
 }
 
-bool Rectangle::touchingTop(Rectangle* b) const
+bool Rectangle::touching_top(Rectangle* b) const
 {
-	return getBottomCoord() > b->getTopCoord() &&
-		getTopCoord() < b->getTopCoord() &&
-		getRightCoord() > b->getLeftCoord() &&
-		getLeftCoord() < b->getRightCoord();
+	return get_bottom_coord() > b->get_top_coord() &&
+		get_top_coord() < b->get_top_coord() &&
+		get_right_coord() > b->get_left_coord() &&
+		get_left_coord() < b->get_right_coord();
 }
 
 //Operators

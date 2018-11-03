@@ -10,9 +10,9 @@ namespace Inferno
 	{
 		class INFERNO_API GraphicsDevice
 		{
-			const GameWindow* _pairedWindow;
+			const GameWindow* _paired_window;
 		public:
-			void pairWindow(GameWindow *window);
+			void pair_window(GameWindow *window);
 			GraphicsDevice();
 		};
 	}

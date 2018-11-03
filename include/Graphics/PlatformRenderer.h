@@ -21,7 +21,7 @@ namespace Inferno
 
 			//Methods
 
-			void begin(Matrix* translationMatrix) const;
+			void begin(Matrix* translation_matrix = nullptr) const;
 
 			void end() const;
 

@@ -6,6 +6,7 @@
 namespace Inferno
 {
 	struct Vector2;
+
 	struct INFERNO_API Vector3
 	{
 		//Fields
@@ -22,9 +23,9 @@ namespace Inferno
 
 		//Methods
 
-		float getMagnitude() const;
+		float get_magnitude() const;
 
-		float getMagnitudeSquared() const;
+		float get_magnitude_squared() const;
 
 		float dot(Vector3* b) const;
 

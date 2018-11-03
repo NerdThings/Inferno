@@ -5,35 +5,40 @@ namespace Inferno
 {
 	struct Rectangle;
 	struct Vector2;
+
 	namespace Graphics
 	{
+		struct Color;
+
 		enum RenderType
 		{
 			texture,
-			renderTarget,
+			render_target,
 			text,
 			lines,
 			rectangle,
 			circle,
-			filledCircle
+			filled_circle
 		};
 
 		struct RenderItem
 		{
+			//Fields
+
 			RenderType type;
 			//texture
 			//rendertarget
 			//font
 			const char* text;
-			//color
+			Color* color;
 			float depth;
-			Rectangle* sourceRectangle;
-			Rectangle* destinationRectangle;
+			Rectangle* source_rectangle;
+			Rectangle* destination_rectangle;
 			double rotation;
 			Vector2* origin;
 			Vector2* verticies;
 			bool dispose;
-			int lineWidth;
+			int line_width;
 			int radius;
 			int precision;
 		};

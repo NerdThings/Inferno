@@ -6,12 +6,13 @@
 namespace Inferno
 {
 	class Game;
+
 	class INFERNO_API PlatformGame
 	{
-		const Game *_parentGame;
+		const Game *_parent_game;
 	public:
-		PlatformGame(Game* parentGame);
-		bool runEvents();
+		PlatformGame(Game* parent_game);
+		bool run_events();
 	};
 }
 

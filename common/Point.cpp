@@ -13,7 +13,7 @@ Point::Point(int x, int y)
 
 //Methods
 
-Vector2* Point::toVector() const
+Vector2* Point::to_vector() const
 {
 	return new Vector2(x, y);
 }

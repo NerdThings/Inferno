@@ -56,13 +56,13 @@ Matrix::Matrix(float m11, float m12, float m13, float m14,
 
 //Methods
 
-Matrix* Matrix::createOrthographic(float width, float height, float zNear, float zFar)
+Matrix* Matrix::create_orthographic(float width, float height, float zNear, float zFar)
 {
-	return createOrthographicOffCenter((-width / 2.0), width / 2.0f,
+	return create_orthographic_off_center((-width / 2.0), width / 2.0f,
 		(-height / 2.0f), height / 2.0f, zNear, zFar);
 }
 
-Matrix* Matrix::createOrthographicOffCenter(float left, float right, float bottom, float top, float zNear, float zFar)
+Matrix* Matrix::create_orthographic_off_center(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	Matrix* result = new Matrix();
 	const float num1 = (1.0f / (right - left));
@@ -77,7 +77,7 @@ Matrix* Matrix::createOrthographicOffCenter(float left, float right, float botto
 	return result;
 }
 
-float* Matrix::getArray() const
+float* Matrix::get_array() const
 {
 	float* array = new float[16];
 
@@ -101,42 +101,42 @@ float* Matrix::getArray() const
 	return array;
 }
 
-Vector3* Matrix::getBackwardVector() const
+Vector3* Matrix::get_backward_vector() const
 {
 	return new Vector3(m31, m32, m33);
 }
 
-Vector3* Matrix::getDownVector() const
+Vector3* Matrix::get_down_vector() const
 {
 	return new Vector3(-m21, -m22, -m23);
 }
 
-Vector3* Matrix::getForwardVector() const
+Vector3* Matrix::get_forward_vector() const
 {
 	return new Vector3(-m31, -m32, -m33);
 }
 
-Vector3* Matrix::getLeftVector() const
+Vector3* Matrix::get_left_vector() const
 {
 	return new Vector3(-m11, -m12, -m13);
 }
 
-Vector3* Matrix::getRightVector() const
+Vector3* Matrix::get_right_vector() const
 {
 	return new Vector3(m11, m12, m13);
 }
 
-Vector3* Matrix::getScaleVector() const
+Vector3* Matrix::get_scale_vector() const
 {
 	return new Vector3(m11, m22, m33);
 }
 
-Vector3* Matrix::getTranslation() const
+Vector3* Matrix::get_translation_vector() const
 {
 	return new Vector3(m41, m32, m43);
 }
 
-Vector3* Matrix::getUpVector() const
+Vector3* Matrix::get_up_vector() const
 {
 	return new Vector3(m21, m22, m23);
 }

@@ -29,14 +29,14 @@ Vector3::Vector3(float value)
 
 //Get functions
 
-float Vector3::getMagnitude() const
+float Vector3::get_magnitude() const
 {
 	return sqrt((x * x) + (y * y) + (z * z));
 }
 
-float Vector3::getMagnitudeSquared() const
+float Vector3::get_magnitude_squared() const
 {
-	return getMagnitude() * getMagnitude();
+	return get_magnitude() * get_magnitude();
 }
 
 float Vector3::dot(Vector3* b) const

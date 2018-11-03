@@ -1,5 +1,8 @@
+#include "Graphics/Color.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/PlatformRenderer.h"
+#include "Matrix.h"
+#include "Rectangle.h"
 
 using namespace Inferno;
 using namespace Graphics;
@@ -8,13 +11,13 @@ using namespace Graphics;
 
 Renderer::Renderer()
 {
-	_platformRenderer = new PlatformRenderer();
+	_platform_renderer = new PlatformRenderer();
 	_rendering = false;
 }
 
 //Batch controls
 
-void Renderer::begin(Matrix* translationMatrix)
+void Renderer::begin(Matrix* translation_matrix)
 {
 	//Clear batch
 	_batch.clear();
@@ -23,20 +26,34 @@ void Renderer::begin(Matrix* translationMatrix)
 	_rendering = true;
 
 	//Begin on platform side
-	_platformRenderer->begin(translationMatrix);
+	_platform_renderer->begin(translation_matrix);
 }
 
 void Renderer::end()
 {
 	//Draw batch
-	for (RenderItem batchItem : _batch)
+	for (RenderItem* batch_item : _batch)
 	{
-		
+		_platform_renderer->render(batch_item);
 	}
 
 	//Mark as not rendering
 	_rendering = false;
 
 	//End on platform side
-	_platformRenderer->end();
+	_platform_renderer->end();
 }
+
+void Renderer::draw_rectangle(Rectangle* rect, Color* color, float depth)
+{
+	RenderItem* item = new RenderItem();
+
+	item->type = rectangle;
+	item->destination_rectangle = rect;
+	item->color = color;
+	item->depth = depth;
+
+	_batch.push_back(item);
+}
+
+//Draw calls
