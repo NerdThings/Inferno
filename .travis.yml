@@ -16,5 +16,5 @@ before_script:
   - cmake .
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then devenv /build Release Inferno.sln; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then MSBuild Inferno.sln /p:Configuration=Release; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" || "$TRAVIS_OS_NAME" == "linux" ]]; then make; fi
