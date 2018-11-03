@@ -23,7 +23,7 @@ namespace Inferno
 		Vector4(Vector3* value, float w);
 		Vector4(float value);
 
-		//Get Functions
+		//Methods
 
 		float getMagnitude() const;
 

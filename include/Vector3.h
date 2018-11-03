@@ -20,7 +20,7 @@ namespace Inferno
 		Vector3(Vector2* value, float z);
 		Vector3(float value);
 
-		//Get Functions
+		//Methods
 
 		float getMagnitude() const;
 
