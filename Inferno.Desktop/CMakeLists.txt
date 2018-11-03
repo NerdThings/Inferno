@@ -1,8 +1,5 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-# FindSDL2
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}../cmake/")
-
 # Require OpenGL
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
