@@ -5,6 +5,9 @@ find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 link_libraries( ${OPENGL_LIBRARIES} )
 
+# Find SDL2
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 # Add source files
 file(GLOB_RECURSE src
     "*.cpp"
