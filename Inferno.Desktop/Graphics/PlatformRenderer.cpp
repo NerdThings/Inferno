@@ -4,7 +4,6 @@
 #include "Matrix.h"
 #include "Vector2.h"
 #include "SDL_opengl.h"
-
 using namespace Inferno;
 using namespace Graphics;
 
@@ -17,12 +16,12 @@ PlatformRenderer::PlatformRenderer()
 
 //Methods
 
-void PlatformRenderer::begin(Matrix* translationMatrix) const
+void PlatformRenderer::begin(Matrix* translation_matrix) const
 {
-	if (translationMatrix == nullptr)
-		translationMatrix = Matrix::identity;
+	if (translation_matrix == nullptr)
+		translation_matrix = Matrix::identity;
 
-	glLoadMatrixf(translationMatrix->get_array());
+	glLoadMatrixf(translation_matrix->get_array());
 }
 
 void PlatformRenderer::end() const
@@ -32,9 +31,6 @@ void PlatformRenderer::end() const
 
 void PlatformRenderer::render(RenderItem* item) const
 {
-	//Save matrix
-	glPushMatrix();
-
 	//Apply color
 	if (item->color == nullptr)
 		item->color = new Color(1, 1, 1, 1);

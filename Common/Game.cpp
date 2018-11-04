@@ -1,16 +1,21 @@
 #include "Game.h"
 #include <ctime>
 #include "GameWindow.h"
-#include "SDL_opengl.h"
+#include "PlatformGame.h"
+#include "Graphics/GraphicsDevice.h"
+#include "SDL_opengles2.h"
 
 namespace Inferno
 {
+	using namespace Graphics;
+
 	Game::Game(int width, int height, const char* title, int fps, bool fullscreen)
 	{
 		frames_per_second = fps;
 
 		_platform_game = new PlatformGame(this);
 		_game_window = new GameWindow(title, width, height);
+		_graphics_device = new GraphicsDevice(_game_window);
 	}
 
 	void Game::run()
@@ -51,15 +56,7 @@ namespace Inferno
 
 	void Game::draw()
 	{
-		glColor3f(0.5f, 1.0f, 0.5f);
-		glBegin(GL_QUADS);
-		glVertex3f(0, 0, 0);
-		glVertex3f(1, 0, 0);
-		glVertex3f(1, 1, 0);
-		glVertex3f(0, 1, 0);
-		glEnd();
-
-		glFlush();
+		
 	}
 
 	void Game::update()

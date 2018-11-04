@@ -1,17 +1,26 @@
 #ifndef Inferno_Game
 #define Inferno_Game
 
-#include "PlatformGame.h"
-#include "GameWindow.h"
 #include "Inferno.h"
 
 namespace Inferno
 {
+	namespace Graphics
+	{
+		class Renderer;
+		class GraphicsDevice;
+	}
+
+	class PlatformGame;
+	class GameWindow;	
+
 	class INFERNO_API Game
 	{
 	private:
 		PlatformGame *_platform_game;
 		GameWindow *_game_window;
+		Graphics::Renderer* _renderer;
+		Graphics::GraphicsDevice* _graphics_device;
 	public:
 		//Fields
 		int frames_per_second;
