@@ -10,13 +10,14 @@ namespace Inferno {
     class Game;
 
     struct Rectangle;
+	struct Vector2;
 
-    class Scene {
+    class INFERNO_API Scene {
         //Fields
 
         std::vector<Instance*> _instances;
 
-        std::map<int, std::vector<Instance*>> _spatialMap;
+        std::map<int, std::vector<Instance*>> _spatial_map;
 
         //Methods
 
@@ -28,8 +29,6 @@ namespace Inferno {
 
     public:
         //Fields
-
-        bool infinite;
 
         int width;
 
@@ -55,7 +54,7 @@ namespace Inferno {
 
         //Constructors
 
-        Scene(Game* parent_game, bool infinite = false, int width = 0, int height = 0, int space_size = 32);
+        Scene(Game* parent_game, int width = 0, int height = 0, int space_size = 32);
 
         //Methods
 
@@ -67,7 +66,7 @@ namespace Inferno {
 
         void clear_instances();
 
-        std::vector get_instances_at(Vector2* position, bool bounds_safezone = false);
+        std::vector<Instance*> get_instances_at(Vector2* position, bool bounds_safezone = false);
 
         ///Runtime
 
