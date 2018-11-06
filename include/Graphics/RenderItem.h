@@ -1,17 +1,14 @@
 #ifndef Inferno_Graphics_RenderItem
 #define Inferno_Graphics_RenderItem
 
-namespace Inferno
-{
+namespace Inferno {
 	struct Rectangle;
 	struct Vector2;
 
-	namespace Graphics
-	{
+	namespace Graphics {
 		struct Color;
 
-		enum RenderType
-		{
+		enum RenderType {
 			texture,
 			render_target,
 			text,
@@ -21,8 +18,7 @@ namespace Inferno
 			filled_circle
 		};
 
-		struct RenderItem
-		{
+		struct RenderItem {
 			//Fields
 
 			RenderType type;

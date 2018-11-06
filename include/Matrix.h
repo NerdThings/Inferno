@@ -3,11 +3,10 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
+namespace Inferno {
 	struct Vector3;
-	struct INFERNO_API Matrix
-	{
+
+	struct INFERNO_API Matrix {
 		//Constants
 
 		static Matrix* identity;

@@ -3,13 +3,11 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
+namespace Inferno {
 	struct Point;
 	struct Vector2;
 
-	struct INFERNO_API Rectangle
-	{
+	struct INFERNO_API Rectangle {
 		//Fields
 
 		int x;

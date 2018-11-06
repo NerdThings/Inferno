@@ -5,23 +5,28 @@
 #include <vector>
 #include "RenderItem.h"
 
-namespace Inferno
-{
+namespace Inferno {
 	struct Matrix;
 	struct Rectangle;
 
-	namespace Graphics
-	{
+	namespace Graphics {
 		struct Color;
-		class PlatformRenderer;
 
-		class INFERNO_API Renderer
-		{
-			const PlatformRenderer* _platform_renderer;
+		class INFERNO_API Renderer {
+			//Fields
 
 			std::vector<RenderItem*> _batch;
 
 			bool _rendering;
+
+#if OPENGL
+			unsigned int _vertex_array;
+
+#endif
+
+			//Methods
+
+			void render(RenderItem* item) const;
 
 		public:
 			//Constructor

@@ -4,18 +4,16 @@
 #include "Inferno.h"
 #include <vector>
 
-namespace Inferno
-{
+namespace Inferno {
 	class GameWindow;
-	namespace Graphics
-	{
+	namespace Graphics {
 		struct RenderTarget;
 
 		class INFERNO_API GraphicsDevice
 		{
 			GameWindow* _paired_window;
 			RenderTarget* _render_target;
-			static std::vector<RenderTarget*> _targets_to_dispose;
+			std::vector<RenderTarget*> _targets_to_dispose;
 		public:
 			//Constructor
 
@@ -23,7 +21,7 @@ namespace Inferno
 
 			//Methods
 
-			static void delete_render_target(RenderTarget* target);
+			void delete_render_target(RenderTarget* target);
 
 			void end_draw();
 

@@ -3,12 +3,9 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
-	namespace Graphics
-	{
-		struct INFERNO_API RenderTarget
-		{
+namespace Inferno {
+	namespace Graphics {
+		struct INFERNO_API RenderTarget {
 			//Fields
 
 			const int width;

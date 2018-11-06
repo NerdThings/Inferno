@@ -3,19 +3,34 @@
 # Require OpenGL
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
-link_libraries( ${OPENGL_LIBRARIES} )
 
 # Find SDL2
+IF (UNIX)
+
+# Search for UNIX SDL2
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
+
+ELSE()
+
+# Add Windows SDL2
+set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
+
+set(SDL2_LIBRARIES "${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
+
+ENDIF()
 
 # Add source files
 file(GLOB_RECURSE src
-    "*.cpp"
-	"../Common/*.cpp"
+	"../src/*.cpp"
+	# glad source
+	"../deps/glad/src/glad.c"
 )
 
 # Include SDL Headers
-include_directories("../deps/SDL2/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/include")
+
+# Include glad headers
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/glad/include")
 
 # Check SDL is on the UNIX system
 IF (UNIX)
@@ -25,7 +40,7 @@ find_package(SDL2 REQUIRED)
 ENDIF()
 
 # Include Inferno shared headers
-include_directories("../include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../include")
 
 # Add Library
 add_library (Inferno.Desktop SHARED ${src})
@@ -34,20 +49,16 @@ add_library (Inferno.Desktop SHARED ${src})
 target_compile_definitions(Inferno.Desktop PRIVATE SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
 # Link SDL
+target_link_libraries(Inferno.Desktop ${SDL2_LIBRARIES})
+
+# Link OpenGL
+target_link_libraries(Inferno.Desktop ${OPENGL_LIBRARIES})
 
 IF (WIN32)
 
-# Set SDL Directory
-set (SDL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib)
-target_link_libraries(Inferno.Desktop ${SDL_DIR}/SDL2.lib ${SDL_DIR}/SDL2main.lib)
-
-# Copy DLL to output path
+# Copy SDL2 DLL to output path
 add_custom_command(TARGET Inferno.Desktop POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
 )
-
-ELSE()
-
-target_link_libraries(Inferno.Desktop ${SDL2_LIBRARIES})
 
 ENDIF()

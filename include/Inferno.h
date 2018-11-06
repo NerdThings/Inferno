@@ -1,11 +1,15 @@
 #pragma once
 
 //This file contains all Inferno definitions
+
 #ifndef INFERNO_API
 
 //Define version numbers
+
 #define INFERNO_MAJOR = 1;
 #define INFERNO_MINOR = 0;
+
+//API Outputs
 
 #ifdef _WIN32
 #  ifdef INFERNO_API_EXPORTS

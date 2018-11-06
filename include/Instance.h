@@ -1,0 +1,4 @@
+#ifndef INFERNO_INSTANCE
+#define INFERNO_INSTANCE
+
+#endif

@@ -3,10 +3,8 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
-	namespace Graphics
-	{
+namespace Inferno {
+	namespace Graphics {
 		class Renderer;
 		class GraphicsDevice;
 	}
@@ -14,10 +12,8 @@ namespace Inferno
 	class PlatformGame;
 	class GameWindow;	
 
-	class INFERNO_API Game
-	{
+	class INFERNO_API Game {
 	private:
-		PlatformGame *_platform_game;
 		GameWindow *_game_window;
 		Graphics::Renderer* _renderer;
 		Graphics::GraphicsDevice* _graphics_device;
@@ -26,7 +22,7 @@ namespace Inferno
 		int frames_per_second;
 
 		//Constructors
-		Game(int width, int height, const char* title = "Created in Inferno", int fps = 30, bool fullscreen = false);
+		Game(int width, int height, const char* title = "Created with Inferno", int fps = 30, bool fullscreen = false);
 
 		//Methods
 		virtual void draw();

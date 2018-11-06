@@ -3,12 +3,9 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
-	namespace Graphics
-	{
-		struct INFERNO_API Color
-		{
+namespace Inferno {
+	namespace Graphics {
+		struct INFERNO_API Color {
 			//Fields
 
 			unsigned int packed_value;

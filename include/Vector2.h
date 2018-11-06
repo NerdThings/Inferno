@@ -3,10 +3,8 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
-	struct INFERNO_API Vector2
-	{
+namespace Inferno {
+	struct INFERNO_API Vector2 {
 		//Constants
 
 		static const Vector2* zero;

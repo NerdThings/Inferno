@@ -7,10 +7,8 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
-	class INFERNO_API GameWindow
-	{
+namespace Inferno {
+	class INFERNO_API GameWindow {
 #if SDL
 		SDL_Window *_window;
 #endif
@@ -25,6 +23,7 @@ namespace Inferno
 
 	public:
 		void resizable(bool canResize);
+		bool run_events() const;
 		void set_bounds();//TODO: Rectangle struct
 		void can_alt_f4(bool canAltf4);
 		void set_position(); //TODO: Point struct
@@ -33,8 +32,8 @@ namespace Inferno
 		void set_v_sync(bool vsync);
 		void set_cursor(bool visible);
 
-		void begin_draw();
-		void present();
+		void begin_draw() const;
+		void present() const;
 
 		GameWindow(const char* title, int width, int height);
 	};

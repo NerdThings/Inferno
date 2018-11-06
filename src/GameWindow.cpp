@@ -2,12 +2,27 @@
 #include "SDL_opengl.h"
 #include "GameWindow.h"
 
-namespace Inferno
-{
-	GameWindow::GameWindow(const char* title, int width, int height)
-	{
+namespace Inferno {
+	bool GameWindow::run_events() const {
+#ifdef SDL
+
+		SDL_Event e;
+		while (SDL_PollEvent(&e) != 0) {
+			if (e.type == SDL_QUIT) {
+				return false;
+			}
+		}
+
+		return true;
+
+#endif
+	}
+
+	GameWindow::GameWindow(const char* title, int width, int height) {
 		_width = width;
 		_height = height;
+
+#ifdef SDL
 
 		//Init SDL
 		_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -20,19 +35,32 @@ namespace Inferno
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 		SDL_GL_CreateContext(_window);
 
+#endif
+
+#ifdef OPENGL
+
+		//Set viewport
 		glViewport(0, 0, _width, _height);
+
+#endif
 	}
 
-	void GameWindow::begin_draw()
-	{
+	void GameWindow::begin_draw() const {
+#ifdef OPENGL
+
 		glClearColor(1.0f, 0.25f, 0.5f, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+#endif
 	}
 
 
-	void GameWindow::present()
-	{
+	void GameWindow::present() const {
+#ifdef SDL
+
 		SDL_GL_SwapWindow(_window);
+
+#endif
 	}
 }
 

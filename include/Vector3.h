@@ -3,12 +3,10 @@
 
 #include "Inferno.h"
 
-namespace Inferno
-{
+namespace Inferno {
 	struct Vector2;
 
-	struct INFERNO_API Vector3
-	{
+	struct INFERNO_API Vector3 {
 		//Fields
 
 		float x;
