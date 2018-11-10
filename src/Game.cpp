@@ -3,7 +3,6 @@
 #include "GameWindow.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/GraphicsDevice.h"
-#include "SDL_opengles2.h"
 
 namespace Inferno {
 	using namespace Graphics;

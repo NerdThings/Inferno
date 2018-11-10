@@ -1,5 +1,9 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
+#C++11
+set (CMAKE_CXX_STANDARD 11)
+
+#Project details
 project ("Inferno")
 
 # Set build directory
