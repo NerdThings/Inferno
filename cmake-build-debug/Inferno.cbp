@@ -4,207 +4,213 @@
 	<Project>
 		<Option title="Inferno"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="msvc8"/>
-		<Option virtualFolders="CMake Files\;CMake Files\Inferno.Desktop\;CMake Files\Inferno.Desktop.Tests\;"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\Inferno.Desktop\;CMake Files\cmake\;CMake Files\Inferno.Desktop.Tests\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/cmake-build-debug"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 all"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 edit_cache"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/cmake-build-debug"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Inferno.Desktop">
-				<Option output="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug/Inferno.Desktop.dll" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/cmake-build-debug/Inferno.Desktop"/>
+				<Option output="/home/reece/CLionProjects/InfernoPP/build/Debug/libInferno.Desktop.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop"/>
 				<Option object_output="./"/>
 				<Option type="3"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DSDL=1"/>
 					<Add option="-DOPENGL=1"/>
 					<Add option="-DINFERNO_API_EXPORTS=1"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../deps/SDL2/include"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../deps/glad/include"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../deps/SDL2/include"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../deps/glad/include"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../include"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 Inferno.Desktop"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 Inferno.Desktop"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Inferno.Desktop/fast">
-				<Option output="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug/Inferno.Desktop.dll" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/cmake-build-debug/Inferno.Desktop"/>
+				<Option output="/home/reece/CLionProjects/InfernoPP/build/Debug/libInferno.Desktop.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop"/>
 				<Option object_output="./"/>
 				<Option type="3"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DSDL=1"/>
 					<Add option="-DOPENGL=1"/>
 					<Add option="-DINFERNO_API_EXPORTS=1"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../deps/SDL2/include"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../deps/glad/include"/>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/../include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../deps/SDL2/include"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../deps/glad/include"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/../include"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 Inferno.Desktop/fast"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 Inferno.Desktop/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Inferno.Desktop.Tests">
-				<Option output="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug/Inferno.Desktop.Tests.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug"/>
+				<Option output="/home/reece/CLionProjects/InfernoPP/build/Debug/Inferno.Desktop.Tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/build/Debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/../include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/../include"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 Inferno.Desktop.Tests"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 Inferno.Desktop.Tests"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Inferno.Desktop.Tests/fast">
-				<Option output="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug/Inferno.Desktop.Tests.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/build/Debug"/>
+				<Option output="/home/reece/CLionProjects/InfernoPP/build/Debug/Inferno.Desktop.Tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reece/CLionProjects/InfernoPP/build/Debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
-				<Option compiler="msvc8"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/../include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+					<Add directory="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/../include"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 Inferno.Desktop.Tests/fast"/>
-					<CompileFile command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f &quot;C:\Users\Reece Mackie\Documents\GitHub\InfernoPP\cmake-build-debug\Inferno.Desktop.Tests\Makefile&quot; VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 Inferno.Desktop.Tests/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/reece/CLionProjects/InfernoPP/cmake-build-debug/Inferno.Desktop.Tests/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/DesktopTests.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/DesktopTests.cpp">
 			<Option target="Inferno.Desktop.Tests"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/TestGame.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/TestGame.cpp">
 			<Option target="Inferno.Desktop.Tests"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/TestGame.h">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/TestGame.h">
 			<Option target="Inferno.Desktop.Tests"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/deps/glad/src/glad.c">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/deps/glad/src/glad.c">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Game.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Game.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/GameWindow.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/GameWindow.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Graphics/Color.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Graphics/Color.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Graphics/GraphicsDevice.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Graphics/GraphicsDevice.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Graphics/RenderItem.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Graphics/RenderItem.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Graphics/RenderTarget.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Graphics/RenderTarget.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Graphics/Renderer.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Graphics/Renderer.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/MathHelper.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/MathHelper.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Matrix.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Matrix.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Point.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Point.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Rectangle.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Rectangle.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Vector2.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Scene.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Vector3.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Vector2.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/src/Vector4.cpp">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Vector3.cpp">
 			<Option target="Inferno.Desktop"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/CMakeLists.txt">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/src/Vector4.cpp">
+			<Option target="Inferno.Desktop"/>
+		</Unit>
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop/CMakeLists.txt">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\Inferno.Desktop\"/>
 		</Unit>
-		<Unit filename="C:/Users/Reece Mackie/Documents/GitHub/InfernoPP/Inferno.Desktop.Tests/CMakeLists.txt">
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/cmake/FindSDL2.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/reece/CLionProjects/InfernoPP/Inferno.Desktop.Tests/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\Inferno.Desktop.Tests\"/>
 		</Unit>
 	</Project>

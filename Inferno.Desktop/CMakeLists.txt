@@ -15,7 +15,7 @@ ELSE()
 # Add Windows SDL2
 set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
 
-set(SDL2_LIBRARIES "${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
+set(SDL2_LIBRARY"${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
 
 ENDIF()
 
@@ -49,7 +49,7 @@ add_library (Inferno.Desktop SHARED ${src})
 target_compile_definitions(Inferno.Desktop PRIVATE SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
 # Link SDL
-target_link_libraries(Inferno.Desktop ${SDL2_LIBRARIES})
+target_link_libraries(Inferno.Desktop ${SDL2_LIBRARY})
 
 # Link OpenGL
 target_link_libraries(Inferno.Desktop ${OPENGL_LIBRARIES})
