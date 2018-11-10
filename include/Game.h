@@ -7,6 +7,7 @@ namespace Inferno {
 	namespace Graphics {
 		class Renderer;
 		class GraphicsDevice;
+		struct RenderTarget;
 	}
 
 	class PlatformGame;
@@ -22,7 +23,13 @@ namespace Inferno {
 
 		Graphics::Renderer* _renderer;
 
+		Graphics::RenderTarget* _rendertarget;
+
 		Graphics::GraphicsDevice* _graphics_device;
+
+		int virtual_width;
+
+		int virtual_height;
 
 		//Methods
 

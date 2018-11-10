@@ -18,10 +18,11 @@ namespace Inferno {
         //Methods
 
         void GraphicsDevice::clear(Color* color) {
-            if (color == (Color*)NULL)
+            if (color == nullptr)
                 throw "Cannot clear with NULL.";
 
 #ifdef OPENGL
+            float r = float(color->get_r());
             glClearColor(color->get_r(), color->get_g(), color->get_b(), color->get_a());
             glClear(GL_COLOR_BUFFER_BIT);
 #endif

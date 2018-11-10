@@ -2,8 +2,10 @@
 #include <ctime>
 #include "GameWindow.h"
 #include "Graphics/Renderer.h"
+#include "Graphics/RenderTarget.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Color.h"
+#include "Point.h"
 
 namespace Inferno {
 	using namespace Graphics;
@@ -31,13 +33,21 @@ namespace Inferno {
 	    end_update();
 	}
 
-	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) {
-		frames_per_second = fps;
-
+	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) : virtual_width(width), virtual_height(height), frames_per_second(fps) {
+	    //Create window
 		_game_window = new GameWindow(title, width, height);
+
+		//Create and attach graphics device
 		_graphics_device = new GraphicsDevice(_game_window);
+
+		//Create renderer
 		_renderer = new Renderer();
 
+		//Create render target
+		_rendertarget = new RenderTarget(width, height); //TODO: Remake this once the window is resized
+
+		//Set properties
+		_game_window->set_fullscreen(fullscreen);
 		_paused = false; //TODO: Set to window focus status once we have capabilities
 	}
 
@@ -72,11 +82,50 @@ namespace Inferno {
 	}
 
 	void Game::draw() {
-
 	    //Grab dimensions
+	    Point* size = _game_window->get_size();
+	    int window_width = size->x;
+	    int window_height = size->y;
 
-	    //TODO: Replace this with DPI independancy system
-        _graphics_device->clear(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+	    int view_width = window_width;
+	    int view_height = window_height;
+
+	    //Calculate ratios
+        float output_aspect = float(view_width) / float(view_height);
+        float preferred_aspect = float(virtual_width) / float(virtual_height);
+
+        //Init bar dimensions
+        int bar_width = 0;
+        int bar_height = 0;
+
+        //Calculate bar dimensions
+        if (output_aspect <= preferred_aspect) {
+            view_height = int(window_width / preferred_aspect + 0.5f);
+            bar_height = int((window_height / view_height) / 2.0f);
+        } else {
+            view_width = int(window_height * preferred_aspect + 0.5f);
+            bar_width = int((window_width - view_width) / 2.0f);
+        }
+
+        //Clear outside of the logical window
+        _graphics_device->clear(new Color(0, 0, 0, 1));
+
+        //Set render target
+        _graphics_device->set_render_target(_rendertarget);
+
+        //Clear target
+        _graphics_device->clear(new Color(0.25f, 0.5f, 0.75f, 1.0f)); //TODO: ClearColor variable
+
+        //Draw scene
+        //TODO
+
+        //Reset target
+        _graphics_device->set_render_target(nullptr);
+
+        //Draw the render target
+        _renderer->begin(nullptr);
+        //TODO:
+        _renderer->end();
     }
 
     void Game::end_update() {

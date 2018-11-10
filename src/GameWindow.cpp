@@ -46,6 +46,24 @@ namespace Inferno {
 
 	//Methods
 
+	Rectangle* GameWindow::get_bounds() {
+	    Point* pos = get_position();
+	    Point* size = get_size();
+	    return new Rectangle(pos->x, pos->y, size->x, size->y);
+	}
+
+	Point* GameWindow::get_position() {
+        int x = 0, y = 0;
+        SDL_GetWindowPosition(_window, &x, &y);
+        return new Point(x, y);
+	}
+
+	Point* GameWindow::get_size() {
+	    int w = 0, h = 0;
+	    SDL_GetWindowSize(_window, &w, &h);
+        return new Point(w, h);
+    }
+
 	void GameWindow::resizable(bool canResize) {
 #ifdef SDL
 

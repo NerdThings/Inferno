@@ -20,10 +20,10 @@ namespace Inferno {
 
 			//Methods
 
-			float get_r() const;
-			float get_g() const;
-			float get_b() const;
-			float get_a() const;
+            char get_r() const;
+            char get_g() const;
+            char get_b() const;
+            char get_a() const;
 
 			//Operators
 
