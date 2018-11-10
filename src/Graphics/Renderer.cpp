@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "Graphics/Color.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/RenderItem.h"
@@ -14,6 +15,8 @@ namespace Inferno {
     namespace Graphics {
         //Private Methods
         void Renderer::render(RenderItem* item) const {
+            if (item == nullptr)
+                return;
 #if OPENGL
 
             //Save matrix
@@ -29,7 +32,8 @@ namespace Inferno {
             glLineWidth(item->line_width);
 
             //Apply origin
-            glTranslatef(-item->origin->x, -item->origin->y, 0.0f);
+            if (item->origin != nullptr)
+                glTranslatef(-item->origin->x, -item->origin->y, 0.0f);
 
             //Apply rotation
             //TODO
@@ -44,18 +48,23 @@ namespace Inferno {
 
                     //Build vertex array
 
-                    float* vertexArray = new float[4*3];
+                    float* vertexArray = new float[8];
                     vertexArray[0] = left;
                     vertexArray[1] = top;
-
-                    vertexArray[3] = right;
-                    vertexArray[4] = top;
-
-                    vertexArray[6] = right;
+                    vertexArray[2] = right;
+                    vertexArray[3] = top;
+                    vertexArray[4] = right;
+                    vertexArray[5] = bottom;
+                    vertexArray[6] = left;
                     vertexArray[7] = bottom;
 
-                    vertexArray[9] = left;
-                    vertexArray[10] = bottom;
+                    glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
+
+                    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), vertexArray, GL_STATIC_DRAW);
+
+                    glDrawBuffer(GL_FRONT_AND_BACK);
+
+                    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
                     break;
             }
@@ -87,6 +96,9 @@ namespace Inferno {
         //Batch controls
 
         void Renderer::begin(Matrix* translation_matrix) {
+            if (_rendering)
+                throw "Cannot call begin before calling end!";
+
             //Clear batch
             _batch.clear();
 
@@ -97,7 +109,7 @@ namespace Inferno {
             if (translation_matrix == nullptr)
                 translation_matrix = Matrix::identity;
 
-                //Apply matrix
+            //Apply matrix
 #if OPENGL
 
             //Soon, this will no longer be called, instead we will use a custom shader
@@ -107,6 +119,9 @@ namespace Inferno {
         }
 
         void Renderer::end() {
+            if (!_rendering)
+                throw "Cannot call end before calling begin!";
+
             //Draw batch
             for (RenderItem* batch_item : _batch)
             {

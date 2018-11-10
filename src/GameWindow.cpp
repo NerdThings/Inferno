@@ -1,4 +1,5 @@
 #include "SDL.h"
+#include "glad/glad.h"
 #include "SDL_opengl.h"
 #include "GameWindow.h"
 
@@ -25,6 +26,10 @@ namespace Inferno {
 #ifdef SDL
 
 		//Init SDL
+		if (SDL_Init(SDL_INIT_EVERYTHING))
+		    throw "SDL Failed to init";
+
+		//Create window
 		_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
 		//Init SDL OpenGL
@@ -38,6 +43,9 @@ namespace Inferno {
 #endif
 
 #ifdef OPENGL
+
+		//Load glad
+		gladLoadGL();
 
 		//Set viewport
 		glViewport(0, 0, _width, _height);

@@ -7,4 +7,5 @@ class TestGame : public Game {
 public:
 	TestGame();
 	void update() override;
+	void draw() override;
 };

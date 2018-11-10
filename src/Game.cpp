@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <ctime>
 #include "GameWindow.h"
+#include "Graphics/Renderer.h"
 #include "Graphics/GraphicsDevice.h"
 #include "SDL_opengles2.h"
 
@@ -12,6 +13,7 @@ namespace Inferno {
 
 		_game_window = new GameWindow(title, width, height);
 		_graphics_device = new GraphicsDevice(_game_window);
+		_renderer = new Renderer();
 	}
 
 	void Game::run() {

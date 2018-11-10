@@ -13,7 +13,7 @@ namespace Inferno {
 	class GameWindow;	
 
 	class INFERNO_API Game {
-	private:
+	protected:
 		GameWindow *_game_window;
 		Graphics::Renderer* _renderer;
 		Graphics::GraphicsDevice* _graphics_device;
