@@ -21,15 +21,15 @@ namespace Inferno {
 	}
 
 	double MathHelper::distance(double value1, double value2) {
-		return abs(value1 - value2);
+		return fabs(value1 - value2);
 	}
 
 	float MathHelper::distance(float value1, float value2) {
-		return abs(value1 - value2);
+		return fabs(value1 - value2);
 	}
 
 	int MathHelper::distance(int value1, int value2) {
-		return abs(value1 - value2);
+		return fabs(value1 - value2);
 	}
 
 	double MathHelper::nearest_multiple(double number, double multiple) {
