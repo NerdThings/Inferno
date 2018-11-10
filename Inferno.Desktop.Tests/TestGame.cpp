@@ -20,4 +20,7 @@ void TestGame::update() {
 
 void TestGame::draw() {
     Game::draw();
+    _renderer->begin(nullptr);
+    _renderer->draw_rectangle(new Rectangle(0, 0, 100, 100), new Color(0.25f, 0.5f, 0.75f, 1.0f), 0);
+    _renderer->end();
 }

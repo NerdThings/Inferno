@@ -62,9 +62,18 @@ namespace Inferno {
 
                     glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), vertexArray, GL_STATIC_DRAW);
 
-                    glDrawBuffer(GL_FRONT_AND_BACK);
+                    glEnableVertexAttribArray(0);
+                    glVertexAttribPointer(
+                            0,
+                            2,
+                            GL_FLOAT,
+                            GL_FLOAT,
+                            0,
+                            (void*)0
+                            );
 
-                    glBindBuffer(GL_ARRAY_BUFFER, 0);
+                    glDrawArrays(GL_QUADS, 0, 4);
+                    glDisableVertexAttribArray(0);
 
                     break;
             }
