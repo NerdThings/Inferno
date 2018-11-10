@@ -6,6 +6,7 @@
 namespace Inferno {
 	class Scene;
 	struct Vector2;
+	struct Rectangle;
 
     class INFERNO_API Instance
     {

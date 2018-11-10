@@ -48,7 +48,7 @@ namespace Inferno {
 
             //Grab id
             unsigned int id = 0;
-            if (target != nullptr)
+            if (target != NULL)
                 id = target->framebuffer;
 
             //Bind buffer

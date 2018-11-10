@@ -15,7 +15,7 @@ namespace Inferno {
         //Set other defaults
 		this->background_depth = 99.0f;
 		this->safezone_enabled = false;
-		this->safezone = nullptr;
+		this->safezone = NULL;
 		this->_instances = std::vector<Instance*>();
 
     }
