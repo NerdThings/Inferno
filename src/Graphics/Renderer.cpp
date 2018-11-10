@@ -6,8 +6,11 @@
 #include "Rectangle.h"
 #include "Vector2.h"
 
-#ifdef SDL
+#ifdef OPENGL
 #include "glad/glad.h"
+#endif
+
+#ifdef SDL
 #include "SDL_opengl.h"
 #endif
 
