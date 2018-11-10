@@ -30,8 +30,8 @@ matrix:
 
 before_install:
     - eval "${MATRIX_EVAL}"
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; wget http://launchpadlibrarian.net/391236166/libsdl2-2.0-0_2.0.8+dfsg1-4ubuntu1_amd64.deb; fi
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo dpkg libsdl2-2.0-0_2.0.8+dfsg1-4ubuntu1_amd64.deb; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; "wget http://launchpadlibrarian.net/391236166/libsdl2-2.0-0_2.0.8+dfsg1-4ubuntu1_amd64.deb"; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo dpkg "libsdl2-2.0-0_2.0.8+dfsg1-4ubuntu1_amd64.deb"; fi
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; brew install cmake; brew install sdl2; fi
