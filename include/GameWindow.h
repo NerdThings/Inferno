@@ -32,7 +32,6 @@ namespace Inferno {
 		void set_v_sync(bool vsync);
 		void set_cursor(bool visible);
 
-		void begin_draw() const;
 		void present() const;
 
 		GameWindow(const char* title, int width, int height);

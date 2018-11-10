@@ -7,6 +7,7 @@
 namespace Inferno {
 	class GameWindow;
 	namespace Graphics {
+		struct Color;
 		struct RenderTarget;
 
 		class INFERNO_API GraphicsDevice
@@ -20,6 +21,8 @@ namespace Inferno {
 			GraphicsDevice(GameWindow* window);
 
 			//Methods
+
+			void clear(Color* color);
 
 			void delete_render_target(RenderTarget* target);
 

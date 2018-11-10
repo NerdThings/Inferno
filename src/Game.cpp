@@ -3,9 +3,15 @@
 #include "GameWindow.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/GraphicsDevice.h"
+#include "Graphics/Color.h"
 
 namespace Inferno {
 	using namespace Graphics;
+
+	void Game::do_tick() {
+	    //Run an update
+	    update();
+	}
 
 	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) {
 		frames_per_second = fps;
@@ -26,19 +32,17 @@ namespace Inferno {
 			lag += delta;
 
 			while (lag >= 1000.0f / frames_per_second) {
-				//Logic
-				update();
+				//Run a single frame tick
+				do_tick();
+
 				lag -= 1000.0f / frames_per_second;
-
-				//Inform of beginning draw
-				_game_window->begin_draw();
-
-				//Draw
-				draw();
-
-				//present
-				_game_window->present();
 			}
+
+            //Draw
+            draw();
+
+            //present
+            _game_window->present();
 
 			//Run Events
 			if (!_game_window->run_events()) {
@@ -47,8 +51,17 @@ namespace Inferno {
 		}
 	}
 
+	void Game::begin_update() {
+
+	}
+
 	void Game::draw() {
-		
+	    //TODO: Replace this with DPI independancy system
+        _graphics_device->clear(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+    }
+
+    void Game::end_update() {
+
 	}
 
 	void Game::update() {

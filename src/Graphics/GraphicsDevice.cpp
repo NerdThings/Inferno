@@ -1,5 +1,6 @@
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/RenderTarget.h"
+#include "Graphics/Color.h"
 
 #ifdef SDL
 #include "glad/glad.h"
@@ -9,7 +10,21 @@
 namespace Inferno {
     namespace Graphics {
 
+        //Constructor
+
         GraphicsDevice::GraphicsDevice(GameWindow *window) : _paired_window(window) {
+        }
+
+        //Methods
+
+        void GraphicsDevice::clear(Color* color) {
+            if (color == (Color*)NULL)
+                throw "Cannot clear with NULL.";
+
+#ifdef OPENGL
+            glClearColor(color->get_r(), color->get_g(), color->get_b(), color->get_a());
+            glClear(GL_COLOR_BUFFER_BIT);
+#endif
         }
 
         void GraphicsDevice::delete_render_target(RenderTarget *target) {

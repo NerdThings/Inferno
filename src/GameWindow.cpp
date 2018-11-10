@@ -27,10 +27,11 @@ namespace Inferno {
 
 		//Init SDL
 		if (SDL_Init(SDL_INIT_EVERYTHING))
-		    throw "SDL Failed to init";
+			throw "SDL Failed to init";
 
 		//Create window
-		_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
+								   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
 		//Init SDL OpenGL
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -52,16 +53,6 @@ namespace Inferno {
 
 #endif
 	}
-
-	void GameWindow::begin_draw() const {
-#ifdef OPENGL
-
-		glClearColor(1.0f, 0.25f, 0.5f, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-#endif
-	}
-
 
 	void GameWindow::present() const {
 #ifdef SDL

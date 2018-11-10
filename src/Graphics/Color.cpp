@@ -32,20 +32,20 @@ namespace Inferno {
 
         //Methods
 
-        char Color::get_a() const {
-            return char(packed_value >> 24);
+        float Color::get_a() const {
+            return float(packed_value >> 24);
         }
 
-        char Color::get_b() const {
-            return char(packed_value >> 16);
+        float Color::get_b() const {
+            return float(packed_value >> 16);
         }
 
-        char Color::get_g() const {
-            return char(packed_value >> 8);
+        float Color::get_g() const {
+            return float(packed_value >> 8);
         }
 
-        char Color::get_r() const {
-            return char(packed_value);
+        float Color::get_r() const {
+            return float(packed_value);
         }
 
         //Operators
