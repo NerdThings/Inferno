@@ -15,7 +15,7 @@ namespace Inferno {
     namespace Graphics {
         //Private Methods
         void Renderer::render(RenderItem* item) const {
-            if (item == NULL)
+            if (item == nullptr)
                 return;
 #if OPENGL
 
@@ -23,7 +23,7 @@ namespace Inferno {
             glPushMatrix();
 
             //Apply color
-            if (item->color == NULL)
+            if (item->color == nullptr)
                 item->color = new Color(1, 1, 1, 1);
 
             glColor4f(item->color->get_r(), item->color->get_g(), item->color->get_b(), item->color->get_a());
@@ -32,7 +32,7 @@ namespace Inferno {
             glLineWidth(item->line_width);
 
             //Apply origin
-            if (item->origin != NULL)
+            if (item->origin != nullptr)
                 glTranslatef(-item->origin->x, -item->origin->y, 0.0f);
 
             //Apply rotation
@@ -106,7 +106,7 @@ namespace Inferno {
             _rendering = true;
 
             //Set matrix to identity if null
-            if (translation_matrix == NULL)
+            if (translation_matrix == nullptr)
                 translation_matrix = Matrix::identity;
 
             //Apply matrix

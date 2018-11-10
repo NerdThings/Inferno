@@ -21,9 +21,4 @@
 #  define INFERNO_API
 #endif
 
-//NULL
-#ifndef NULL
-#define NULL ((void *)0)
-#endif
-
 #endif

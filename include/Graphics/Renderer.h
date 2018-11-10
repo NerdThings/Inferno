@@ -35,7 +35,7 @@ namespace Inferno {
 
 			//Batch controls
 
-			void begin(Matrix* translation_matrix = (Matrix*)NULL);
+			void begin(Matrix* translation_matrix = nullptr);
 
 			void end();
 

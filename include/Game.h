@@ -18,11 +18,15 @@ namespace Inferno {
 
 		GameWindow *_game_window;
 
+	    bool _paused;
+
 		Graphics::Renderer* _renderer;
 
 		Graphics::GraphicsDevice* _graphics_device;
 
 		//Methods
+
+		void do_draw();
 
 		void do_tick();
 
