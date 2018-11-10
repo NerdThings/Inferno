@@ -6,6 +6,11 @@
 #include <map>
 
 namespace Inferno {
+    
+    namespace Graphics {
+        class Renderer;
+    }
+    
     class Instance;
     class Game;
 
@@ -69,17 +74,23 @@ namespace Inferno {
         std::vector<Instance*> get_instances_at(Vector2* position, bool bounds_safezone = false);
 
         ///Runtime
-
-        void draw();
-
-        void begin_update();
-
-        void update();
-
-        void end_update();
+    
+        virtual void begin_update();
+    
+        virtual void draw(Graphics::Renderer* renderer);
+    
+        virtual void end_update();
+    
+        virtual void loaded();
+    
+        virtual void unloaded();
+        
+        virtual void update();
 
         ///Spatial Hashing
-
+    
+        std::vector<Instance*> get_nearby(Instance* instance);
+    
         void spatial_initialise();
 
         std::vector<int> spatial_get_spaces(Instance* instance);
@@ -88,7 +99,6 @@ namespace Inferno {
 
         void spatial_move_instance(Rectangle* old_bounds, Rectangle* new_bounds, Instance* instance);
 
-        std::vector<Instance*> get_nearby(Instance* instance);
     };
 }
 

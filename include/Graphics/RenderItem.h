@@ -7,6 +7,7 @@ namespace Inferno {
 
 	namespace Graphics {
 		struct Color;
+		struct Shader;
 
 		enum RenderType {
 			texture,

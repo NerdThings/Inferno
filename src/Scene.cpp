@@ -22,80 +22,92 @@ namespace Inferno {
 
     //Methods
 
+    ///Instance Management
+    
     void Scene::add_instance(Instance* instance)
     {
 		_instances.push_back(instance);
     }
+    
+    void Scene::remove_instance(Instance* instance)
+    {
+    
+    }
+    
+    void Scene::clear_instances()
+    {
+        _instances.clear();
+    }
+    
+    std::vector<Instance*> Scene::get_instances_at(Vector2* position, bool bounds_safezone)
+    {
+        return std::vector<Instance*>();
+    }
+    
+    ///Runtime
 
     void Scene::begin_update()
     {
         
     }
 
-    void Scene::clear_instances()
-    {
-		_instances.clear();
-    }
-
-    void Scene::draw()
+    void Scene::draw(Graphics::Renderer* renderer)
     {
         
     }
-
+    
     void Scene::end_update()
     {
-        
+    
     }
-
-    std::vector<Instance*> Scene::get_instances_at(Vector2* position, bool bounds_safezone)
-    {
-		return std::vector<Instance*>();
+    
+    void Scene::loaded() {
+    
     }
-
-    std::vector<Instance*> Scene::get_nearby(Instance* instance)
-    {
-		return std::vector<Instance*>();
+    
+    void Scene::unloaded() {
+    
     }
-
-    void Scene::remove_instance(Instance* instance)
-    {
-        
-    }
-
-    void Scene::spatial_add_to_space(Vector2* position, std::vector<int> spaces)
-    {
-        
-    }
-
-    std::vector<int> Scene::spatial_get_spaces(Instance* instance)
-    {
-		return std::vector<int>();
-    }
-
-    std::vector<int> Scene::spatial_get_spaces(Rectangle* rect)
-    {
-		return std::vector<int>();
-    }
-
-    void Scene::spatial_initialise()
-    {
-        
-    }
-
-    void Scene::spatial_move_instance(Rectangle* old_bounds, Rectangle* new_bounds, Instance* instance)
-    {
-        
-    }
-
-    void Scene::spatial_register_instance(Instance* instance)
-    {
-        
-    }
-
+    
     void Scene::update()
     {
-        
+    
     }
 
-
+    ///Spatial Hashing
+    
+    std::vector<Instance*> Scene::get_nearby(Instance* instance)
+    {
+        return std::vector<Instance*>();
+    }
+    
+    void Scene::spatial_add_to_space(Vector2* position, std::vector<int> spaces)
+    {
+    
+    }
+    
+    void Scene::spatial_initialise()
+    {
+    
+    }
+    
+    std::vector<int> Scene::spatial_get_spaces(Instance* instance)
+    {
+        return std::vector<int>();
+    }
+    
+    std::vector<int> Scene::spatial_get_spaces(Rectangle* rect)
+    {
+        return std::vector<int>();
+    }
+    
+    void Scene::spatial_move_instance(Rectangle* old_bounds, Rectangle* new_bounds, Instance* instance)
+    {
+    
+    }
+    
+    void Scene::spatial_register_instance(Instance* instance)
+    {
+    
+    }
 }

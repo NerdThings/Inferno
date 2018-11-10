@@ -11,25 +11,28 @@ namespace Inferno {
 	}
 
 	class PlatformGame;
-	class GameWindow;	
+	class GameWindow;
+	class Scene;
 
 	class INFERNO_API Game {
 	protected:
 	    //Fields
 
+	    Scene* _current_scene;
+	    
 		GameWindow *_game_window;
 
 	    bool _paused;
 
 		Graphics::Renderer* _renderer;
 
-		Graphics::RenderTarget* _rendertarget;
+		Graphics::RenderTarget* _render_target;
 
 		Graphics::GraphicsDevice* _graphics_device;
 
-		int virtual_width;
+		int _virtual_width;
 
-		int virtual_height;
+		int _virtual_height;
 
 		//Methods
 
@@ -54,8 +57,9 @@ namespace Inferno {
 
         virtual void end_update();
 
-
         void run();
+        
+        void set_scene(Scene* scene);
 
 		virtual void update();
 

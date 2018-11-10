@@ -6,6 +6,7 @@
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Color.h"
 #include "Point.h"
+#include "Scene.h"
 
 namespace Inferno {
 	using namespace Graphics;
@@ -33,7 +34,7 @@ namespace Inferno {
 	    end_update();
 	}
 
-	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) : virtual_width(width), virtual_height(height), frames_per_second(fps) {
+	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) : _virtual_width(width), _virtual_height(height), frames_per_second(fps) {
 	    //Create window
 		_game_window = new GameWindow(title, width, height);
 
@@ -44,7 +45,7 @@ namespace Inferno {
 		_renderer = new Renderer();
 
 		//Create render target
-		_rendertarget = new RenderTarget(width, height); //TODO: Remake this once the window is resized
+		_render_target = new RenderTarget(width, height); //TODO: Remake this once the window is resized
 
 		//Set properties
 		_game_window->set_fullscreen(fullscreen);
@@ -76,9 +77,23 @@ namespace Inferno {
 			}
 		}
 	}
+	
+	void Game::set_scene(Inferno::Scene *scene) {
+		//Unload current scene if it exists
+		if (_current_scene != nullptr)
+			_current_scene->unloaded();
+		
+		//Set the new scene
+		_current_scene = scene;
+		
+		//Load current scene if it exists
+		if (_current_scene != nullptr)
+		    _current_scene->loaded();
+	}
 
 	void Game::begin_update() {
-
+        if (_current_scene != nullptr)
+            _current_scene->begin_update();
 	}
 
 	void Game::draw() {
@@ -92,7 +107,7 @@ namespace Inferno {
 
 	    //Calculate ratios
         float output_aspect = float(view_width) / float(view_height);
-        float preferred_aspect = float(virtual_width) / float(virtual_height);
+        float preferred_aspect = float(_virtual_width) / float(_virtual_height);
 
         //Init bar dimensions
         int bar_width = 0;
@@ -111,13 +126,14 @@ namespace Inferno {
         _graphics_device->clear(new Color(0, 0, 0, 1));
 
         //Set render target
-        _graphics_device->set_render_target(_rendertarget);
+        _graphics_device->set_render_target(_render_target);
 
         //Clear target
         _graphics_device->clear(new Color(0.25f, 0.5f, 0.75f, 1.0f)); //TODO: ClearColor variable
 
         //Draw scene
-        //TODO
+        if (_current_scene != nullptr)
+            _current_scene->draw(_renderer);
 
         //Reset target
         _graphics_device->set_render_target(nullptr);
@@ -129,9 +145,12 @@ namespace Inferno {
     }
 
     void Game::end_update() {
-
+        if (_current_scene != nullptr)
+            _current_scene->end_update();
 	}
 
 	void Game::update() {
+        if (_current_scene != nullptr)
+            _current_scene->update();
 	}
 }
