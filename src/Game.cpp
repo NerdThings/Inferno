@@ -73,8 +73,6 @@ namespace Inferno {
 
 	void Game::draw() {
 
-
-
 	    //TODO: Replace this with DPI independancy system
         _graphics_device->clear(new Color(1.0f, 1.0f, 1.0f, 1.0f));
     }

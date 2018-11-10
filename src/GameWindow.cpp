@@ -1,23 +1,13 @@
+#include "Rectangle.h"
 #include "SDL.h"
 #include "glad/glad.h"
 #include "SDL_opengl.h"
 #include "GameWindow.h"
+#include "Point.h"
 
 namespace Inferno {
-	bool GameWindow::run_events() const {
-#ifdef SDL
 
-		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0) {
-			if (e.type == SDL_QUIT) {
-				return false;
-			}
-		}
-
-		return true;
-
-#endif
-	}
+	//Constructor
 
 	GameWindow::GameWindow(const char* title, int width, int height) {
 		_width = width;
@@ -54,12 +44,98 @@ namespace Inferno {
 #endif
 	}
 
-	void GameWindow::present() const {
+	//Methods
+
+	void GameWindow::resizable(bool canResize) {
 #ifdef SDL
 
-		SDL_GL_SwapWindow(_window);
+	    SDL_SetWindowResizable(_window, (SDL_bool)canResize);
 
 #endif
 	}
+
+    bool GameWindow::run_events() const {
+#ifdef SDL
+
+        SDL_Event e;
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                return false;
+            }
+        }
+
+        return true;
+
+#endif
+    }
+
+	void GameWindow::set_bounds(Inferno::Rectangle *bounds) {
+	    set_position(new Point(bounds->x, bounds->y));
+	    set_size(new Point(bounds->width, bounds->height));
+	}
+
+	void GameWindow::can_alt_f4(bool canAltf4){
+#ifdef SDL
+
+	    SDL_SetHint(SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4, canAltf4 ? "0" : "1");
+
+#endif
+	}
+
+	void GameWindow::set_position(Inferno::Point *position) {
+#ifdef SDL
+
+	    SDL_SetWindowPosition(_window, position->x, position->y);
+
+#endif
+	}
+
+	void GameWindow::set_size(Inferno::Point *size) {
+#ifdef SDL
+
+	    SDL_SetWindowSize(_window, size->x, size->y);
+
+#endif
+	}
+
+	void GameWindow::set_title(const char *title) {
+#ifdef SDL
+
+	    SDL_SetWindowTitle(_window, title);
+
+#endif
+	}
+
+	void GameWindow::set_fullscreen(bool fullscreen) {
+#ifdef SDL
+
+	    SDL_SetWindowFullscreen(_window, fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
+
+#endif
+	}
+
+	void GameWindow::set_v_sync(bool vsync) {
+#ifdef SDL && OPENGL
+
+	    SDL_GL_SetSwapInterval(vsync? 1 : 0);
+
+#endif
+	}
+
+	void GameWindow::set_cursor(bool visible) {
+#ifdef SDL
+
+	    SDL_ShowCursor(visible ? SDL_ENABLE : SDL_DISABLE);
+
+#endif
+	}
+
+    void GameWindow::present() const {
+#ifdef SDL
+
+        SDL_GL_SwapWindow(_window);
+
+#endif
+    }
 }
 
