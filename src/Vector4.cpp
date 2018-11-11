@@ -13,17 +13,17 @@ namespace Inferno {
 		this->w = w;
 	}
 
-	Vector4::Vector4(Vector2 *value, float z, float w) {
-		this->x = value->x;
-		this->y = value->y;
+	Vector4::Vector4(Vector2 value, float z, float w) {
+		this->x = value.x;
+		this->y = value.y;
 		this->z = z;
 		this->w = w;
 	}
 
-	Vector4::Vector4(Vector3 *value, float w) {
-		this->x = value->x;
-		this->y = value->y;
-		this->z = value->z;
+	Vector4::Vector4(Vector3 value, float w) {
+		this->x = value.x;
+		this->y = value.y;
+		this->z = value.z;
 		this->w = w;
 	}
 
@@ -37,75 +37,75 @@ namespace Inferno {
     //Get functions
 
 	float Vector4::get_magnitude() const {
-		return sqrt((x * x) + (y * y) + (z * z));
+		return sqrtf((x * x) + (y * y) + (z * z));
 	}
 
 	float Vector4::get_magnitude_squared() const {
 		return get_magnitude() * get_magnitude();
 	}
 
-	float Vector4::dot(Vector4 *b) const {
-		return (x * b->x) + (y * b->y) + (z * b->z);
+	float Vector4::dot(Vector4 b) const {
+		return (x * b.x) + (y * b.y) + (z * b.z);
 	}
 
-	float Vector4::distance(Vector4 *b) const {
-		return sqrtf((x - b->x) * (x - b->x) + (y - b->y) * (y - b->y) + (z - b->z) * (z - b->z));
+	float Vector4::distance(Vector4 b) const {
+		return sqrtf((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y) + (z - b.z) * (z - b.z));
 	}
 
 	//Operators
 
 	//TODO: Improve these
 
-	Vector4 *Vector4::operator+(Vector4 *b) const {
-		return new Vector4(x + b->x, y + b->y, z + b->z, w + b->w);
+	Vector4 Vector4::operator+(Vector4 b) const {
+		return {x + b.x, y + b.y, z + b.z, w + b.w};
 	}
 
-	Vector4 *Vector4::operator+(int b) const {
-		return new Vector4(x + b, y + b, z + b, w + b);
+	Vector4 Vector4::operator+(int b) const {
+		return {x + b, y + b, z + b, w + b};
 	}
 
-	Vector4 *Vector4::operator+(float b) const {
-		return new Vector4(x + b, y + b, z + b, w + b);
+	Vector4 Vector4::operator+(float b) const {
+		return {x + b, y + b, z + b, w + b};
 	}
 
-	Vector4 *Vector4::operator-(Vector4 *b) const {
-		return new Vector4(x - b->x, y - b->y, z - b->z, w - b->w);
+	Vector4 Vector4::operator-(Vector4 b) const {
+		return {x - b.x, y - b.y, z - b.z, w - b.w};
 	}
 
-	Vector4 *Vector4::operator-(int b) const {
-		return new Vector4(x - b, y - b, z - b, w - b);
+	Vector4 Vector4::operator-(int b) const {
+		return {x - b, y - b, z - b, w - b};
 	}
 
-	Vector4 *Vector4::operator-(float b) const {
-		return new Vector4(x - b, y - b, z - b, w - b);
+	Vector4 Vector4::operator-(float b) const {
+		return {x - b, y - b, z - b, w - b};
 	}
 
-	Vector4 *Vector4::operator*(Vector4 *b) const {
-		return new Vector4(x * b->x, y * b->y, z * b->z, w * b->w);
+	Vector4 Vector4::operator*(Vector4 b) const {
+		return {x * b.x, y * b.y, z * b.z, w * b.w};
 	}
 
-	Vector4 *Vector4::operator*(int b) const {
-		return new Vector4(x * b, y * b, z * b, w * b);
+	Vector4 Vector4::operator*(int b) const {
+		return {x * b, y * b, z * b, w * b};
 	}
 
-	Vector4 *Vector4::operator*(float b) const {
-		return new Vector4(x * b, y * b, z * b, w * b);
+	Vector4 Vector4::operator*(float b) const {
+		return {x * b, y * b, z * b, w * b};
 	}
 
-	Vector4 *Vector4::operator/(Vector4 *b) const {
-		return new Vector4(x / b->x, y / b->y, z / b->z, w / b->w);
+	Vector4 Vector4::operator/(Vector4 b) const {
+		return {x / b.x, y / b.y, z / b.z, w / b.w};
 	}
 
-	Vector4 *Vector4::operator/(int b) const {
-		return new Vector4(x / b, y / b, z / b, w / b);
+	Vector4 Vector4::operator/(int b) const {
+		return {x / b, y / b, z / b, w / b};
 	}
 
-	Vector4 *Vector4::operator/(float b) const {
-		return new Vector4(x / b, y / b, z / b, w / b);
+	Vector4 Vector4::operator/(float b) const {
+		return {x / b, y / b, z / b, w / b};
 	}
 
-	bool Vector4::operator==(Vector4 *b) const {
-		return (x == b->x && y == b->y && z == b->z && w == b->w);
+	bool Vector4::operator==(Vector4 b) const {
+		return (x == b.x && y == b.y && z == b.z && w == b.w);
 	}
 
 	//TODO: Matrix transform

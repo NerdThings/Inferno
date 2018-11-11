@@ -70,9 +70,11 @@ namespace Inferno {
 
 	void GameWindow::resizable(bool canResize) {
 #ifdef SDL
+#if SDL_MAJOR_VERSION >= 2 && SDL_MINOR_VERSION >= 0 && SDL_PATCHLEVEL >= 8
 
 	    SDL_SetWindowResizable(_window, (SDL_bool)canResize);
-
+	    
+#endif
 #endif
 	}
 

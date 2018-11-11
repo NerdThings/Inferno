@@ -18,7 +18,7 @@ namespace Inferno {
 		//Constructors
 
 		Rectangle(int x, int y, int width, int height);
-		Rectangle(Point* position, Point* size);
+		Rectangle(Point position, Point size);
 
 		//Methods
 
@@ -26,39 +26,39 @@ namespace Inferno {
 
 		bool contains(int x, int y) const;
 
-		bool contains(Point* value) const;
+		bool contains(Point value) const;
 
-		bool contains(Vector2* value) const;
+		bool contains(Vector2 value) const;
 
 		int get_bottom_coord() const;
 
-		Point* get_center() const;
+		Point get_center() const;
 
 		int get_left_coord() const;
 
-		Point* get_location() const;
+		Point get_location() const;
 
 		int get_right_coord() const;
 
-		Point* get_size() const;
+		Point get_size() const;
 
 		int get_top_coord() const;
 
-		bool intersects(Rectangle* value) const;
+		bool intersects(Rectangle value) const;
 
-		bool touching(Rectangle* b) const;
+		bool touching(Rectangle b) const;
 
-		bool touching_bottom(Rectangle* b) const;
+		bool touching_bottom(Rectangle b) const;
 
-		bool touching_left(Rectangle* b) const;
+		bool touching_left(Rectangle b) const;
 
-		bool touching_right(Rectangle* b) const;
+		bool touching_right(Rectangle b) const;
 
-		bool touching_top(Rectangle* b) const;
+		bool touching_top(Rectangle b) const;
 
 		//Operators
-		bool operator==(Rectangle *b) const;
-		bool operator!=(Rectangle *b) const;
+		bool operator==(Rectangle b) const;
+		bool operator!=(Rectangle b) const;
 	};
 }
 

@@ -11,46 +11,46 @@ namespace Inferno {
 
 	//Methods
 
-	Vector2 *Point::to_vector() const {
-		return new Vector2(x, y);
+	Vector2 Point::to_vector() const {
+		return Vector2(x, y);
 	}
 
 
 	//Operators
 
-	Point *Point::operator+(Point *b) const {
-		return new Point(x + b->x, y + b->y);
+	Point Point::operator+(Point b) const {
+		return Point(x + b.x, y + b.y);
 	}
 
-	Point *Point::operator+(int b) const {
-		return new Point(x + b, y + b);
+	Point Point::operator+(int b) const {
+		return Point(x + b, y + b);
 	}
 
-	Point *Point::operator-(Point *b) const {
-		return new Point(x - b->x, y - b->y);
+	Point Point::operator-(Point b) const {
+		return Point(x - b.x, y - b.y);
 	}
 
-	Point *Point::operator-(int b) const {
-		return new Point(x - b, y - b);
+	Point Point::operator-(int b) const {
+		return Point(x - b, y - b);
 	}
 
-	Point *Point::operator*(Point *b) const {
-		return new Point(x * b->x, y * b->y);
+	Point Point::operator*(Point b) const {
+		return Point(x * b.x, y * b.y);
 	}
 
-	Point *Point::operator*(int b) const {
-		return new Point(x * b, y * b);
+	Point Point::operator*(int b) const {
+		return Point(x * b, y * b);
 	}
 
-	Point *Point::operator/(Point *b) const {
-		return new Point(x / b->x, y / b->y);
+	Point Point::operator/(Point b) const {
+		return Point(x / b.x, y / b.y);
 	}
 
-	Point *Point::operator/(int b) const {
-		return new Point(x / b, y / b);
+	Point Point::operator/(int b) const {
+		return Point(x / b, y / b);
 	}
 
-	bool Point::operator==(Point *b) const {
-		return (x == b->x && y == b->y);
+	bool Point::operator==(Point b) const {
+		return (x == b.x && y == b.y);
 	}
 }

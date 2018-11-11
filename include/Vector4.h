@@ -18,8 +18,8 @@ namespace Inferno {
 		//Constructors
 
 		Vector4(float x, float y, float z, float w);
-		Vector4(Vector2* value, float z, float w);
-		Vector4(Vector3* value, float w);
+		Vector4(Vector2 value, float z, float w);
+		Vector4(Vector3 value, float w);
 		Vector4(float value);
 
 		//Methods
@@ -28,37 +28,37 @@ namespace Inferno {
 
 		float get_magnitude_squared() const;
 
-		float dot(Vector4* b) const;
+		float dot(Vector4 b) const;
 
-		float distance(Vector4* b) const;
+		float distance(Vector4 b) const;
 
 		//Operators
 
-		Vector4* operator+(Vector4* b) const;
+		Vector4 operator+(Vector4 b) const;
 
-		Vector4* operator+(int b) const;
+		Vector4 operator+(int b) const;
 
-		Vector4* operator+(float b) const;
+		Vector4 operator+(float b) const;
 
-		Vector4* operator-(Vector4* b) const;
+		Vector4 operator-(Vector4 b) const;
 
-		Vector4* operator-(int b) const;
+		Vector4 operator-(int b) const;
 
-		Vector4* operator-(float b) const;
+		Vector4 operator-(float b) const;
 
-		Vector4* operator*(Vector4* b) const;
+		Vector4 operator*(Vector4 b) const;
 
-		Vector4* operator*(int b) const;
+		Vector4 operator*(int b) const;
 
-		Vector4* operator*(float b) const;
+		Vector4 operator*(float b) const;
 
-		Vector4* operator/(Vector4* b) const;
+		Vector4 operator/(Vector4 b) const;
 
-		Vector4* operator/(int b) const;
+		Vector4 operator/(int b) const;
 
-		Vector4* operator/(float b) const;
+		Vector4 operator/(float b) const;
 
-		bool operator==(Vector4* b) const;
+		bool operator==(Vector4 b) const;
 
 		//TODO: Matrix Transform
 	};

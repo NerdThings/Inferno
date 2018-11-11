@@ -18,27 +18,27 @@ namespace Inferno {
 
 		//Methods
 
-		Vector2* to_vector() const;
+		Vector2 to_vector() const;
 
 		//Operators
 
-		Point* operator+(Point* b) const;
+		Point operator+(Point b) const;
 
-		Point* operator+(int b) const;
+		Point operator+(int b) const;
 
-		Point* operator-(Point* b) const;
+		Point operator-(Point b) const;
 
-		Point* operator-(int b) const;
+		Point operator-(int b) const;
 
-		Point* operator*(Point* b) const;
+		Point operator*(Point b) const;
 
-		Point* operator*(int b) const;
+		Point operator*(int b) const;
 
-		Point* operator/(Point* b) const;
+		Point operator/(Point b) const;
 
-		Point* operator/(int b) const;
+		Point operator/(int b) const;
 
-		bool operator==(Point* b) const;
+		bool operator==(Point b) const;
 	};
 }
 
