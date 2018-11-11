@@ -10,7 +10,6 @@ namespace Inferno {
 		struct RenderTarget;
 	}
 
-	class PlatformGame;
 	class GameWindow;
 	class Scene;
 

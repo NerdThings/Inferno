@@ -1,6 +1,14 @@
 #ifndef Inferno_Graphics_RenderItem
 #define Inferno_Graphics_RenderItem
 
+#include "Inferno.h"
+
+#include <vector>
+
+#include "Graphics/Color.h"
+#include "Rectangle.h"
+#include "Vector2.h"
+
 namespace Inferno {
 	struct Rectangle;
 	struct Vector2;
@@ -10,6 +18,7 @@ namespace Inferno {
 		struct Shader;
 
 		enum RenderType {
+		    nothing,
 			texture,
 			render_target,
 			text,
@@ -20,6 +29,10 @@ namespace Inferno {
 		};
 
 		struct RenderItem {
+			//Constructor
+			
+			RenderItem();
+			
 			//Fields
 
 			RenderType type;
@@ -27,14 +40,14 @@ namespace Inferno {
 			//rendertarget
 			//font
 			const char* text;
-			Color* color;
+			Color color;
 			float depth;
-			Rectangle* source_rectangle;
-			Rectangle* destination_rectangle;
+			Rectangle source_rectangle;
+			Rectangle destination_rectangle;
 			double rotation;
-			Vector2* origin;
-			Vector2* verticies;
-			bool dispose;
+			Vector2 origin;
+            std::vector<Vector2> verticies;
+            bool dispose;
 			int line_width;
 			int radius;
 			int precision;

@@ -21,17 +21,15 @@
 namespace Inferno {
     namespace Graphics {
         //Private Methods
-        void Renderer::render(RenderItem* item) const {
-            if (item == nullptr)
-                return;
+        void Renderer::render(RenderItem item) const {
 #if OPENGL
 
             //Save matrix
             glPushMatrix();
             
             //Apply shaders
-            glAttachShader(_gl_program, item->vertex_shader->shader);
-            glAttachShader(_gl_program, item->fragment_shader->shader);
+            glAttachShader(_gl_program, item.vertex_shader->shader);
+            glAttachShader(_gl_program, item.fragment_shader->shader);
             
             //Bind shader attrib locations
             glBindAttribLocation(_gl_program, 0, "inf_position");
@@ -45,10 +43,6 @@ namespace Inferno {
             //Attach the matrix
             int matLoc = glGetUniformLocation(_gl_program, "inf_projection_matrix");
             glUniformMatrix4fv(matLoc, 1, GL_FALSE, _translation_matrix.get_array());
-
-            //Apply color
-            if (item->color == nullptr)
-                item->color = new Color(1, 1, 1, 1);
             
             //Apply line width
             //glLineWidth(item->line_width);
@@ -60,13 +54,13 @@ namespace Inferno {
             //Apply rotation
             //TODO
 
-            switch (item->type) {
+            switch (item.type) {
                 case rectangle:
                     //Get coords
-                    int left = item->destination_rectangle->get_left_coord();
-                    int right = item->destination_rectangle->get_right_coord();
-                    int top = item->destination_rectangle->get_top_coord();
-                    int bottom = item->destination_rectangle->get_bottom_coord();
+                    int left = item.destination_rectangle.get_left_coord();
+                    int right = item.destination_rectangle.get_right_coord();
+                    int top = item.destination_rectangle.get_top_coord();
+                    int bottom = item.destination_rectangle.get_bottom_coord();
 
                     //Build vertex array
                     //TODO: Stop being lazy and make a Vector array to float array method
@@ -95,7 +89,7 @@ namespace Inferno {
                     
                     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
                     
-                    glVertexAttrib4f(1, item->color->get_r(), item->color->get_g(), item->color->get_b(), item->color->get_a());
+                    glVertexAttrib4f(1, item.color.get_r(), item.color.get_g(), item.color.get_b(), item.color.get_a());
         
                     glDrawArrays(GL_QUADS, 0, 4);
                     
@@ -108,8 +102,8 @@ namespace Inferno {
             glFlush();
             
             //Detach shaders
-            glDetachShader(_gl_program, item->vertex_shader->shader);
-            glDetachShader(_gl_program, item->fragment_shader->shader);
+            glDetachShader(_gl_program, item.vertex_shader->shader);
+            glDetachShader(_gl_program, item.fragment_shader->shader);
 
             //Restore matrix
             glPopMatrix();
@@ -176,7 +170,7 @@ namespace Inferno {
                 throw "Cannot call end before calling begin!";
 
             //Draw batch
-            for (RenderItem* batch_item : _batch)
+            for (RenderItem batch_item : _batch)
             {
                 render(batch_item);
             }
@@ -185,16 +179,16 @@ namespace Inferno {
             _rendering = false;
         }
 
-        void Renderer::draw_rectangle(Rectangle* rect, Color* color, float depth) {
-            RenderItem* item = new RenderItem();
+        void Renderer::draw_rectangle(Rectangle rect, Color color, float depth) {
+            RenderItem item = RenderItem();
 
-            item->type = rectangle;
-            item->destination_rectangle = rect;
-            item->color = color;
-            item->depth = depth;
+            item.type = rectangle;
+            item.destination_rectangle = rect;
+            item.color = color;
+            item.depth = depth;
             
-            item->fragment_shader = _graphics_device->get_current_shader(Fragment);
-            item->vertex_shader = _graphics_device->get_current_shader(Vertex);
+            item.fragment_shader = _graphics_device->get_current_shader(Fragment);
+            item.vertex_shader = _graphics_device->get_current_shader(Vertex);
 
             _batch.push_back(item);
         }

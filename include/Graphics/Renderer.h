@@ -17,7 +17,7 @@ namespace Inferno {
 		class INFERNO_API Renderer {
 			//Fields
 
-			std::vector<RenderItem*> _batch;
+			std::vector<RenderItem> _batch;
 
 			bool _rendering;
 
@@ -34,7 +34,7 @@ namespace Inferno {
 
 			//Methods
 
-			void render(RenderItem* item) const;
+			void render(RenderItem item) const;
 
 		public:
 			//Constructor
@@ -51,7 +51,7 @@ namespace Inferno {
 
 			//Draw methods
 
-			void draw_rectangle(Rectangle* rect, Color* color, float depth);
+			void draw_rectangle(Rectangle rect, Color color, float depth);
 		};
 	}
 }
