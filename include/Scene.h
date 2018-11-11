@@ -2,12 +2,16 @@
 #define INFERNO_SCENE
 
 #include "Inferno.h"
+
 #include <vector>
 #include <map>
+
+#include "Graphics/Camera.h"
 
 namespace Inferno {
     
     namespace Graphics {
+        struct Camera;
         class Renderer;
     }
     
@@ -53,7 +57,7 @@ namespace Inferno {
 
         //Mode Enums
 
-        //Camera
+        Graphics::Camera camera;
 
         //User interface
 
@@ -75,17 +79,17 @@ namespace Inferno {
 
         ///Runtime
     
-        virtual void begin_update();
+        void begin_update();
     
-        virtual void draw(Graphics::Renderer* renderer);
+        void draw(Graphics::Renderer* renderer);
     
-        virtual void end_update();
+        void end_update();
     
         virtual void loaded();
     
         virtual void unloaded();
         
-        virtual void update();
+        void update();
 
         ///Spatial Hashing
     

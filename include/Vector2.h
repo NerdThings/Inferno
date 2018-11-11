@@ -4,6 +4,8 @@
 #include "Inferno.h"
 
 namespace Inferno {
+	struct Matrix;
+	
 	struct INFERNO_API Vector2 {
 		//Constants
 
@@ -19,6 +21,10 @@ namespace Inferno {
 		Vector2(float x, float y);
 
 		Vector2(float value);
+		
+		//Static Methods
+		
+		static Vector2 transform(Vector2 vector, Matrix matrix);
 
 		//Methods
 

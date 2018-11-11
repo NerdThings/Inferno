@@ -3,6 +3,8 @@
 
 #include "Inferno.h"
 
+#include "Point.h"
+
 namespace Inferno {
 	namespace Graphics {
 		class Renderer;
@@ -55,6 +57,8 @@ namespace Inferno {
         virtual void draw();
 
         virtual void end_update();
+        
+        Point get_virtual_dimensions() const;
 
         void run();
         

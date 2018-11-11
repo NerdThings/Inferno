@@ -1,5 +1,7 @@
-#include "Vector2.h"
 #include <cmath>
+
+#include "Matrix.h"
+#include "Vector2.h"
 
 namespace Inferno {
     //Constants
@@ -18,8 +20,15 @@ namespace Inferno {
         this->x = value;
         this->y = value;
     }
+    
+    //Static Methods
+    
+    Vector2 Vector2::transform(Vector2 vector, Matrix matrix) {
+        return {(vector.x * matrix.m11) + (vector.y * matrix.m21) + matrix.m41,
+                (vector.x * matrix.m12) + (vector.y * matrix.m22) + matrix.m42};
+    }
 
-    //Get functions
+    //Methods
 
     float Vector2::get_magnitude() const {
         return sqrtf((x * x) + (y * y));

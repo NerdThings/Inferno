@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Matrix.h"
 #include "Vector3.h"
 
@@ -72,6 +74,74 @@ namespace Inferno {
 		result.m43 = -(zFar + zNear) * num3;
 		return result;
 	}
+	
+	Matrix Matrix::create_rotation_x(float radians) {
+		Matrix result = identity;
+		
+		float val1 = cosf(radians);
+		float val2 = sinf(radians);
+		
+		result.m22 = val1;
+		result.m23 = val2;
+		result.m32 = -val2;
+		result.m33 = val1;
+		
+		return result;
+	}
+	
+	Matrix Matrix::create_rotation_y(float radians) {
+        Matrix result = identity;
+        
+        float val1 = cosf(radians);
+        float val2 = sinf(radians);
+        
+        result.m22 = val1;
+        result.m23 = -val2;
+        result.m32 = val2;
+        result.m33 = val1;
+        
+        return result;
+	}
+	
+	Matrix Matrix::create_rotation_z(float radians) {
+        Matrix result = identity;
+        
+        float val1 = cosf(radians);
+        float val2 = sinf(radians);
+        
+        result.m22 = val1;
+        result.m23 = val2;
+        result.m32 = -val2;
+        result.m33 = val1;
+        
+        return result;
+	}
+	
+	Matrix Matrix::create_scale(float scale){
+	    return create_scale(scale, scale, scale);
+	}
+	
+	Matrix Matrix::create_scale(Vector3 scale) {
+	    return create_scale(scale.x, scale.y, scale.z);
+	}
+	
+	Matrix Matrix::create_scale(float x_scale, float y_scale, float z_scale) {
+	    return {x_scale, 0, 0, 0,
+                0, y_scale, 0, 0,
+                0, 0, z_scale, 0,
+                0, 0, 0, 1};
+	}
+	
+	Matrix Matrix::create_translation(Vector3 position) {
+	    return create_translation(position.x, position.y, position.z);
+	}
+	
+	Matrix Matrix::create_translation(float x_pos, float y_pos, float z_pos) {
+	    return {1, 0, 0, 0,
+	            0, 1, 0, 0,
+	            0, 0, 1, 0,
+	            x_pos, y_pos, z_pos, 1};
+	}
 
 	float *Matrix::get_array() const {
 		float *array = new float[16];
@@ -128,49 +198,49 @@ namespace Inferno {
 		return Vector3(m21, m22, m23);
 	}
 
-	Matrix Matrix::invert() const {
+	Matrix Matrix::invert(Matrix matrix) {
 		Matrix result = Matrix();
 
-		const float num17 = m33 * m44 - m34 * m43;
-		const float num18 = m32 * m44 - m34 * m42;
-		const float num19 = m32 * m43 - m33 * m42;
-		const float num20 = m31 * m44 - m34 * m41;
-		const float num21 = m31 * m43 - m33 * m41;
-		const float num22 = m31 * m42 - m32 * m41;
-		const float num23 = m22 * num17 - m23 * num18 + m24 * num19;
-		const float num24 = -(m21 * num17 - m23 * num20 + m24 * num21);
-		const float num25 = m21 * num18 - m22 * num20 + m24 * num22;
-		const float num26 = -(m21 * num19 - m22 * num21 + m23 * num22);
-		const float num27 = (1.0f / (m11 * num23 + m12 * num24 + m13 * num25 + m14 * num26));
+		const float num17 = matrix.m33 * matrix.m44 - matrix.m34 * matrix.m43;
+		const float num18 = matrix.m32 * matrix.m44 - matrix.m34 * matrix.m42;
+		const float num19 = matrix.m32 * matrix.m43 - matrix.m33 * matrix.m42;
+		const float num20 = matrix.m31 * matrix.m44 - matrix.m34 * matrix.m41;
+		const float num21 = matrix.m31 * matrix.m43 - matrix.m33 * matrix.m41;
+		const float num22 = matrix.m31 * matrix.m42 - matrix.m32 * matrix.m41;
+		const float num23 = matrix.m22 * num17 - matrix.m23 * num18 + matrix.m24 * num19;
+		const float num24 = -(matrix.m21 * num17 - matrix.m23 * num20 + matrix.m24 * num21);
+		const float num25 = matrix.m21 * num18 - matrix.m22 * num20 + matrix.m24 * num22;
+		const float num26 = -(matrix.m21 * num19 - matrix.m22 * num21 + matrix.m23 * num22);
+		const float num27 = (1.0f / (matrix.m11 * num23 + matrix.m12 * num24 + matrix.m13 * num25 + matrix.m14 * num26));
 
 		result.m11 = num23 * num27;
 		result.m21 = num24 * num27;
 		result.m31 = num25 * num27;
 		result.m41 = num26 * num27;
-		result.m12 = -(m12 * num17 - m13 * num18 + m14 * num19) * num27;
-		result.m22 = (m11 * num17 - m13 * num20 + m14 * num21) * num27;
-		result.m32 = -(m11 * num18 - m12 * num20 + m14 * num22) * num27;
-		result.m42 = (m11 * num19 - m12 * num21 + m13 * num22) * num27;
-		const float num28 = (m23 * m44 - m24 * m43);
-		const float num29 = (m22 * m44 - m24 * m42);
-		const float num30 = (m22 * m43 - m23 * m42);
-		const float num31 = (m21 * m44 - m24 * m41);
-		const float num32 = (m21 * m43 - m23 * m41);
-		const float num33 = (m21 * m42 - m22 * m41);
-		result.m13 = (m12 * num28 - m13 * num29 + m14 * num30) * num27;
-		result.m23 = -(m11 * num28 - m13 * num31 + m14 * num32) * num27;
-		result.m33 = (m11 * num29 - m12 * num31 + m14 * num33) * num27;
-		result.m43 = -(m11 * num30 - m12 * num32 + m13 * num33) * num27;
-		const float num34 = (m23 * m34 - m24 * m33);
-		const float num35 = (m22 * m34 - m24 * m32);
-		const float num36 = (m22 * m33 - m23 * m32);
-		const float num37 = (m21 * m34 - m24 * m31);
-		const float num38 = (m21 * m33 - m23 * m31);
-		const float num39 = (m21 * m32 - m22 * m31);
-		result.m14 = -(m12 * num34 - m13 * num35 + m14 * num36) * num27;
-		result.m24 = (m11 * num34 - m13 * num37 + m14 * num38) * num27;
-		result.m34 = -(m11 * num35 - m12 * num37 + m14 * num39) * num27;
-		result.m44 = (m11 * num36 - m12 * num38 + m13 * num39) * num27;
+		result.m12 = -(matrix.m12 * num17 - matrix.m13 * num18 + matrix.m14 * num19) * num27;
+		result.m22 = (matrix.m11 * num17 - matrix.m13 * num20 + matrix.m14 * num21) * num27;
+		result.m32 = -(matrix.m11 * num18 - matrix.m12 * num20 + matrix.m14 * num22) * num27;
+		result.m42 = (matrix.m11 * num19 - matrix.m12 * num21 + matrix.m13 * num22) * num27;
+		const float num28 = (matrix.m23 * matrix.m44 - matrix.m24 * matrix.m43);
+		const float num29 = (matrix.m22 * matrix.m44 - matrix.m24 * matrix.m42);
+		const float num30 = (matrix.m22 * matrix.m43 - matrix.m23 * matrix.m42);
+		const float num31 = (matrix.m21 * matrix.m44 - matrix.m24 * matrix.m41);
+		const float num32 = (matrix.m21 * matrix.m43 - matrix.m23 * matrix.m41);
+		const float num33 = (matrix.m21 * matrix.m42 - matrix.m22 * matrix.m41);
+		result.m13 = (matrix.m12 * num28 - matrix.m13 * num29 + matrix.m14 * num30) * num27;
+		result.m23 = -(matrix.m11 * num28 - matrix.m13 * num31 + matrix.m14 * num32) * num27;
+		result.m33 = (matrix.m11 * num29 - matrix.m12 * num31 + matrix.m14 * num33) * num27;
+		result.m43 = -(matrix.m11 * num30 - matrix.m12 * num32 + matrix.m13 * num33) * num27;
+		const float num34 = (matrix.m23 * matrix.m34 - matrix.m24 * matrix.m33);
+		const float num35 = (matrix.m22 * matrix.m34 - matrix.m24 * matrix.m32);
+		const float num36 = (matrix.m22 * matrix.m33 - matrix.m23 * matrix.m32);
+		const float num37 = (matrix.m21 * matrix.m34 - matrix.m24 * matrix.m31);
+		const float num38 = (matrix.m21 * matrix.m33 - matrix.m23 * matrix.m31);
+		const float num39 = (matrix.m21 * matrix.m32 - matrix.m22 * matrix.m31);
+		result.m14 = -(matrix.m12 * num34 - matrix.m13 * num35 + matrix.m14 * num36) * num27;
+		result.m24 = (matrix.m11 * num34 - matrix.m13 * num37 + matrix.m14 * num38) * num27;
+		result.m34 = -(matrix.m11 * num35 - matrix.m12 * num37 + matrix.m14 * num39) * num27;
+		result.m44 = (matrix.m11 * num36 - matrix.m12 * num38 + matrix.m13 * num39) * num27;
 
 		return result;
 	}
@@ -222,7 +292,7 @@ namespace Inferno {
 	}
 
 	Matrix Matrix::operator/(Matrix b) const {
-		return *(this) * b.invert();
+		return *(this) * invert(b);
 	}
 
 	Matrix Matrix::operator/(int b) const {

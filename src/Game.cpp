@@ -57,7 +57,8 @@ namespace Inferno {
 		float lag = 0.0f;
 		bool running = true;
 		while (running) {
-			const int current = int(double(clock()) / CLOCKS_PER_SEC) * 1000;
+		    auto tmb = (double)clock() / CLOCKS_PER_SEC;
+            const int current = (int)(((double)clock() / CLOCKS_PER_SEC) * 1000);
 			const int delta = current - previous;
 			previous = current;
 			lag += delta;
@@ -81,7 +82,7 @@ namespace Inferno {
 		_game_window->set_fullscreen(false);
 	}
 	
-	void Game::set_scene(Inferno::Scene *scene) {
+	void Game::set_scene(Inferno::Scene* scene) {
 		//Unload current scene if it exists
 		if (_current_scene != nullptr)
 			_current_scene->unloaded();
@@ -129,18 +130,17 @@ namespace Inferno {
         _graphics_device->clear(new Color(0, 0, 0, 1));
 
         //Set render target
-        _graphics_device->set_render_target(_render_target);
+        //_graphics_device->set_render_target(_render_target);
 
         //Clear target
-        _graphics_device->clear(new Color(0.25f, 0.5f, 0.75f, 1.0f)); //TODO: ClearColor variable
+        //_graphics_device->clear(new Color(0.25f, 0.5f, 0.75f, 1.0f)); //TODO: ClearColor variable
 
         //Draw scene
-        if (_current_scene != nullptr)
-            _current_scene->draw(_renderer);
+        
 
         //Reset target
         _graphics_device->set_render_target(nullptr);
-
+        
         //Draw the render target
         _renderer->begin();
         //TODO:
@@ -150,6 +150,10 @@ namespace Inferno {
     void Game::end_update() {
         if (_current_scene != nullptr)
             _current_scene->end_update();
+	}
+	
+	Point Game::get_virtual_dimensions() const {
+		return {_virtual_width, _virtual_height};
 	}
 
 	void Game::update() {
