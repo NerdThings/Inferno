@@ -50,12 +50,12 @@ namespace Inferno {
 
         //Operators
 
-        bool Color::operator==(Color *b) const {
-            return packed_value == packed_value;
+        bool Color::operator==(Color b) const {
+            return packed_value == b.packed_value;
         }
 
-        bool Color::operator!=(Color *b) const {
-            return !(this == b);
+        bool Color::operator!=(Color b) const {
+            return !(*this == b);
         }
 
     }

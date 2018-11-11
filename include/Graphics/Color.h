@@ -27,9 +27,9 @@ namespace Inferno {
 
 			//Operators
 
-			bool operator==(Color* b) const;
+			bool operator==(Color b) const;
 
-			bool operator!=(Color* b) const;
+			bool operator!=(Color b) const;
 		};
 	}
 }
