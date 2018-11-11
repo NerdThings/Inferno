@@ -13,10 +13,10 @@ namespace Inferno {
         
         //Constructors
         
-        Shader::Shader(ShaderType type) : _type(type) {
+        Shader::Shader(ShaderType type) : type(type) {
             _source = "";
 #ifdef OPENGL
-            _shader = glCreateShader(_type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+            shader = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 #endif
         }
         
@@ -43,15 +43,15 @@ namespace Inferno {
         
         void Shader::compile() {
 #ifdef OPENGL
-            glShaderSource(_shader, 1, &_source, nullptr);
-            glCompileShader(_shader);
+            glShaderSource(shader, 1, &_source, nullptr);
+            glCompileShader(shader);
             
             
             int result = GL_FALSE;
             int info_log_length;
             
-            glGetShaderiv(_shader, GL_COMPILE_STATUS, &result);
-            glGetShaderiv(_shader, GL_INFO_LOG_LENGTH, &info_log_length);
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
+            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
             
             if (info_log_length > 0 || result == GL_FALSE) {
                 throw "Shader failed to compile.";

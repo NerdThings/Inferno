@@ -17,7 +17,7 @@ namespace Inferno {
             glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
             //Create the texture we will render to
-            glGenTextures(0, &rendered_texture);
+            glGenTextures(1, &rendered_texture);
 
             //Bind the texture
             glBindTexture(GL_TEXTURE_2D, rendered_texture);
@@ -45,10 +45,11 @@ namespace Inferno {
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, rendered_texture, 0);
 
             //Set draw buffer
-            //glDrawBuffer(GL_COLOR_ATTACHMENT0);
+            glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
             //Check the buffer is ok
-            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            unsigned int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE)
                 throw "Framebuffer is not complete.";
 
             //Unbinds

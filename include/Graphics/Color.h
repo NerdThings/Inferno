@@ -19,11 +19,11 @@ namespace Inferno {
 			Color(int r, int g, int b, int a);
 
 			//Methods
-
-            char get_r() const;
-            char get_g() const;
-            char get_b() const;
-            char get_a() const;
+			
+			float get_r() const;
+			float get_g() const;
+			float get_b() const;
+			float get_a() const;
 
 			//Operators
 

@@ -3,36 +3,34 @@
 
 #include "Inferno.h"
 
+#include "Graphics/ShaderLanguage.h"
+#include "Graphics/ShaderType.h"
+
 namespace Inferno {
     namespace Graphics {
-        enum ShaderType {
-            Fragment,
-            Vertex
-        };
         
-        enum ShaderLanguage {
-            //OpenGL Shader
-            GLSL,
-            
-            //OpenGL ES Shader
-            GLSL_ES,
-            
-            //DirectX Shader
-            HLSL
-        };
+        /*
+         * Shader Defaults:
+         * A shader requires the following attributes:
+         * vec3 inf_pos;
+         * vec4 inf_color;
+         * vec2 inf_texcoord;
+         */
         
         struct INFERNO_API Shader {
             //Fields
             
             const char* _source;
-    
-            ShaderType _type;
-
-#if OPENGL
-            unsigned int _shader;
-#endif
         
         public:
+            //Fields
+
+#if OPENGL
+            unsigned int shader;
+#endif
+        
+            const ShaderType type;
+            
             //Constructor
             
             Shader(ShaderType type);

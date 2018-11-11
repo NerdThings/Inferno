@@ -1,6 +1,7 @@
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/RenderTarget.h"
 #include "Graphics/Color.h"
+#include "Graphics/Shader.h"
 
 #ifdef SDL
 #include "glad/glad.h"
@@ -12,11 +13,48 @@ namespace Inferno {
 
         //Constructor
 
-        GraphicsDevice::GraphicsDevice(GameWindow *window) : _paired_window(window) {
+        GraphicsDevice::GraphicsDevice(GameWindow *window) : paired_window(window) {
+            //Create default shaders
+            const char* GLSL_default_vertex =  "#version 330\n"
+                                               "attribute vec3 inf_position;\n"
+                                               "attribute vec4 inf_color;\n"
+                                               "attribute vec2 inf_texcoord;\n"
+                                               "uniform mat4 inf_projection_matrix;\n"
+                                               "out vec4 fragColor;\n"
+                                               "void main() {\n"
+                                               "    gl_Position = inf_projection_matrix * vec4(inf_position, 1);\n"
+                                               "    fragColor = inf_color;"
+                                               "}";
+            _default_vertex_shader = new Shader(Vertex);
+            //TODO: GLSL_ES and HLSL Source
+            _default_vertex_shader->set_source(GLSL_default_vertex, GLSL);
+            _default_vertex_shader->compile();
+            
+            //TODO: Support for textures
+            const char* GLSL_default_fragment = "#version 330\n"
+                                                "in vec4 fragColor;\n"
+                                                "out vec4 color;\n"
+                                                "void main() {\n"
+                                                "   color = fragColor;\n"
+                                                "}\n";
+            _default_fragment_shader = new Shader(Fragment);
+            _default_fragment_shader->set_source(GLSL_default_fragment, GLSL);
+            _default_fragment_shader->compile();
+            
+            //Attach them
+            attach_shader(_default_fragment_shader);
+            attach_shader(_default_vertex_shader);
         }
 
         //Methods
 
+        void GraphicsDevice::attach_shader(Shader *shader) {
+            if (shader == nullptr)
+                throw "Cannot attach a null shader. Maybe you meant to call detach_shader(ShaderType)?";
+            
+            shader->type == Fragment ? _current_fragment_shader = shader : _current_vertex_shader = shader;
+        }
+        
         void GraphicsDevice::clear(Color* color) {
             if (color == nullptr)
                 throw "Cannot clear with NULL.";
@@ -30,6 +68,10 @@ namespace Inferno {
 
         void GraphicsDevice::delete_render_target(RenderTarget *target) {
             _targets_to_dispose.push_back(target);
+        }
+        
+        void GraphicsDevice::detach_shader(ShaderType type) {
+            type == Fragment ? _current_fragment_shader = _default_fragment_shader : _current_vertex_shader = _default_vertex_shader;
         }
 
         void GraphicsDevice::end_draw() {
@@ -53,6 +95,10 @@ namespace Inferno {
                 target->rendered_texture = 0;
                 target->framebuffer = 0;
             }
+        }
+        
+        Shader* GraphicsDevice::get_current_shader(ShaderType type){
+            return type == Fragment ? _current_fragment_shader : _current_vertex_shader;
         }
 
         RenderTarget *GraphicsDevice::get_render_target() const {

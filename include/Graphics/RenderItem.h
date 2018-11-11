@@ -38,6 +38,9 @@ namespace Inferno {
 			int line_width;
 			int radius;
 			int precision;
+			
+			Shader* fragment_shader;
+			Shader* vertex_shader;
 		};
 	}
 }

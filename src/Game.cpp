@@ -42,7 +42,7 @@ namespace Inferno {
 		_graphics_device = new GraphicsDevice(_game_window);
 
 		//Create renderer
-		_renderer = new Renderer();
+		_renderer = new Renderer(_graphics_device);
 
 		//Create render target
 		_render_target = new RenderTarget(width, height); //TODO: Remake this once the window is resized
@@ -76,6 +76,9 @@ namespace Inferno {
 				running = false;
 			}
 		}
+		
+		//Fix the linux resolution bug
+		_game_window->set_fullscreen(false);
 	}
 	
 	void Game::set_scene(Inferno::Scene *scene) {
@@ -139,7 +142,7 @@ namespace Inferno {
         _graphics_device->set_render_target(nullptr);
 
         //Draw the render target
-        _renderer->begin(nullptr);
+        _renderer->begin();
         //TODO:
         _renderer->end();
     }

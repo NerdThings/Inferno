@@ -9,11 +9,13 @@ namespace Inferno {
 	struct INFERNO_API Matrix {
 		//Constants
 
-		static Matrix* identity;
-
+		static Matrix identity;
+		
 		//Fields
-
-		float m11;
+        
+        bool initialised = false;
+        
+        float m11;
 		float m12;
 		float m13;
 		float m14;
@@ -39,47 +41,47 @@ namespace Inferno {
 
 		//Methods
 
-		static Matrix* create_orthographic(float width, float height, float zNear, float zFar);
+		static Matrix create_orthographic(float width, float height, float zNear, float zFar);
 
-		static Matrix* create_orthographic_off_center(float left, float right, float bottom, float top, float zNear, float zFar);
+		static Matrix create_orthographic_off_center(float left, float right, float bottom, float top, float zNear, float zFar);
 
 		float* get_array() const;
 
-		Vector3* get_backward_vector() const;
+		Vector3 get_backward_vector() const;
 
-		Vector3* get_down_vector() const;
+		Vector3 get_down_vector() const;
 
-		Vector3* get_forward_vector() const;
+		Vector3 get_forward_vector() const;
 
-		Vector3* get_left_vector() const;
+		Vector3 get_left_vector() const;
 
-		Vector3* get_right_vector() const;
+		Vector3 get_right_vector() const;
 
-		Vector3* get_scale_vector() const;
+		Vector3 get_scale_vector() const;
 
-		Vector3* get_translation_vector() const;
+		Vector3 get_translation_vector() const;
 
-		Vector3* get_up_vector() const;
+		Vector3 get_up_vector() const;
 
-		Matrix* invert() const;
+		Matrix invert() const;
 
 		//Operators
 
-		Matrix* operator+(Matrix* b) const;
+		Matrix operator+(Matrix b) const;
+		
+		Matrix operator-(Matrix b) const;
+		
+		Matrix operator/(Matrix b) const;
 
-		Matrix* operator-(Matrix* b) const;
+		Matrix operator/(int b) const;
 
-		Matrix* operator/(Matrix* b) const;
+		Matrix operator/(float b) const;
 
-		Matrix* operator/(int b) const;
+		Matrix operator*(Matrix b) const;
+		
+		Matrix operator*(int b) const;
 
-		Matrix* operator/(float b) const;
-
-		Matrix* operator*(Matrix* b) const;
-
-		Matrix* operator*(int b) const;
-
-		Matrix* operator*(float b) const;
+		Matrix operator*(float b) const;
 	};
 }
 

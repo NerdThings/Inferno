@@ -31,21 +31,21 @@ namespace Inferno {
         }
 
         //Methods
-
-        char Color::get_a() const {
-            return char(packed_value >> 24);
+    
+        float Color::get_a() const {
+            return (packed_value >> 24) / 255.0f;
         }
-
-        char Color::get_b() const {
-            return char(packed_value >> 16);
+    
+        float Color::get_b() const {
+            return char(packed_value >> 16) / 255.0f;
         }
-
-        char Color::get_g() const {
-            return char(packed_value >> 8);
+    
+        float Color::get_g() const {
+            return char(packed_value >> 8) / 255.0f;
         }
-
-        char Color::get_r() const {
-            return char(packed_value);
+    
+        float Color::get_r() const {
+            return char(packed_value) / 255.0f;
         }
 
         //Operators

@@ -4,6 +4,7 @@
 #include "Inferno.h"
 #include <vector>
 #include "RenderItem.h"
+#include "Matrix.h"
 
 namespace Inferno {
 	struct Matrix;
@@ -11,6 +12,7 @@ namespace Inferno {
 
 	namespace Graphics {
 		struct Color;
+		class GraphicsDevice;
 
 		class INFERNO_API Renderer {
 			//Fields
@@ -21,8 +23,14 @@ namespace Inferno {
 
 #if OPENGL
 			unsigned int _vertex_array;
+			
+			unsigned int _gl_program;
 
 #endif
+			
+			GraphicsDevice* _graphics_device;
+			
+			Matrix _translation_matrix;
 
 			//Methods
 
@@ -31,11 +39,13 @@ namespace Inferno {
 		public:
 			//Constructor
 
-			Renderer();
+			Renderer(GraphicsDevice* graphics_device);
 
 			//Batch controls
+			
+			void begin();
 
-			void begin(Matrix* translation_matrix = nullptr);
+			void begin(Matrix translation_matrix);
 
 			void end();
 
