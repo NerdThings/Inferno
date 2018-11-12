@@ -34,8 +34,8 @@ namespace Inferno {
 		    GameWindow* paired_window;
 		    
 			//Constructor
-
-			GraphicsDevice(GameWindow* window);
+			
+			explicit GraphicsDevice(GameWindow* window);
 
 			//Methods
 			

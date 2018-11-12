@@ -22,6 +22,10 @@ namespace Inferno {
 		//Create window
 		_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
 								   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		
+		//Check window was created
+		if (_window == nullptr)
+		    throw "Failed to create window.";
 
 		//Init SDL OpenGL
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -50,22 +54,23 @@ namespace Inferno {
 
 	//Methods
 
-	Rectangle* GameWindow::get_bounds() {
-	    Point* pos = get_position();
-	    Point* size = get_size();
-	    return new Rectangle(pos->x, pos->y, size->x, size->y);
+	Rectangle GameWindow::get_bounds() {
+	    Point pos = get_position();
+	    Point size = get_size();
+	    return {pos.x, pos.y, size.x, size.y};
 	}
 
-	Point* GameWindow::get_position() {
+	Point GameWindow::get_position() {
         int x = 0, y = 0;
         SDL_GetWindowPosition(_window, &x, &y);
-        return new Point(x, y);
+        return {x, y};
 	}
 
-	Point* GameWindow::get_size() {
-	    int w = 0, h = 0;
-	    SDL_GetWindowSize(_window, &w, &h);
-        return new Point(w, h);
+	Point GameWindow::get_size() {
+	    int w;
+	    int h;
+        SDL_GL_GetDrawableSize(_window, &w, &h);
+        return {w, h};
     }
 
 	void GameWindow::resizable(bool canResize) {
@@ -79,13 +84,15 @@ namespace Inferno {
     bool GameWindow::run_events() const {
 #ifdef SDL
 
+	    //TODO: Mouse, keyboard and resize events
+	    
         SDL_Event e;
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 return false;
             }
         }
-
+        
         return true;
 
 #endif
@@ -137,10 +144,12 @@ namespace Inferno {
 	}
 
 	void GameWindow::set_v_sync(bool vsync) {
-#ifdef SDL && OPENGL
+#ifdef SDL
+#ifdef OPENGL
 
 	    SDL_GL_SetSwapInterval(vsync? 1 : 0);
 
+#endif
 #endif
 	}
 

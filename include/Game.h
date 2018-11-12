@@ -20,8 +20,6 @@ namespace Inferno {
 	    //Fields
 
 	    Scene* _current_scene;
-	    
-		GameWindow *_game_window;
 
 	    bool _paused;
 
@@ -30,10 +28,6 @@ namespace Inferno {
 		Graphics::RenderTarget* _render_target;
 
 		Graphics::GraphicsDevice* _graphics_device;
-
-		int _virtual_width;
-
-		int _virtual_height;
 
 		//Methods
 
@@ -45,6 +39,12 @@ namespace Inferno {
 		//Fields
 
 		int frames_per_second;
+        
+        GameWindow *game_window;
+        
+        const int virtual_width;
+        
+        const int virtual_height;
 
 		//Constructors
 

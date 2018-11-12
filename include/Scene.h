@@ -47,7 +47,7 @@ namespace Inferno {
 
         int space_size;
 
-        const Game* parent_game;
+        Game* parent_game;
 
         //Background
 

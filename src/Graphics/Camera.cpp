@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Graphics/Camera.h"
+#include "GameWindow.h"
 
 namespace Inferno {
     namespace Graphics {
@@ -8,7 +9,7 @@ namespace Inferno {
         
         Camera::Camera(Scene* parent_scene, float zoom) {
             _parent_scene = parent_scene;
-            zoom = zoom;
+            this->zoom = zoom;
             rotation = 0;
         }
         
@@ -16,7 +17,7 @@ namespace Inferno {
         
         void Camera::center_on(Inferno::Vector2 position) {
             //TODO: Calculate if the outside will be visible
-            position = position;
+            this->position = position;
         }
         
         Matrix Camera::get_translation_matrix() {
@@ -42,13 +43,11 @@ namespace Inferno {
         }
         
         int Camera::get_viewport_height() {
-            Point dimensions = _parent_scene->parent_game->get_virtual_dimensions();
-            return dimensions.y;
+            return _parent_scene->parent_game->get_virtual_dimensions().y;
         }
         
         int Camera::get_viewport_width() {
-            Point dimensions = _parent_scene->parent_game->get_virtual_dimensions();
-            return dimensions.y;
+            return _parent_scene->parent_game->get_virtual_dimensions().x;
         }
         
         Vector2 Camera::screen_to_world(Inferno::Vector2 screen_position) {

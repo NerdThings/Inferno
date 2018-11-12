@@ -20,7 +20,7 @@ namespace Inferno {
         draw();
 
         //present
-        _game_window->present();
+        game_window->present();
 	}
 
 	void Game::do_tick() {
@@ -34,12 +34,12 @@ namespace Inferno {
 	    end_update();
 	}
 
-	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) : _virtual_width(width), _virtual_height(height), frames_per_second(fps) {
+	Game::Game(int width, int height, const char* title, int fps, bool fullscreen) : virtual_width(width), virtual_height(height), frames_per_second(fps) {
 	    //Create window
-		_game_window = new GameWindow(title, width, height);
+		game_window = new GameWindow(title, width, height);
 
 		//Create and attach graphics device
-		_graphics_device = new GraphicsDevice(_game_window);
+		_graphics_device = new GraphicsDevice(game_window);
 
 		//Create renderer
 		_renderer = new Renderer(_graphics_device);
@@ -48,7 +48,7 @@ namespace Inferno {
 		_render_target = new RenderTarget(width, height); //TODO: Remake this once the window is resized
 
 		//Set properties
-		_game_window->set_fullscreen(fullscreen);
+		game_window->set_fullscreen(fullscreen);
 		_paused = false; //TODO: Set to window focus status once we have capabilities
 	}
 
@@ -73,13 +73,13 @@ namespace Inferno {
             do_draw();
 
 			//Run Events
-			if (!_game_window->run_events()) {
+			if (!game_window->run_events()) {
 				running = false;
 			}
 		}
 		
 		//Fix the linux resolution bug
-		_game_window->set_fullscreen(false);
+		game_window->set_fullscreen(false);
 	}
 	
 	void Game::set_scene(Inferno::Scene* scene) {
@@ -102,16 +102,16 @@ namespace Inferno {
 
 	void Game::draw() {
 	    //Grab dimensions
-	    Point* size = _game_window->get_size();
-	    int window_width = size->x;
-	    int window_height = size->y;
+	    Point size = game_window->get_size();
+	    int window_width = size.x;
+	    int window_height = size.y;
 
 	    int view_width = window_width;
 	    int view_height = window_height;
 
 	    //Calculate ratios
         float output_aspect = float(view_width) / float(view_height);
-        float preferred_aspect = float(_virtual_width) / float(_virtual_height);
+        float preferred_aspect = float(virtual_width) / float(virtual_height);
 
         //Init bar dimensions
         int bar_width = 0;
@@ -143,7 +143,7 @@ namespace Inferno {
         
         //Draw the render target
         _renderer->begin();
-        //TODO:
+        //TODO
         _renderer->end();
     }
 
@@ -153,7 +153,7 @@ namespace Inferno {
 	}
 	
 	Point Game::get_virtual_dimensions() const {
-		return {_virtual_width, _virtual_height};
+		return {virtual_width, virtual_height};
 	}
 
 	void Game::update() {

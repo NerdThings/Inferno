@@ -142,7 +142,7 @@ namespace Inferno {
             _rendering = true;
             
             //Build orthographic matrix
-            Point* window_size =_graphics_device->paired_window->get_size();
+            Point window_size =_graphics_device->paired_window->get_size();
             RenderTarget* current_target = _graphics_device->get_render_target();
     
             Matrix ortho;
@@ -150,7 +150,7 @@ namespace Inferno {
             if (current_target != nullptr) {
                 ortho = Matrix::create_orthographic_off_center(0, current_target->width, current_target->height, 0, -1, 1);
             } else {
-                ortho = Matrix::create_orthographic_off_center(0, window_size->x, window_size->y, 0, -1, 1);
+                ortho = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -1, 1);
             }
             
             //Set matrix

@@ -13,8 +13,8 @@ using namespace Graphics;
 TestScene scene = nullptr;
 
 TestGame::TestGame() : Game(1280, 768, "Inferno Test Game", 30, false) {
-    _game_window->set_cursor(true);
-    _game_window->resizable(true);
+    game_window->set_cursor(true);
+    game_window->resizable(true);
     //_game_window->set_fullscreen(true);
     
     scene = TestScene(this);

@@ -30,11 +30,11 @@ namespace Inferno {
 
 	    //Methods
 
-	    Rectangle* get_bounds();
+	    Rectangle get_bounds();
 
-	    Point* get_position();
+	    Point get_position();
 
-	    Point* get_size();
+	    Point get_size();
 
 		void resizable(bool canResize);
 

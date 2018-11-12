@@ -8,7 +8,7 @@ namespace Inferno {
     
     //Constructors
 
-    Scene::Scene(Game* parent_game, int width, int height, int space_size) : camera(Camera(this))
+    Scene::Scene(Game* parent_game, int width, int height, int space_size) : camera(nullptr)
     {
         //Set parameter arguments
 		this->parent_game = parent_game;
@@ -57,9 +57,7 @@ namespace Inferno {
     void Scene::draw(Graphics::Renderer* renderer)
     {
         //Begin rendering with camera
-        //TODO: Work out what is wrong with the camera.
-        //renderer->begin(camera.get_translation_matrix());
-        renderer->begin();
+        renderer->begin(camera.get_translation_matrix());
         
         //TODO: Backgrounds
         
@@ -79,7 +77,8 @@ namespace Inferno {
     }
     
     void Scene::loaded() {
-    
+        //Create camera
+        camera = Camera(this);
     }
     
     void Scene::unloaded() {
