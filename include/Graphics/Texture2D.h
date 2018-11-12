@@ -15,10 +15,6 @@ namespace Inferno {
             Color* _cached_data;
             
             GraphicsDevice* _graphics_device;
-
-#ifdef OPENGL
-            unsigned int _id;
-#endif
             
             //Methods
             
@@ -26,7 +22,11 @@ namespace Inferno {
             
         public:
             //Fields
-            
+
+#ifdef OPENGL
+            unsigned int id;
+#endif
+        
             int width;
             
             int height;

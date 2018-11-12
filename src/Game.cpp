@@ -142,9 +142,9 @@ namespace Inferno {
         _graphics_device->set_render_target(nullptr);
         
         //Draw the render target
-        _renderer->begin();
+        //_renderer->begin();
         //TODO
-        _renderer->end();
+        //_renderer->end();
     }
 
     void Game::end_update() {

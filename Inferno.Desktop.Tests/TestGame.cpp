@@ -27,9 +27,9 @@ void TestGame::update() {
 
 void TestGame::draw() {
     Game::draw();
-    _renderer->begin();
+    //_renderer->begin();
     _renderer->draw_rectangle(Rectangle(0, 0, 100, 100), Color(0.4f, 0.2f, 0.3f, 0.6f), 0);
-    _renderer->end();
+    //_renderer->end();
     
     if (_current_scene != nullptr)
         _current_scene->draw(_renderer);

@@ -5,6 +5,10 @@ namespace Inferno {
     namespace Graphics {
 
         //Constructors
+        
+        Color::Color() {
+            this->packed_value = 0;
+        }
 
         Color::Color(unsigned packed_value) {
             this->packed_value = packed_value;

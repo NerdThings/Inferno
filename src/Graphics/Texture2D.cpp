@@ -11,6 +11,7 @@
 namespace Inferno {
     namespace Graphics {
         //Private Methods
+        
         void Texture2D::create_texture(Color *data) {
 #ifdef OPENGL
             //Set texture unit
@@ -20,7 +21,7 @@ namespace Inferno {
             _cached_data = data;
             
             //Create texture
-            glGenTextures(1, &_id);
+            glGenTextures(1, &id);
             
             //Convert data
             unsigned int* gl_data = new unsigned int[width * height];
@@ -31,7 +32,7 @@ namespace Inferno {
             }
             
             //Bind texture
-            glBindTexture(GL_TEXTURE_2D, _id);
+            glBindTexture(GL_TEXTURE_2D, id);
             
             //Set data
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, gl_data);
@@ -48,12 +49,23 @@ namespace Inferno {
         //Constructors
         
         Texture2D::Texture2D(GraphicsDevice* graphics_device, int width, int height, Color *data) : _graphics_device(graphics_device) {
+            //If this is null, we ditch.
+            //TODO: Default constructor to allow null
+            if (graphics_device == nullptr)
+                return;
+            
             //Set dimensions
             this->width = width;
             this->height = height;
             
             //Create texture
             create_texture(data);
+        }
+        
+        //Deconstructors
+        
+        Texture2D::~Texture2D() {
+        
         }
         
         //Methods

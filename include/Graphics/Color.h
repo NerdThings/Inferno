@@ -11,6 +11,8 @@ namespace Inferno {
 			unsigned int packed_value;
 
 			//Constructors
+			
+			Color();
 
 			Color(unsigned int packed_value);
 

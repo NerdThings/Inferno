@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Graphics/ShaderType.h"
+#include "Matrix.h"
 
 namespace Inferno {
 	class GameWindow;
@@ -24,10 +25,16 @@ namespace Inferno {
             Shader* _default_fragment_shader;
             
             Shader* _default_vertex_shader;
-			
-			RenderTarget* _render_target;
+            
+            Matrix _projection_matrix;
+            
+            RenderTarget* _render_target;
 			
 			std::vector<RenderTarget*> _targets_to_dispose;
+
+#ifdef OPENGL
+	        unsigned int _gl_program;
+#endif
 		public:
 		    //Fields
             
@@ -50,10 +57,16 @@ namespace Inferno {
 			void end_draw();
 			
 			Shader* get_current_shader(ShaderType type);
-
+            
+            Matrix get_projection_matrix();
+            
+            RenderTarget* get_render_target() const;
+            
 			void set_render_target(RenderTarget* target);
-
-			RenderTarget* get_render_target() const;
+			
+			int shader_get_attribute(const char* name);
+            
+            int shader_get_uniform(const char* name);
 		};
 	}
 }

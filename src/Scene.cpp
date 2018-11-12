@@ -57,16 +57,16 @@ namespace Inferno {
     void Scene::draw(Graphics::Renderer* renderer)
     {
         //Begin rendering with camera
-        renderer->begin(camera.get_translation_matrix());
+        //renderer->begin(camera.get_translation_matrix());
         
         //TODO: Backgrounds
         
         //TODO: Draw instances
         
         //Draw a rectangle for now so we know this works
-        renderer->draw_rectangle(Rectangle(10, 10, 200, 200), Color(0.4f, 0.2f, 0.3f, 0.6f), 1);
+        //renderer->draw_rectangle(Rectangle(10, 10, 200, 200), Color(0.4f, 0.2f, 0.3f, 0.6f), 1);
         
-        renderer->end();
+        //renderer->end();
         
         //TODO: UserInterface draw here
     }
