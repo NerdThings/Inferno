@@ -1,3 +1,4 @@
+#include "Graphics/GraphicsDevice.h"
 #include "Graphics/RenderTarget.h"
 
 #ifdef SDL
@@ -7,7 +8,9 @@
 
 namespace Inferno {
     namespace Graphics {
-        RenderTarget::RenderTarget(int _width, int _height) : width(_width), height(_height) {
+        //Constructors
+        
+        RenderTarget::RenderTarget(GraphicsDevice* graphics_device, int _width, int _height) : width(_width), height(_height), _graphics_device(graphics_device) {
 #ifdef SDL
 
             //Create the framebuffer
@@ -58,6 +61,12 @@ namespace Inferno {
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 #endif
+        }
+        
+        //Deconstructors
+        
+        RenderTarget::~RenderTarget() {
+            _graphics_device->delete_render_target(this);
         }
     }
 }

@@ -6,7 +6,6 @@
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/RenderTarget.h"
 #include "Rectangle.h"
-#include "Vector2.h"
 #include "GameWindow.h"
 #include "Point.h"
 
@@ -21,7 +20,34 @@
 namespace Inferno {
     namespace Graphics {
         //Private Methods
-        void Renderer::render(RenderItem item) const {
+        
+        float* Renderer::build_array(std::vector<Vector2> vectors) {
+            float* array = new float[vectors.size() * 3];
+            
+            for (int i = 0; i < vectors.size() * 3; i += 3) {
+                int vector = i / 3;
+                array[i] = vectors.at(vector).x;
+                array[i+1] = vectors.at(vector).y;
+                array[i+2] = 0;
+            }
+            
+            return array;
+        }
+    
+        float* Renderer::build_array(std::vector<Vector3> vectors) {
+            float* array = new float[vectors.size() * 3];
+        
+            for (int i = 0; i < vectors.size() * 3; i += 3) {
+                int vector = i / 3;
+                array[i] = vectors.at(vector).x;
+                array[i+1] = vectors.at(vector).y;
+                array[i+2] = vectors.at(vector).z;
+            }
+        
+            return array;
+        }
+        
+        void Renderer::render(RenderItem item) {
 #if OPENGL
 
             //Save matrix
@@ -45,7 +71,7 @@ namespace Inferno {
             glUniformMatrix4fv(matLoc, 1, GL_FALSE, _translation_matrix.get_array());
             
             //Apply line width
-            //glLineWidth(item->line_width);
+            glLineWidth(item.line_width);
 
             //Apply origin
             //if (item->origin != nullptr)
@@ -63,24 +89,16 @@ namespace Inferno {
                     int bottom = item.destination_rectangle.get_bottom_coord();
 
                     //Build vertex array
-                    //TODO: Stop being lazy and make a Vector array to float array method
-                    float* vertexArray = new float[12];
-                    vertexArray[0] = left;
-                    vertexArray[1] = top;
-                    vertexArray[2] = 0;
+                    std::vector<Vector2> v;
+                    v.emplace_back(left, top);
+                    v.emplace_back(right, top);
+                    v.emplace_back(right, bottom);
+                    v.emplace_back(left, bottom);
                     
-                    vertexArray[3] = right;
-                    vertexArray[4] = top;
-                    vertexArray[5] = 0;
+                    //Convert to float array
+                    float* vertexArray = this->build_array(v);
                     
-                    vertexArray[6] = right;
-                    vertexArray[7] = bottom;
-                    vertexArray[8] = 0;
-                    
-                    vertexArray[9] = left;
-                    vertexArray[10] = bottom;
-                    vertexArray[11] = 0;
-                    
+                    //Send data to buffer
                     glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
 
                     glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), vertexArray, GL_STATIC_DRAW);
@@ -89,6 +107,7 @@ namespace Inferno {
                     
                     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
                     
+                    //Set the color attribute
                     glVertexAttrib4f(1, item.color.get_r(), item.color.get_g(), item.color.get_b(), item.color.get_a());
         
                     glDrawArrays(GL_QUADS, 0, 4);

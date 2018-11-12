@@ -5,7 +5,15 @@
 
 namespace Inferno {
 	namespace Graphics {
+		class GraphicsDevice;
+		
 		struct INFERNO_API RenderTarget {
+		private:
+			
+			GraphicsDevice* _graphics_device;
+			
+		public:
+			
 			//Fields
 
 			const int width;
@@ -19,8 +27,8 @@ namespace Inferno {
 
 			//Constructors
 
-			RenderTarget(int _width, int _height);
-
+			RenderTarget(GraphicsDevice* graphics_device, int _width, int _height);
+			
 			//Deconstructors
 
 			~RenderTarget();

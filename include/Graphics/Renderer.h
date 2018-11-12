@@ -5,6 +5,8 @@
 #include <vector>
 #include "RenderItem.h"
 #include "Matrix.h"
+#include "Vector2.h"
+#include "Vector3.h"
 
 namespace Inferno {
 	struct Matrix;
@@ -33,8 +35,12 @@ namespace Inferno {
 			Matrix _translation_matrix;
 
 			//Methods
+			
+			float* build_array(std::vector<Vector2> vectors);
+            
+            float* build_array(std::vector<Vector3> vectors);
 
-			void render(RenderItem item) const;
+			void render(RenderItem item);
 
 		public:
 			//Constructor

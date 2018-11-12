@@ -15,6 +15,9 @@ void TestScene::loaded() {
     
     //Center camera on middle of room
     camera.center_on(camera.get_viewport_center());
+    
+    //TODO: Work out why rotation is bugged.
+    //camera.rotation = 6.3;
 }
 
 void TestScene::unloaded() {

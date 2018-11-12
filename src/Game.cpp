@@ -45,7 +45,7 @@ namespace Inferno {
 		_renderer = new Renderer(_graphics_device);
 
 		//Create render target
-		_render_target = new RenderTarget(width, height); //TODO: Remake this once the window is resized
+		_render_target = new RenderTarget(_graphics_device, width, height); //TODO: Remake this once the window is resized
 
 		//Set properties
 		game_window->set_fullscreen(fullscreen);

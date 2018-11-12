@@ -32,6 +32,9 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/include")
 # Include glad headers
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/glad/include")
 
+# Include CImg Headers
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/CImg/include")
+
 # Check SDL is on the UNIX system
 IF (UNIX)
 
