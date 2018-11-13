@@ -44,6 +44,8 @@ namespace Inferno {
 			//Methods
 			
 			void draw_rectangle(Rectangle rect, Color color, float depth);
+			
+			void draw_texture(Texture2D* texture, Vector2 position, Color color, float depth);
 		};
 	}
 }

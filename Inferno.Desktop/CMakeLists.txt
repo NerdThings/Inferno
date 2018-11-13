@@ -4,6 +4,9 @@
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
+# Require DevIL
+find_package(DevIL REQUIRED)
+
 # Find SDL2
 IF (UNIX)
 
@@ -35,6 +38,9 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/glad/include")
 # Include CImg Headers
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/CImg/include")
 
+# Include DevIL Headers
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/include")
+
 # Check SDL is on the UNIX system
 IF (UNIX)
 
@@ -59,6 +65,9 @@ target_link_libraries(Inferno.Desktop ${SDL2_LIBRARY})
 
 # Link OpenGL
 target_link_libraries(Inferno.Desktop ${OPENGL_LIBRARIES})
+
+# Link DevIL
+target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
 
 IF (WIN32)
 

@@ -29,27 +29,26 @@ namespace Inferno {
 
                 this->packed_value = (clamped_a << 24) | (clamped_b << 16) | (clamped_g << 8) | (clamped_r);
             } else {
-                this->packed_value = (static_cast<unsigned int>(a) << 24) | (static_cast<unsigned int>(b) << 16) |
-                                     (static_cast<unsigned int>(g) << 8) | (static_cast<unsigned int>(r));
+                this->packed_value = ((unsigned int)(a) << 24) | ((unsigned int)(b) << 16) | ((unsigned int)(g) << 8) | ((unsigned int)(r));
             }
         }
 
         //Methods
     
         float Color::get_a() const {
-            return (packed_value >> 24) / 255.0f;
+            return (unsigned char)(packed_value >> 24) / 255.0f;
         }
     
         float Color::get_b() const {
-            return char(packed_value >> 16) / 255.0f;
+            return (unsigned char)(packed_value >> 16) / 255.0f;
         }
     
         float Color::get_g() const {
-            return char(packed_value >> 8) / 255.0f;
+            return (unsigned char)(packed_value >> 8) / 255.0f;
         }
     
         float Color::get_r() const {
-            return char(packed_value) / 255.0f;
+            return (unsigned char)(packed_value) / 255.0f;
         }
 
         //Operators

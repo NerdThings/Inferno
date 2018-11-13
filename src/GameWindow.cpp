@@ -1,9 +1,18 @@
 #include "Rectangle.h"
 #include "SDL.h"
-#include "glad/glad.h"
-#include "SDL_opengl.h"
 #include "GameWindow.h"
 #include "Point.h"
+
+#include "IL/il.h"
+
+#ifdef OPENGL
+#include "glad/glad.h"
+#include "IL/ilut.h"
+#endif
+
+#ifdef SDL
+#include "SDL_opengl.h"
+#endif
 
 namespace Inferno {
 
@@ -36,6 +45,9 @@ namespace Inferno {
 		SDL_GL_CreateContext(_window);
 
 #endif
+		
+		//Init IL
+		ilInit();
 
 #ifdef OPENGL
 
@@ -49,10 +61,17 @@ namespace Inferno {
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-#endif
+	#endif
 	}
 
 	//Methods
+	
+	void GameWindow::end_game() {
+#ifdef SDL
+	  SDL_DestroyWindow(_window);
+	  SDL_Quit();
+#endif
+	}
 
 	Rectangle GameWindow::get_bounds() {
 	    Point pos = get_position();

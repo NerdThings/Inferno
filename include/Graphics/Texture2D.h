@@ -12,13 +12,17 @@ namespace Inferno {
         private:
             //Fields
             
-            Color* _cached_data;
+            std::vector<Color> _cached_data;
             
             GraphicsDevice* _graphics_device;
+    
+            int _height;
+    
+            int _width;
             
             //Methods
             
-            void create_texture(Color* data);
+            void create_texture(std::vector<Color> data);
             
         public:
             //Fields
@@ -27,23 +31,31 @@ namespace Inferno {
             unsigned int id;
 #endif
         
-            int width;
             
-            int height;
             
             //Constructors
             
-            Texture2D(GraphicsDevice* graphics_device, int width, int height, Color* data);
+            Texture2D();
+            
+            Texture2D(GraphicsDevice* graphics_device, int width, int height, std::vector<Color> data);
             
             //Deconstructors
             
             ~Texture2D();
             
             //Methods
+        
+            std::vector<Color> get_data();
+        
+            int get_height();
+        
+            int get_width();
             
-            Color* get_data();
+            void set_data(std::vector<Color> data);
             
-            void set_data(Color* data);
+            //Operators
+            
+            void operator=(Texture2D texture);
         };
     }
 }

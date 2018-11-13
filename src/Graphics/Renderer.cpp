@@ -51,8 +51,8 @@ namespace Inferno {
 
         Renderer::Renderer(GraphicsDevice* graphics_device) : _graphics_device(graphics_device) {
             //Create blank white texture
-            Color* data = new Color[1];
-            data[0] = Color(255, 255, 255, 255);
+            std::vector<Color> data;
+            data.emplace_back(255, 255, 255, 255);
             
             _blank_texture = new Texture2D(_graphics_device, 1, 1, data);
 
@@ -85,8 +85,8 @@ namespace Inferno {
             int stexcoord = _graphics_device->shader_get_attribute("inf_texcoord");
             
             //Check locations
-            if (sposition < 0 || scolor < 0)
-                throw "Shaders are not correctly configured.";
+            //if (sposition < 0 || scolor < 0)
+            //    throw "Shaders are not correctly configured.";
     
             //Get coords
             float left = rect.get_left_coord();
@@ -102,6 +102,72 @@ namespace Inferno {
                         right, top, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(),  color.get_a(),
                         right, bottom, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(),  color.get_a(),
                         left, bottom, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a()
+                    };
+    
+            //Send data to buffer
+            glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), bufferData, GL_STATIC_DRAW);
+    
+            //Enable attribs
+            glEnableVertexAttribArray(sposition);
+            glEnableVertexAttribArray(stexcoord);
+            glEnableVertexAttribArray(scolor);
+    
+            //Configure attribs
+            glVertexAttribPointer(sposition, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*) nullptr);
+            glVertexAttribPointer(stexcoord, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(3*sizeof(float)));
+            glVertexAttribPointer(scolor, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(5*sizeof(float)));
+    
+            //Draw
+            glDrawArrays(GL_QUADS, 0, 4);
+    
+            //Disable attribs
+            glDisableVertexAttribArray(sposition);
+            glDisableVertexAttribArray(stexcoord);
+            glDisableVertexAttribArray(scolor);
+            
+            //Flush
+            glFlush();
+#endif
+        }
+        
+        void Renderer::draw_texture(Texture2D* texture, Vector2 position, Color color, float depth) {
+#ifdef OPENGL
+            //Set matrix
+            int smatrix = _graphics_device->shader_get_uniform("inf_projection_matrix");
+            glUniformMatrix4fv(smatrix, 1, GL_FALSE, _graphics_device->get_projection_matrix().get_array());
+    
+            //Bind texture
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, texture->id);
+    
+            //Set texture sampler
+            int stex = _graphics_device->shader_get_uniform("inf_texture");
+            glUniform1i(stex, 0);
+    
+            //Get shader attrib locations
+            int sposition = _graphics_device->shader_get_attribute("inf_position");
+            int scolor = _graphics_device->shader_get_attribute("inf_color");
+            int stexcoord = _graphics_device->shader_get_attribute("inf_texcoord");
+    
+            //Check locations
+            //if (sposition < 0 || scolor < 0)
+            //    throw "Shaders are not correctly configured.";
+    
+            //Get coords
+            float left = position.x;
+            float right = position.x + 100;//texture->get_width();
+            float top = position.y;
+            float bottom = position.y + 100;//texture->get_height();
+    
+            //Convert to float array
+            float bufferData[] =
+                    {
+                            //X,Y,Z  U,V    R,G,B,A
+                            left, top, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(),  color.get_a(),
+                            right, top, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(),  color.get_a(),
+                            right, bottom, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(),  color.get_a(),
+                            left, bottom, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a()
                     };
     
             //Send data to buffer

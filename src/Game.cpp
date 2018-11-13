@@ -80,6 +80,9 @@ namespace Inferno {
 		
 		//Fix the linux resolution bug
 		game_window->set_fullscreen(false);
+		
+		//Send end game
+		game_window->end_game();
 	}
 	
 	void Game::set_scene(Inferno::Scene* scene) {

@@ -29,6 +29,8 @@ namespace Inferno {
         GameWindow(const char* title, int width, int height);
 
 	    //Methods
+	    
+	    void end_game();
 
 	    Rectangle get_bounds();
 
