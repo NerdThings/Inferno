@@ -18,7 +18,7 @@ namespace Inferno {
     
         Shader::Shader(Inferno::Graphics::ShaderType type) : type(type) {
 #ifdef OPENGL
-            id = glCreateShader();
+            id = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 #endif
         }
         

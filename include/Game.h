@@ -30,9 +30,9 @@ namespace Inferno {
     protected:
         //Fields
         
-        bool lock_framerate;
-        bool paused;
-        bool running;
+        bool lock_framerate = false;
+        bool paused = false;
+        bool running = false;
         
     public:
         //Fields

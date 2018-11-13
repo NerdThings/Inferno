@@ -21,7 +21,7 @@ namespace Inferno {
     GameWindow::GameWindow(Game* parent_game, const char *title, int width, int height) : _parent_game(parent_game) {
 #ifdef SDL
         //SDL Init
-        if (SDL_Init(SDL_INIT_EVERYTHING))
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
             throw "Failed to init SDL.";
         
         //Create window

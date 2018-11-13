@@ -11,5 +11,8 @@ int main()
 	
 	Inferno::Game* game = new Inferno::Game(360, 240);
 	game->run();
+	
+	delete game;
+	
 	return 0;
 }

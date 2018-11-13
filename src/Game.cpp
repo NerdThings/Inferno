@@ -109,7 +109,8 @@ namespace Inferno {
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
         
-        //Close game window
+        //Delete game window
+        delete game_window;
         game_window = nullptr;
     }
 }
