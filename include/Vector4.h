@@ -1,67 +1,57 @@
-#ifndef Inferno_Vector4
-#define Inferno_Vector4
+//
+// Created by Reece Mackie on 13/11/18.
+//
+
+#ifndef INFERNO_VECTOR4_H
+#define INFERNO_VECTOR4_H
 
 #include "Inferno.h"
 
 namespace Inferno {
-	struct Vector2;
-	struct Vector3;
-
-	struct INFERNO_API Vector4 {
-		//Fields
-
-		float x;
-		float y;
-		float z;
-		float w;
-
-		//Constructors
-
-		Vector4(float x, float y, float z, float w);
-		Vector4(Vector2 value, float z, float w);
-		Vector4(Vector3 value, float w);
-		Vector4(float value);
-
-		//Methods
-
-		float get_magnitude() const;
-
-		float get_magnitude_squared() const;
-
-		float dot(Vector4 b) const;
-
-		float distance(Vector4 b) const;
-
-		//Operators
-
-		Vector4 operator+(Vector4 b) const;
-
-		Vector4 operator+(int b) const;
-
-		Vector4 operator+(float b) const;
-
-		Vector4 operator-(Vector4 b) const;
-
-		Vector4 operator-(int b) const;
-
-		Vector4 operator-(float b) const;
-
-		Vector4 operator*(Vector4 b) const;
-
-		Vector4 operator*(int b) const;
-
-		Vector4 operator*(float b) const;
-
-		Vector4 operator/(Vector4 b) const;
-
-		Vector4 operator/(int b) const;
-
-		Vector4 operator/(float b) const;
-
-		bool operator==(Vector4 b) const;
-
-		//TODO: Matrix Transform
-	};
+    struct Vector2;
+    struct Vector3;
+    
+    struct INFERNO_API Vector4 {
+        //Fields
+    
+        float x;
+        float y;
+        float z;
+        float w;
+    
+        //Constructors
+    
+        Vector4();
+        Vector4(float x, float y, float z, float w);
+        Vector4(Vector2 value, float z, float w);
+        Vector4(Vector3 value, float w);
+        explicit Vector4(float value);
+    
+        //Methods
+    
+        float get_magnitude();
+        float get_magnitude_squared();
+        float dot(Vector4 b);
+        float distance(Vector4 b);
+    
+        //Operators
+    
+        Vector4 operator+(Vector4 b);
+        Vector4 operator+(int b);
+        Vector4 operator+(float b);
+        Vector4 operator-(Vector4 b);
+        Vector4 operator-(int b);
+        Vector4 operator-(float b);
+        Vector4 operator*(Vector4 b);
+        Vector4 operator*(int b);
+        Vector4 operator*(float b);
+        Vector4 operator/(Vector4 b);
+        Vector4 operator/(int b);
+        Vector4 operator/(float b);
+        Vector4 operator-();
+        bool operator==(Vector4 b);
+        bool operator!=(Vector4 b);
+    };
 }
 
-#endif
+#endif //INFERNO_VECTOR4_H

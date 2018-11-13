@@ -1,56 +1,66 @@
+//
+// Created by Reece Mackie on 13/11/18.
+//
+
 #include "Point.h"
 #include "Vector2.h"
 
 namespace Inferno {
-	//Constructor
-
-	Point::Point(int x, int y) {
-		this->x = x;
-		this->y = y;
-	}
-
-	//Methods
-
-	Vector2 Point::to_vector() const {
-		return Vector2(x, y);
-	}
-
-
-	//Operators
-
-	Point Point::operator+(Point b) const {
-		return Point(x + b.x, y + b.y);
-	}
-
-	Point Point::operator+(int b) const {
-		return Point(x + b, y + b);
-	}
-
-	Point Point::operator-(Point b) const {
-		return Point(x - b.x, y - b.y);
-	}
-
-	Point Point::operator-(int b) const {
-		return Point(x - b, y - b);
-	}
-
-	Point Point::operator*(Point b) const {
-		return Point(x * b.x, y * b.y);
-	}
-
-	Point Point::operator*(int b) const {
-		return Point(x * b, y * b);
-	}
-
-	Point Point::operator/(Point b) const {
-		return Point(x / b.x, y / b.y);
-	}
-
-	Point Point::operator/(int b) const {
-		return Point(x / b, y / b);
-	}
-
-	bool Point::operator==(Point b) const {
-		return (x == b.x && y == b.y);
-	}
+    //Constructors
+    
+    Point::Point(int x, int y) : x(x), y(y) {}
+    
+    Point::Point(int value) : x(value), y(value) {}
+    
+    //Methods
+    
+    Vector2 Point::to_vector() {
+        return {(float) x, (float) y};
+    }
+    
+    //Operators
+    
+    Point Point::operator+(Point b) {
+        return {x + b.x, y + b.y};
+    }
+    
+    Point Point::operator+(int b) {
+        return {x + b, y + b};
+    }
+    
+    Point Point::operator-(Point b) {
+        return {x - b.x, y - b.y};
+    }
+    
+    Point Point::operator-(int b) {
+        return {x - b, y - b};
+    }
+    
+    Point Point::operator*(Point b) {
+        return {x * b.x, y * b.y};
+    }
+    
+    Point Point::operator*(int b) {
+        return {x * b, y * b};
+    }
+    
+    Point Point::operator/(Point b) {
+        return {x / b.x, y / b.y};
+    }
+    
+    Point Point::operator/(int b) {
+        return {x / b, y / b};
+    }
+    
+    Point Point::operator-() {
+        return {-x, -y};
+    }
+    
+    bool Point::operator==(Point b) {
+        return (x == b.x && y == b.y);
+    }
+    
+    bool Point::operator!=(Inferno::Point b) {
+        return !(*this == b);
+    }
 }

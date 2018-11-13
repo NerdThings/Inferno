@@ -1,65 +1,58 @@
-#ifndef Inferno_Rectangle
-#define Inferno_Rectangle
+//
+// Created by Reece Mackie on 13/11/18.
+//
+
+#ifndef INFERNO_RECTANGLE_H
+#define INFERNO_RECTANGLE_H
 
 #include "Inferno.h"
 
 namespace Inferno {
-	struct Point;
-	struct Vector2;
-
-	struct INFERNO_API Rectangle {
-		//Fields
-
-		int x;
-		int y;
-		int width;
-		int height;
-
-		//Constructors
-
-		Rectangle(int x, int y, int width, int height);
-		Rectangle(Point position, Point size);
-
-		//Methods
-
-		bool contains(float x, float y) const;
-
-		bool contains(int x, int y) const;
-
-		bool contains(Point value) const;
-
-		bool contains(Vector2 value) const;
-
-		int get_bottom_coord() const;
-
-		Point get_center() const;
-
-		int get_left_coord() const;
-
-		Point get_location() const;
-
-		int get_right_coord() const;
-
-		Point get_size() const;
-
-		int get_top_coord() const;
-
-		bool intersects(Rectangle value) const;
-
-		bool touching(Rectangle b) const;
-
-		bool touching_bottom(Rectangle b) const;
-
-		bool touching_left(Rectangle b) const;
-
-		bool touching_right(Rectangle b) const;
-
-		bool touching_top(Rectangle b) const;
-
-		//Operators
-		bool operator==(Rectangle b) const;
-		bool operator!=(Rectangle b) const;
-	};
+    struct Point;
+    struct Vector2;
+    
+    struct INFERNO_API Rectangle {
+        //Fields
+        
+        int x;
+        int y;
+        int width;
+        int height;
+        
+        //Constructors
+        
+        Rectangle(int x, int y, int width, int height);
+        Rectangle(Point position, Point size);
+        
+        //Methods
+        
+        bool contains(float x, float y);
+        bool contains(int x, int y);
+        bool contains(Point value);
+        bool contains(Vector2 value);
+        int get_bottom_coord();
+        Point get_center();
+        int get_left_coord();
+        Point get_location();
+        int get_right_coord();
+        Point get_size();
+        int get_top_coord();
+        bool intersects(Rectangle b);
+        bool touching(Rectangle b);
+        bool touching_bottom(Rectangle b);
+        bool touching_left(Rectangle b);
+        bool touching_right(Rectangle b);
+        bool touching_top(Rectangle b);
+        
+        //Operators
+        
+        /*
+         * Do we need more of these???
+         */
+        
+        bool operator==(Rectangle b);
+        bool operator!=(Rectangle b);
+    };
 }
 
-#endif
+#endif //INFERNO_RECTANGLE_H
