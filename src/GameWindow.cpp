@@ -10,7 +10,7 @@
 #include "SDL.h"
 #endif
 
-//#include "Game.h"
+#include "Game.h"
 #include "GameWindow.h"
 #include "Point.h"
 #include "Rectangle.h"

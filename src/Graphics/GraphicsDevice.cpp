@@ -5,7 +5,9 @@
 #include "Game.h"
 #include "Graphics/Color.h"
 #include "Graphics/GraphicsDevice.h"
+#include "Graphics/RenderTarget.h"
 #include "Graphics/Shader.h"
+#include "Graphics/Texture2D.h"
 #include "GameWindow.h"
 
 #ifdef OPENGL
@@ -69,6 +71,12 @@ namespace Inferno {
             _view_matrix = Matrix();
         }
         
+        //Deconstructors
+        
+        GraphicsDevice::~GraphicsDevice() {
+            //TODO: Delete loaded shaders
+        }
+        
         //Methods
         
         void GraphicsDevice::attach_shader(Shader* shader) {
@@ -94,6 +102,15 @@ namespace Inferno {
 #endif
         }
         
+        void GraphicsDevice::delete_render_target(Inferno::Graphics::RenderTarget *target) {
+            //Check not null
+            if (target == nullptr)
+                throw "Cannot delete a null target";
+            
+            //Queue to be destroyed
+            _queue_rendertarget.emplace_back(target);
+        }
+        
         void GraphicsDevice::delete_shader(Shader *shader) {
             //Check not null
             if (shader == nullptr)
@@ -107,7 +124,36 @@ namespace Inferno {
             _queue_shader.emplace_back(shader);
         }
         
+        void GraphicsDevice::delete_texture2d(Inferno::Graphics::Texture2D *texture) {
+            //Check not null
+            if (texture == nullptr)
+                throw "Cannot delete a null texture";
+            
+            //Queue to be destroyed
+            _queue_texture2d.emplace_back(texture);
+        }
+        
         void GraphicsDevice::end_draw() {
+            //Delete render targets
+            for (RenderTarget* target : _queue_rendertarget) {
+#ifdef OPENGL
+                //Unbinds
+                glBindRenderbuffer(GL_RENDERBUFFER, 0);
+                glBindTexture(GL_TEXTURE_2D, 0);
+                glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    
+                //Delete OpenGL target
+                glDeleteRenderbuffers(1, &target->depth_render_buffer);
+                glDeleteTextures(1, &target->rendered_texture);
+                glDeleteFramebuffers(1, &target->framebuffer);
+                
+                //Unset ids
+                target->depth_render_buffer = 0;
+                target->rendered_texture = 0;
+                target->framebuffer = 0;
+#endif
+            }
+            
             //Delete shaders
             for (Shader* shader : _queue_shader) {
 #ifdef OPENGL
@@ -119,6 +165,25 @@ namespace Inferno {
 #endif
                 //Don't delete from memory, allow user to do it.
             }
+            
+            //Delete textures
+            for (Texture2D* texture : _queue_texture2d) {
+#ifdef OPENGL
+                //Unbind textures
+                glBindTexture(GL_TEXTURE_2D, 0);
+                
+                //Delete OpenGL Texture
+                glDeleteTextures(1, &texture->id);
+                
+                //Unset id
+                texture->id = 0;
+#endif
+            }
+            
+            //Clear queues
+            _queue_rendertarget.clear();
+            _queue_shader.clear();
+            _queue_texture2d.clear();
         }
         
         Matrix GraphicsDevice::get_complete_matrix() {

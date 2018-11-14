@@ -26,6 +26,9 @@ namespace Inferno {
     
         //Present
         game_window->present();
+        
+        //End draw
+        graphics_device->end_draw();
     }
     
     void Game::do_tick() {
@@ -44,6 +47,9 @@ namespace Inferno {
         
             //Present
             game_window->present();
+            
+            //End draw
+            graphics_device->end_draw();
         }
     }
     
