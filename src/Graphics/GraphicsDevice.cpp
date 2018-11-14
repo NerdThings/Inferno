@@ -32,11 +32,11 @@ namespace Inferno {
                                                "attribute vec3 inf_position;\n"
                                                "attribute vec4 inf_color;\n"
                                                "attribute vec2 inf_texcoord;\n"
-                                               "uniform mat4 inf_projection_matrix;\n"
+                                               "uniform mat4 inf_matrix;\n"
                                                "out vec4 fragColor;\n"
                                                "out vec2 texCoord;\n"
                                                "void main() {\n"
-                                               "    gl_Position = inf_projection_matrix * vec4(inf_position, 1);\n"
+                                               "    gl_Position = inf_matrix * vec4(inf_position, 1);\n"
                                                "    fragColor = inf_color;\n"
                                                "    texCoord = inf_texcoord;\n"
                                                "}";
@@ -200,6 +200,20 @@ namespace Inferno {
         
         void GraphicsDevice::set_view_matrix(Matrix view_matrix) {
             _view_matrix = view_matrix;
+        }
+        
+        //TEMP:
+        
+        int GraphicsDevice::shader_get_attrib(const char *attrib){
+#ifdef OPENGL
+            return glGetAttribLocation(_gl_program, attrib);
+#endif
+        }
+    
+        int GraphicsDevice::shader_get_uniform(const char *uniform){
+#ifdef OPENGL
+            return glGetUniformLocation(_gl_program, uniform);
+#endif
         }
     }
 }

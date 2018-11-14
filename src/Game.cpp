@@ -125,6 +125,9 @@ namespace Inferno {
         
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
+    
+        //Run another end draw to delete anything else before deleting graphics device
+        graphics_device->end_draw();
         
         //Delete graphics device
         delete graphics_device;
