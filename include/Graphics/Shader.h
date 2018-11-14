@@ -7,18 +7,11 @@
 
 #include "Inferno.h"
 
+#include "Graphics/ShaderEnums.h"
+
 namespace Inferno {
     namespace Graphics {
-        enum ShaderType {
-            Fragment,
-            Vertex
-        };
         
-        enum ShaderLanguage {
-            GLSL,
-            GLSL_ES,
-            HLSL
-        };
         
         struct INFERNO_API Shader {
         private:

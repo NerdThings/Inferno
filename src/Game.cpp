@@ -3,6 +3,9 @@
 //
 
 #include <ctime>
+
+#include "Graphics/Color.h"
+#include "Graphics/GraphicsDevice.h"
 #include "Game.h"
 #include "GameWindow.h"
 #include "Point.h"
@@ -45,7 +48,7 @@ namespace Inferno {
     }
     
     void Game::draw() {
-    
+        graphics_device->clear(Graphics::Color(255, 255, 255, 255));
     }
     
     void Game::end_update() {
@@ -56,12 +59,20 @@ namespace Inferno {
     
     }
     
+    //Protected Methods
+    void Game::initialise() {
+    
+    }
+    
     //Constructors
     
     Game::Game(int width, int height, const char *title, int fps, bool fullscreen) : _virtual_width(width), _virtual_height(height), frames_per_second(fps) {
         //Create window
         game_window = new GameWindow(this, title, width, height);
         
+        //Create graphics device
+        graphics_device = new Graphics::GraphicsDevice(this);
+    
         //Set properties
         game_window->set_fullscreen(fullscreen);
         paused = false;
@@ -108,6 +119,10 @@ namespace Inferno {
         
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
+        
+        //Delete graphics device
+        delete graphics_device;
+        graphics_device = nullptr;
         
         //Delete game window
         delete game_window;

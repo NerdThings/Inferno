@@ -63,6 +63,7 @@ namespace Inferno {
     
             if (info_log_length > 0 || result == GL_FALSE) {
                 throw "Shader failed to compile.";
+    
             }
 #endif
         }

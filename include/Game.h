@@ -7,7 +7,13 @@
 
 #include "Inferno.h"
 
+#include "Graphics/Color.h"
+
 namespace Inferno {
+    namespace Graphics {
+        class GraphicsDevice;
+    }
+    
     class GameWindow;
     struct Point;
     
@@ -30,15 +36,21 @@ namespace Inferno {
     protected:
         //Fields
         
+        Graphics::Color clear_color = Graphics::Color(255, 255, 255, 255);;
         bool lock_framerate = false;
         bool paused = false;
         bool running = false;
+        
+        //Methods
+        
+        virtual void initialise();
         
     public:
         //Fields
         
         int frames_per_second;
         GameWindow* game_window;
+        Graphics::GraphicsDevice* graphics_device;
         
         //Constructors
         
