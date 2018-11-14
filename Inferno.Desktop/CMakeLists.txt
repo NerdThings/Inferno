@@ -4,21 +4,24 @@
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
-# Require DevIL
-find_package(DevIL REQUIRED)
-
 # Find SDL2
 IF (UNIX)
 
-# Search for UNIX SDL2
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
+    # Search for UNIX SDL2
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
+
+    # Require DevIL
+    find_package(DevIL REQUIRED)
 
 ELSE()
 
-# Add Windows SDL2
-set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
+    # Add Windows SDL2
+    set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
+    set(SDL2_LIBRARY "${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
 
-set(SDL2_LIBRARY"${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
+    # Add Windows DevIL
+    set (IL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/lib")
+    set(IL_LIBRARIES "${IL_DIR}/DevIL.lib")
 
 ENDIF()
 
@@ -71,9 +74,14 @@ target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
 
 IF (WIN32)
 
-# Copy SDL2 DLL to output path
-add_custom_command(TARGET Inferno.Desktop POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
-)
+    # Copy SDL2 DLL to output path
+    add_custom_command(TARGET Inferno.Desktop POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
+            )
+
+    # Copy DevIL DLL to output path
+    add_custom_command(TARGET Inferno.Desktop POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy ${IL_DIR}/DevIL.dll ${LIBRARY_OUTPUT_PATH}
+            )
 
 ENDIF()
