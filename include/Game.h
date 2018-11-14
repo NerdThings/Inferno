@@ -36,7 +36,7 @@ namespace Inferno {
     protected:
         //Fields
         
-        Graphics::Color clear_color = Graphics::Color(255, 255, 255, 255);;
+        Graphics::Color clear_color = Graphics::Color(255, 255, 255, 255);
         bool lock_framerate = false;
         bool paused = false;
         bool running = false;
