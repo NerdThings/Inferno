@@ -2,6 +2,7 @@
 // Created by Reece Mackie on 14/11/18.
 //
 
+#include "Graphics/GraphicsDevice.h"
 #include "Graphics/RenderTarget.h"
 
 #ifdef OPENGL
