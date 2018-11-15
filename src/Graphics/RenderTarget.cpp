@@ -73,7 +73,7 @@ namespace Inferno {
         //Deconstructors
         
         RenderTarget::~RenderTarget() {
-            _graphics_device->delete_rendertarget(this);
+            _graphics_device->delete_render_target(this);
         }
     }
 }
