@@ -17,7 +17,7 @@ ELSE()
 
     # Add Windows SDL2
     set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
-    set(SDL2_LIBRARY "${SDL_DIR}/SDL2.lib" "${SDL_DIR}/SDL2main.lib")
+    set(SDL2_LIBRARY "${SDL_DIR}/SDL2main.lib" "${SDL_DIR}/SDL2.lib")
 
     # Add Windows DevIL
     set (IL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/lib")
