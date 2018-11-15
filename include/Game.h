@@ -12,6 +12,7 @@
 namespace Inferno {
     namespace Graphics {
         class GraphicsDevice;
+        class Renderer;
     }
     
     class GameWindow;
@@ -39,6 +40,7 @@ namespace Inferno {
         Graphics::Color clear_color = Graphics::Color(255, 255, 255, 255);
         bool lock_framerate = false;
         bool paused = false;
+        Graphics::Renderer* renderer = nullptr;
         bool running = false;
         
         //Methods

@@ -25,8 +25,6 @@ namespace Inferno {
         struct Texture2D;
         
         class INFERNO_API GraphicsDevice {
-            Shader* _current_fragment_shader;
-            Shader* _current_vertex_shader;
             Shader* _default_fragment_shader;
             Shader* _default_vertex_shader;
 #ifdef OPENGL
@@ -51,7 +49,6 @@ namespace Inferno {
     
             void attach_shader(Shader* shader);
             void clear(Color color);
-            
             void delete_render_target(RenderTarget* target);
             void delete_shader(Shader* shader);
             void delete_texture2d(Texture2D* texture);
@@ -60,6 +57,7 @@ namespace Inferno {
             Matrix get_complete_matrix();
             Matrix get_projection_matrix();
             Matrix get_view_matrix();
+            void set_render_target(RenderTarget* target);
             void set_view_matrix(Matrix view_matrix);
             
             //TEMP:

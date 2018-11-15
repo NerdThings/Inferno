@@ -74,7 +74,12 @@ namespace Inferno {
         //Deconstructors
         
         GraphicsDevice::~GraphicsDevice() {
-            //TODO: Delete loaded shaders
+            //Delete default shaders
+            delete _default_vertex_shader;
+            delete _default_fragment_shader;
+            
+            //Run final end_draw to delete anything left over
+            end_draw();
         }
         
         //Methods
@@ -82,9 +87,7 @@ namespace Inferno {
         void GraphicsDevice::attach_shader(Shader* shader) {
             if (shader == nullptr)
                 throw "Cannot attach a null shader.";
-    
-            shader->type == Fragment ? _current_fragment_shader = shader : _current_vertex_shader = shader;
-
+            
 #ifdef OPENGL
             //Attach shaders to program
             glAttachShader(_gl_program, shader->id);
@@ -116,9 +119,8 @@ namespace Inferno {
             if (shader == nullptr)
                 throw "Cannot delete a null shader";
             
-            //Check not active
-            if (shader->id == _current_vertex_shader->id || shader->id == _current_fragment_shader->id)
-                throw "Cannot delete a shader while it is in use";
+            //Detach the shader (Ignore errors, this is only a safety net)
+            glDetachShader(_gl_program, shader->id);
             
             //Queue the shader to be destroyed
             _queue_shader.emplace_back(shader);
@@ -196,6 +198,24 @@ namespace Inferno {
         
         Matrix GraphicsDevice::get_view_matrix() {
             return _view_matrix;
+        }
+        
+        void GraphicsDevice::set_render_target(RenderTarget* target) {
+            //Update projection matrix
+            if (target != nullptr) {
+                _projection_matrix = Matrix::create_orthographic_off_center(0, target->width, target->height, 0, -1, 1);
+                glViewport(0, 0, target->width, target->height);
+            } else {
+                Point window_size = _parent_game->game_window->get_size();
+                _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -1, 1);
+                glViewport(0, 0, window_size.x, window_size.y);
+            }
+#ifdef OPENGL
+            if (target != nullptr)
+                glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
+            else
+                glBindFramebuffer(GL_FRAMEBUFFER, 0);
+#endif
         }
         
         void GraphicsDevice::set_view_matrix(Matrix view_matrix) {

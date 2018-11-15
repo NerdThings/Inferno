@@ -30,7 +30,7 @@ namespace Inferno {
             glGenTextures(1, &id);
     
             //Convert data
-            unsigned int* gl_data = new unsigned int[_width * _height];
+            auto * gl_data = new unsigned int[_width * _height];
     
             //TODO: Flip to make work...
             for (int i = 0; i < _width * _height; i++) {
@@ -49,6 +49,9 @@ namespace Inferno {
     
             //Unbind texture
             glBindTexture(GL_TEXTURE_2D, 0);
+            
+            //Delete temp data
+            delete[] gl_data;
 #endif
         }
         

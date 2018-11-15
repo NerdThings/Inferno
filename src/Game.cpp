@@ -6,9 +6,13 @@
 
 #include "Graphics/Color.h"
 #include "Graphics/GraphicsDevice.h"
+#include "Graphics/Renderer.h"
+#include "Graphics/RenderTarget.h"
+#include "Graphics/Texture2D.h"
 #include "Game.h"
 #include "GameWindow.h"
 #include "Point.h"
+#include "Rectangle.h"
 
 namespace Inferno {
     //Private Methods
@@ -53,8 +57,24 @@ namespace Inferno {
         }
     }
     
+    Graphics::Texture2D* tmb = nullptr;
+    Graphics::RenderTarget* tmb1 = nullptr;
+    
     void Game::draw() {
+        if (tmb == nullptr)
+            tmb = new Graphics::Texture2D(graphics_device, 20, 20, Graphics::Color(255, 0, 0, 255));
+        
+        if (tmb1 == nullptr)
+            tmb1 = new Graphics::RenderTarget(graphics_device, 100, 100);
+        
+        graphics_device->set_render_target(tmb1);
+        renderer->draw_rectangle(Rectangle(0, 0, 100, 100), Graphics::Color(0, 0, 255, 255), 0);
+        graphics_device->set_render_target(nullptr);
+        
         graphics_device->clear(Graphics::Color(255, 255, 255, 255));
+        renderer->draw_rectangle(Rectangle(10, 10, 50, 50), Graphics::Color(0, 255, 0, 255), 0);
+        //renderer->draw_texture(tmb, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
+        renderer->draw_render_target(tmb1, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
     }
     
     void Game::end_update() {
@@ -78,6 +98,9 @@ namespace Inferno {
         
         //Create graphics device
         graphics_device = new Graphics::GraphicsDevice(this);
+        
+        //Create renderer
+        renderer = new Graphics::Renderer(graphics_device);
     
         //Set properties
         game_window->set_fullscreen(fullscreen);
@@ -125,9 +148,10 @@ namespace Inferno {
         
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
-    
-        //Run another end draw to delete anything else before deleting graphics device
-        graphics_device->end_draw();
+        
+        //Delete renderer
+        delete renderer;
+        renderer = nullptr;
         
         //Delete graphics device
         delete graphics_device;

@@ -225,8 +225,8 @@ namespace Inferno {
         return {m21, m22, m23};
     }
     
-    float* Matrix::to_float_array() {
-        auto* array = new float[16];
+    std::vector<float> Matrix::to_float_vector() {
+        std::vector<float> array(16);
         array[0] = m11;
         array[1] = m12;
         array[2] = m13;
@@ -243,7 +243,6 @@ namespace Inferno {
         array[13] = m42;
         array[14] = m43;
         array[15] = m44;
-        
         return array;
     }
     

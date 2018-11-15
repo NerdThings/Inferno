@@ -7,6 +7,8 @@
 
 #include "Inferno.h"
 
+#include <vector>
+
 namespace Inferno {
     struct Vector3;
     
@@ -77,7 +79,7 @@ namespace Inferno {
         Vector3 get_scale_vector();
         Vector3 get_translation_vector();
         Vector3 get_up_vector();
-        float* to_float_array();
+        std::vector<float> to_float_vector();
     
         //Operators
         Matrix operator+(Matrix b);
