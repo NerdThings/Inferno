@@ -30,7 +30,7 @@ namespace Inferno {
             glGenTextures(1, &id);
     
             //Convert data
-            unsigned int gl_data[_width * _height];
+            unsigned int* gl_data = new unsigned int[_width * _height];
     
             //TODO: Flip to make work...
             for (int i = 0; i < _width * _height; i++) {
