@@ -75,13 +75,16 @@ target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
 IF (WIN32)
 
     # Copy SDL2 DLL to output path
-    add_custom_command(TARGET Inferno.Desktop POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
-            )
+    #add_custom_command(TARGET Inferno.Desktop POST_BUILD
+    #        COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
+    #        )
+    file(COPY ${SDL_DIR}/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
     # Copy DevIL DLL to output path
-    add_custom_command(TARGET Inferno.Desktop POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy ${IL_DIR}/DevIL.dll ${LIBRARY_OUTPUT_PATH}
-            )
+    #add_custom_command(TARGET Inferno.Desktop POST_BUILD
+    #        COMMAND ${CMAKE_COMMAND} -E copy ${IL_DIR}/DevIL.dll ${LIBRARY_OUTPUT_PATH}
+    #        )
+	    
+     file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ENDIF()
