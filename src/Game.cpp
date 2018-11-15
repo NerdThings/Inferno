@@ -4,6 +4,7 @@
 
 #include <ctime>
 
+#include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Renderer.h"
@@ -57,12 +58,14 @@ namespace Inferno {
         }
     }
     
+    //Test globals:
     Graphics::Texture2D* tmb = nullptr;
     Graphics::RenderTarget* tmb1 = nullptr;
     
     void Game::draw() {
+        //The following is test code
         if (tmb == nullptr)
-            tmb = new Graphics::Texture2D(graphics_device, 20, 20, Graphics::Color(255, 0, 0, 255));
+            tmb = Content::ContentLoader::load_texture(graphics_device, "/home/reece/test.png");
         
         if (tmb1 == nullptr)
             tmb1 = new Graphics::RenderTarget(graphics_device, 100, 100);
@@ -73,8 +76,8 @@ namespace Inferno {
         
         graphics_device->clear(Graphics::Color(255, 255, 255, 255));
         renderer->draw_rectangle(Rectangle(10, 10, 50, 50), Graphics::Color(0, 255, 0, 255), 0);
-        //renderer->draw_texture(tmb, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
-        renderer->draw_render_target(tmb1, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
+        renderer->draw_texture(tmb, Rectangle(60, 60, 60, 60), Graphics::Color(255, 255, 255, 255), 0);
+        //renderer->draw_render_target(tmb1, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
     }
     
     void Game::end_update() {
@@ -87,7 +90,6 @@ namespace Inferno {
     
     //Protected Methods
     void Game::initialise() {
-    
     }
     
     //Constructors
@@ -121,6 +123,10 @@ namespace Inferno {
     }
     
     void Game::run() {
+        //Run init
+        initialise();
+        
+        //Begin loop
         int previous = int(double(clock()) / CLOCKS_PER_SEC) * 1000;
         float lag = 0.0f;
         running = true;

@@ -18,6 +18,8 @@
 #include "SDL_opengl.h"
 #endif
 
+#include "IL/il.h"
+
 namespace Inferno {
     namespace Graphics {
         //Constructors
@@ -69,6 +71,9 @@ namespace Inferno {
             
             //View matrix
             _view_matrix = Matrix();
+            
+            //Init DevIL
+            ilInit();
         }
         
         //Deconstructors
