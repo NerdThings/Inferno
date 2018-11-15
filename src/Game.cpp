@@ -12,6 +12,7 @@
 #include "Graphics/Texture2D.h"
 #include "Game.h"
 #include "GameWindow.h"
+#include "Scene.h"
 #include "Point.h"
 #include "Rectangle.h"
 
@@ -19,7 +20,8 @@ namespace Inferno {
     //Private Methods
     
     void Game::begin_update() {
-    
+        if (_current_scene != nullptr)
+            _current_scene->begin_update();
     }
     
     void Game::do_draw() {
@@ -58,10 +60,6 @@ namespace Inferno {
         }
     }
     
-    //Test globals:
-    Graphics::Texture2D* tmb = nullptr;
-    Graphics::RenderTarget* tmb1 = nullptr;
-    
     void Game::draw() {
         //Get window dimensions
         Point window_size = game_window->get_size();
@@ -93,13 +91,12 @@ namespace Inferno {
         //Render to target
         graphics_device->set_render_target(render_target);
     
-        //The following is test code
-        if (tmb == nullptr)
-            tmb = Content::ContentLoader::load_texture(graphics_device, "/home/reece/Programs/mc/icon.png");
-        
-        graphics_device->clear(Graphics::Color(255, 255, 255, 255));
-        renderer->draw_rectangle(Rectangle(10, 10, 50, 50), Graphics::Color(0, 255, 0, 255), 0);
-        renderer->draw_texture(tmb, Rectangle(60, 60, 144, 144), Graphics::Color(255, 255, 255, 255), 0);
+        //Clear target
+        graphics_device->clear(clear_color);
+    
+        //Draw current scene
+        if (_current_scene != nullptr)
+            _current_scene->draw(renderer);
         
         //Unset target
         graphics_device->set_render_target(nullptr);
@@ -109,16 +106,17 @@ namespace Inferno {
     }
     
     void Game::end_update() {
-    
+        if (_current_scene != nullptr)
+            _current_scene->end_update();
     }
     
     void Game::update() {
-    
+        if (_current_scene != nullptr)
+            _current_scene->update();
     }
     
     //Protected Methods
     void Game::initialise() {
-        game_window->resizable(true);
     }
     
     //Constructors
@@ -187,6 +185,12 @@ namespace Inferno {
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
         
+        //Unload current scene
+        if (_current_scene != nullptr) {
+            _current_scene->unloaded();
+            _current_scene = nullptr;
+        }
+        
         //Delete render target
         delete render_target;
         render_target = nullptr;
@@ -202,5 +206,18 @@ namespace Inferno {
         //Delete game window
         delete game_window;
         game_window = nullptr;
+    }
+    
+    void Game::set_scene(Inferno::Scene *scene) {
+        //Unload current scene
+        if (_current_scene != nullptr)
+            _current_scene->unloaded();
+        
+        //Update scene
+        _current_scene = scene;
+        
+        //Load new scene
+        if (_current_scene != nullptr)
+            _current_scene->loaded();
     }
 }

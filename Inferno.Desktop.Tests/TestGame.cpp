@@ -4,4 +4,7 @@
 
 #include "TestGame.h"
 
-TestGame::TestGame() : Inferno::Game(1024, 768) {}
+TestGame::TestGame() : Inferno::Game(1024, 768) {
+    test_scene = new TestScene(this);
+    set_scene(test_scene);
+}

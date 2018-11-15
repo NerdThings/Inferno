@@ -23,9 +23,9 @@ namespace Inferno {
             const int height;
 
 #ifdef OPENGL
-            unsigned int framebuffer;
-            unsigned int rendered_texture;
-            unsigned int depth_render_buffer;
+            unsigned int framebuffer = 0;
+            unsigned int rendered_texture = 0;
+            unsigned int depth_render_buffer = 0;
 #endif
             
             //Constructors

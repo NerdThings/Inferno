@@ -18,13 +18,15 @@ namespace Inferno {
     
     class GameWindow;
     struct Point;
+    class Scene;
     
     class INFERNO_API Game {
     private:
         //Fields
         
-        int _virtual_width;
-        int _virtual_height;
+        Scene* _current_scene = nullptr;
+        int _virtual_width = 0;
+        int _virtual_height = 0;
         
         //Methods
         
@@ -52,9 +54,9 @@ namespace Inferno {
     public:
         //Fields
         
-        int frames_per_second;
-        GameWindow* game_window;
-        Graphics::GraphicsDevice* graphics_device;
+        int frames_per_second = 60;
+        GameWindow* game_window = nullptr;
+        Graphics::GraphicsDevice* graphics_device = nullptr;
         
         //Constructors
         
@@ -67,6 +69,7 @@ namespace Inferno {
         
         Point get_virtual_dimensions();
         void run();
+        void set_scene(Scene* scene);
     };
 }
 

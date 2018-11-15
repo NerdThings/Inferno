@@ -7,7 +7,10 @@
 
 #include "Game.h"
 
+#include "TestScene.h"
+
 class TestGame : public Inferno::Game {
+    TestScene* test_scene;
 public:
     TestGame();
 };
