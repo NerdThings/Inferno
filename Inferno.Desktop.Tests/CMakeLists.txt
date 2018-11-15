@@ -10,7 +10,7 @@ file(GLOB src
 )
 
 # Add executable
-add_executable (Inferno.Desktop.Tests ${src})
+add_executable (Inferno.Desktop.Tests ${src} WIN32)
 
 # Link Inferno.Desktop
 target_link_libraries(Inferno.Desktop.Tests Inferno.Desktop)
