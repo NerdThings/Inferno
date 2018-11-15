@@ -1,17 +1,14 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "Game.h"
+#include "TestGame.h"
 
 int main()
 {
-	//TestGame* t = new TestGame();
-	//t->run();
+	TestGame* t = new TestGame();
+	t->run();
 	
-	Inferno::Game* game = new Inferno::Game(360, 240);
-	game->run();
-	
-	delete game;
+	delete t;
 	
 	return 0;
 }

@@ -13,6 +13,7 @@ namespace Inferno {
     namespace Graphics {
         class GraphicsDevice;
         class Renderer;
+        struct RenderTarget;
     }
     
     class GameWindow;
@@ -41,6 +42,7 @@ namespace Inferno {
         bool lock_framerate = false;
         bool paused = false;
         Graphics::Renderer* renderer = nullptr;
+        Graphics::RenderTarget* render_target = nullptr;
         bool running = false;
         
         //Methods

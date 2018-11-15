@@ -63,21 +63,49 @@ namespace Inferno {
     Graphics::RenderTarget* tmb1 = nullptr;
     
     void Game::draw() {
+        //Get window dimensions
+        Point window_size = game_window->get_size();
+        
+        //Set view size
+        int view_width = window_size.x;
+        int view_height = window_size.y;
+        
+        //Calculate ratios
+        float output_aspect = window_size.x / float(window_size.y);
+        float preferred_aspect = _virtual_width / float(_virtual_height);
+        
+        //Init bar dimensions
+        float bar_width = 0;
+        float bar_height = 0;
+        
+        //Calculate view
+        if (output_aspect <= preferred_aspect) {
+            view_height = int(window_size.x / preferred_aspect + 0.5f);
+            bar_height = (window_size.y - view_height) / 2;
+        } else {
+            view_width = int(window_size.y * preferred_aspect + 0.5f);
+            bar_width = (window_size.x - view_width) / 2;
+        }
+        
+        //Clear outer zone
+        graphics_device->clear(Graphics::Color(0, 0, 0, 255));
+        
+        //Render to target
+        graphics_device->set_render_target(render_target);
+    
         //The following is test code
         if (tmb == nullptr)
-            tmb = Content::ContentLoader::load_texture(graphics_device, "/home/reece/test.png");
-        
-        if (tmb1 == nullptr)
-            tmb1 = new Graphics::RenderTarget(graphics_device, 100, 100);
-        
-        graphics_device->set_render_target(tmb1);
-        renderer->draw_rectangle(Rectangle(0, 0, 100, 100), Graphics::Color(0, 0, 255, 255), 0);
-        graphics_device->set_render_target(nullptr);
+            tmb = Content::ContentLoader::load_texture(graphics_device, "/home/reece/Programs/mc/icon.png");
         
         graphics_device->clear(Graphics::Color(255, 255, 255, 255));
         renderer->draw_rectangle(Rectangle(10, 10, 50, 50), Graphics::Color(0, 255, 0, 255), 0);
-        renderer->draw_texture(tmb, Rectangle(60, 60, 60, 60), Graphics::Color(255, 255, 255, 255), 0);
-        //renderer->draw_render_target(tmb1, Vector2(60, 60), Graphics::Color(255, 255, 255, 255), 0);
+        renderer->draw_texture(tmb, Rectangle(60, 60, 144, 144), Graphics::Color(255, 255, 255, 255), 0);
+        
+        //Unset target
+        graphics_device->set_render_target(nullptr);
+        
+        //Draw target
+        renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), Graphics::Color(255, 255, 255, 255), 0);
     }
     
     void Game::end_update() {
@@ -90,6 +118,7 @@ namespace Inferno {
     
     //Protected Methods
     void Game::initialise() {
+        game_window->resizable(true);
     }
     
     //Constructors
@@ -103,6 +132,9 @@ namespace Inferno {
         
         //Create renderer
         renderer = new Graphics::Renderer(graphics_device);
+        
+        //Create main render target
+        render_target = new Graphics::RenderTarget(graphics_device, _virtual_width, _virtual_height);
     
         //Set properties
         game_window->set_fullscreen(fullscreen);
@@ -154,6 +186,10 @@ namespace Inferno {
         
         //Fix for the linus resolution bug
         game_window->set_fullscreen(false);
+        
+        //Delete render target
+        delete render_target;
+        render_target = nullptr;
         
         //Delete renderer
         delete renderer;

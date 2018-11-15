@@ -157,10 +157,10 @@ namespace Inferno {
             float buffer_data[] =
                     {
                             //XYZ   UV    RBGA
-                            left, top, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, top, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, bottom, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            left, bottom, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a()
+                            left, top, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            right, top, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            right, bottom, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            left, bottom, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a()
                     };
         
             //Send data to buffer
@@ -229,10 +229,10 @@ namespace Inferno {
             float buffer_data[] =
                     {
                             //XYZ   UV    RBGA
-                            left, top, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, top, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, bottom, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            left, bottom, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a()
+                            left, top, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            right, top, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            right, bottom, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
+                            left, bottom, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a()
                     };
     
             //Send data to buffer

@@ -13,10 +13,6 @@
 
 namespace Inferno {
     namespace Content {
-        const char* ContentLoader::get_working_directory() {
-            return std::filesystem::current_path().c_str();
-        }
-        
         Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, const char *filename) {
             ilLoadImage(filename);
             ILubyte *idata = ilGetData();
