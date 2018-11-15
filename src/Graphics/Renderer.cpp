@@ -54,7 +54,7 @@ namespace Inferno {
             
             //Set matrix
             int matrix_loc = _graphics_device->shader_get_uniform("inf_matrix");
-            glUniformMatrix4fv(matrix_loc, 1, GL_FALSE< _graphics_device->get_complete_matrix().to_float_array());
+            glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, _graphics_device->get_complete_matrix().to_float_array());
             
             //Bind blank texture
             glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
