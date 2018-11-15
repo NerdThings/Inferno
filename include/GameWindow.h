@@ -12,7 +12,7 @@ struct SDL_Window;
 #endif
 
 namespace Inferno {
-    struct Game;
+    class Game;
     struct Point;
     struct Rectangle;
     
