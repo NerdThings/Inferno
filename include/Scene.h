@@ -9,6 +9,8 @@
 
 #include <vector>
 
+#include "Instance.h"
+
 namespace Inferno {
     class Game;
     
@@ -20,7 +22,7 @@ namespace Inferno {
     protected:
         //Fields
         
-        //std::vector<Instance> _instances;
+        std::vector<Instance*> _instances;
         int height;
         Game* parent_game;
         int width;
