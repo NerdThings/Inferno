@@ -8,13 +8,15 @@
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
 #include "Graphics/Renderer.h"
+#include "Graphics/Sprite.h"
 #include "Graphics/Texture2D.h"
 #include "Game.h"
 #include "Rectangle.h"
 #include "Scene.h"
+#include "Vector2.h"
 
 class TestScene : public Inferno::Scene {
-    Inferno::Graphics::Texture2D* tmb = nullptr;
+    Inferno::Graphics::Sprite* tmb = nullptr;
 public:
     TestScene(Inferno::Game* parent_game);
     void draw(Inferno::Graphics::Renderer* renderer) override;

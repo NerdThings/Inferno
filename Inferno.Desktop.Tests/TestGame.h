@@ -5,12 +5,15 @@
 #ifndef INFERNO_TESTGAME_H
 #define INFERNO_TESTGAME_H
 
+#include "Graphics/Shader.h"
 #include "Game.h"
 
 #include "TestScene.h"
 
 class TestGame : public Inferno::Game {
     TestScene* test_scene;
+    Inferno::Graphics::Shader* test_vshader;
+    Inferno::Graphics::Shader* test_fshader;
 public:
     TestGame();
 };

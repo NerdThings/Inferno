@@ -32,13 +32,9 @@ namespace Inferno {
             //Convert data
             auto * gl_data = new unsigned int[_width * _height];
     
-            //The following code will flip the array on it's Y axis
-            for (int x = 0; x < _width; x++) {
-                for (int y = _height - 1; y >= 0; y--) {
-                    int gli = x + y * _width;
-                    int i = x + (_width - y - 1) * _width;
-                    gl_data[gli] = data[i].packed_value;
-                }
+            //The following code will not modify the data to OpenGL's format because we don't use standard pixel coordinates
+            for (int i = 0; i < _width * _height; i++) {
+                gl_data[i] = data[i].packed_value;
             }
     
             //Bind texture

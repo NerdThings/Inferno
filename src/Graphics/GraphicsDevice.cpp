@@ -92,6 +92,21 @@ namespace Inferno {
         void GraphicsDevice::attach_shader(Shader* shader) {
             if (shader == nullptr)
                 throw "Cannot attach a null shader.";
+
+#ifdef OPENGL
+            //Detach existing shader]
+            if (shader->type == Vertex) {
+                if (_current_vertex_shader != nullptr) {
+                    glDetachShader(_gl_program, _current_vertex_shader->id);
+                }
+            } else {
+                if (_current_fragment_shader != nullptr) {
+                    glDetachShader(_gl_program, _current_fragment_shader->id);
+                }
+            }
+#endif
+            
+            shader->type == Vertex ? _current_vertex_shader = shader : _current_fragment_shader = shader;
             
 #ifdef OPENGL
             //Attach shaders to program

@@ -25,8 +25,10 @@ namespace Inferno {
         struct Texture2D;
         
         class INFERNO_API GraphicsDevice {
-            Shader* _default_fragment_shader;
-            Shader* _default_vertex_shader;
+            Shader* _current_fragment_shader = nullptr;
+            Shader* _current_vertex_shader = nullptr;
+            Shader* _default_fragment_shader = nullptr;
+            Shader* _default_vertex_shader = nullptr;
 #ifdef OPENGL
             unsigned int _gl_program;
 #endif

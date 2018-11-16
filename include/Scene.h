@@ -16,7 +16,7 @@ namespace Inferno {
         class Renderer;
     }
     
-    class Scene {
+    class INFERNO_API Scene {
     protected:
         //Fields
         
