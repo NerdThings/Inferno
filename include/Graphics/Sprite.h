@@ -20,20 +20,20 @@ namespace Inferno {
             //Fields
             
             std::vector<Texture2D*> _textures;
-            bool _spritesheet;
+            bool _spritesheet = true;
 
         public:
             //Fields
             
-            float animation_timer;
-            int current_frame;
-            int frame_width;
-            int frame_height;
-            int height;
-            float image_speed;
-            Vector2 origin;
+            float animation_timer = 0;
+            int current_frame = 0;
+            int frame_width = 0;
+            int frame_height = 0;
+            int height = 0;
+            float image_speed = 0;
+            Vector2 origin = Vector2(0, 0);
             //float rotation; Will be implemented once rotation is supported
-            int width;
+            int width = 0;
             
             //Constructors
             
