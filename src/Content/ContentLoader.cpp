@@ -2,8 +2,6 @@
 // Created by Reece Mackie on 15/11/18.
 //
 
-#include <filesystem>
-
 #include "IL/il.h"
 
 #include "Content/ContentLoader.h"
