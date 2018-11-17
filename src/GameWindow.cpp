@@ -10,6 +10,7 @@
 #include "SDL.h"
 #endif
 
+#include "Input/Mouse.h"
 #include "Game.h"
 #include "GameWindow.h"
 #include "Point.h"
@@ -114,6 +115,36 @@ namespace Inferno {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 return false;
+            } else if (e.type == SDL_MOUSEWHEEL) {
+                Input::Mouse::internal_scroll_x = e.wheel.x * 120;
+                Input::Mouse::internal_scroll_y = e.wheel.y * 120;
+            } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    Input::Mouse::internal_left = true;
+                } else if (e.button.button == SDL_BUTTON_MIDDLE) {
+                    Input::Mouse::internal_middle = true;
+                } else if (e.button.button == SDL_BUTTON_RIGHT) {
+                    Input::Mouse::internal_right = true;
+                } else if (e.button.button == SDL_BUTTON_X1) {
+                    Input::Mouse::internal_x1 = true;
+                } else if (e.button.button == SDL_BUTTON_X2) {
+                    Input::Mouse::internal_x2 = true;
+                }
+            } else if (e.type == SDL_MOUSEBUTTONUP) {
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    Input::Mouse::internal_left = false;
+                } else if (e.button.button == SDL_BUTTON_MIDDLE) {
+                    Input::Mouse::internal_middle = false;
+                } else if (e.button.button == SDL_BUTTON_RIGHT) {
+                    Input::Mouse::internal_right = false;
+                } else if (e.button.button == SDL_BUTTON_X1) {
+                    Input::Mouse::internal_x1 = false;
+                } else if (e.button.button == SDL_BUTTON_X2) {
+                    Input::Mouse::internal_x2 = false;
+                }
+            } else if (e.type == SDL_MOUSEMOTION) {
+                Input::Mouse::internal_x = e.motion.x;
+                Input::Mouse::internal_y = e.motion.y;
             }
         }
 #endif

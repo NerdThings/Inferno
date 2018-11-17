@@ -34,7 +34,9 @@ namespace Inferno {
     void Instance::begin_update() {}
     
     void Instance::draw(Graphics::Renderer *renderer) {
-        //TODO: Draw sprite once renderer is capable
+        if (sprite != nullptr) {
+            renderer->draw_texture(sprite->get_current_texture(), get_bounds(), sprite->get_source_rectangle(), sprite->origin, Graphics::Color(255, 255, 255, 255), 0);
+        }
     }
     
     void Instance::end_update() {

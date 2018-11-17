@@ -61,7 +61,7 @@ add_library (Inferno.Desktop SHARED ${src})
 SET_TARGET_PROPERTIES(Inferno.Desktop PROPERTIES PREFIX "")
 
 # Set definitions
-target_compile_definitions(Inferno.Desktop PRIVATE SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
+target_compile_definitions(Inferno.Desktop PRIVATE INFERNO=1 SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
 # Link SDL
 target_link_libraries(Inferno.Desktop ${SDL2_LIBRARY})

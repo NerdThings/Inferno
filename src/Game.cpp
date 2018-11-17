@@ -167,6 +167,10 @@ namespace Inferno {
             lag += delta;
             
             while (lag >= 1000.0f / frames_per_second) {
+                //Run window events
+                if (!game_window->run_events())
+                    running = false;
+                
                 //Run a tick
                 do_tick();
                 
@@ -177,9 +181,8 @@ namespace Inferno {
             do_draw();
             
             //Run window events
-            if (!game_window->run_events()) {
+            if (!game_window->run_events())
                 running = false;
-            }
         }
         
         //Fix for the linus resolution bug
