@@ -43,10 +43,10 @@ namespace Inferno {
             void draw_render_target(RenderTarget* target, Vector2 position, Color color, float depth = 0);
             void draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Color color, float depth = 0);
             void draw_texture(Texture2D* texture, Vector2 position, Color color, float depth = 0);
-            void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Color color, float depth = 0);
+            void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Vector2 origin, Color color, float depth = 0);
             
             
-            void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle source_rectangle, Color color, float depth);;
+            void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle source_rectangle, Vector2 origin, Color color, float depth);;
         };
     }
 }

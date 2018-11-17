@@ -17,7 +17,7 @@ ELSE()
 
     # Add Windows SDL2
     set (SDL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/lib")
-    set(SDL2_LIBRARY "${SDL_DIR}/SDL2main.lib" "${SDL_DIR}/SDL2.lib")
+    set(SDL2_LIBRARY "${SDL_DIR}/SDL2.lib") # "${SDL_DIR}/SDL2main.lib"
 
     # Add Windows DevIL
     set (IL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/lib")
@@ -74,17 +74,13 @@ target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
 
 IF (WIN32)
 
-    # Copy SDL2 DLL to output path
-    #add_custom_command(TARGET Inferno.Desktop POST_BUILD
-    #        COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DIR}/SDL2.dll ${LIBRARY_OUTPUT_PATH}
-    #        )
+    # Copy SDL2 DLL to output path )
     file(COPY ${SDL_DIR}/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
     # Copy DevIL DLL to output path
-    #add_custom_command(TARGET Inferno.Desktop POST_BUILD
-    #        COMMAND ${CMAKE_COMMAND} -E copy ${IL_DIR}/DevIL.dll ${LIBRARY_OUTPUT_PATH}
-    #        )
-	    
-     file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ENDIF()
+
+# Copy include folder
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../include DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

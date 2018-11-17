@@ -191,22 +191,28 @@ namespace Inferno {
         }
 
         void Renderer::draw_texture(Texture2D* texture, Vector2 position, Color color, float depth) {
-            draw_texture(texture, Rectangle((int)position.x, (int)position.y, texture->get_width(), texture->get_height()), color, depth);
+            draw_texture(texture, Rectangle((int)position.x, (int)position.y, texture->get_width(), texture->get_height()), Vector2(0, 0), color, depth);
         }
         
-        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Color color, float depth) {
-            draw_texture(texture, destination_rectangle, Rectangle(0, 0, texture->get_width(), texture->get_height()), color, depth);
+        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Vector2 origin, Color color, float depth) {
+            draw_texture(texture, destination_rectangle, Rectangle(0, 0, texture->get_width(), texture->get_height()), origin, color, depth);
         }
     
-        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle source_rectangle, Color color, float depth) {
+        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle source_rectangle, Vector2 origin, Color color, float depth) {
 #ifdef OPENGL
             //TODO: Update once graphics device has shader attrib and uniform features
         
             //Get matrix uniform location
             int matrix_loc = _graphics_device->shader_get_uniform("inf_matrix");
         
+            //Get original matrix
+            Matrix matrix = _graphics_device->get_complete_matrix();
+            
+            //Apply translation for origin
+            matrix = Matrix::create_translation(Vector3(-origin.x, -origin.y, 0)) * matrix;
+            
             //Set matrix data
-            glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, _graphics_device->get_complete_matrix().to_float_vector().data());
+            glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, matrix.to_float_vector().data());
         
             //Bind blank texture
             glBindTexture(GL_TEXTURE_2D, texture->id);

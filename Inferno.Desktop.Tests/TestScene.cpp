@@ -13,7 +13,7 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     }
     
     renderer->draw_rectangle(Inferno::Rectangle(10, 10, 50, 50), Inferno::Graphics::Color(0, 255, 0, 255), 0);
-    renderer->draw_texture(tmb->get_current_texture(), Inferno::Rectangle(60, 60, 800, 683), tmb->get_source_rectangle(), Inferno::Graphics::Color(255, 255, 255, 255), 0);
+    renderer->draw_texture(tmb->get_current_texture(), Inferno::Rectangle(60, 60, 800, 683), tmb->get_source_rectangle(), tmb->origin, Inferno::Graphics::Color(255, 255, 255, 255), 0);
     
     tmb->update();
 }
