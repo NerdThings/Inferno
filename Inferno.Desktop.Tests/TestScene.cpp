@@ -5,6 +5,8 @@
 #include <Input/Mouse.h>
 #include "TestScene.h"
 
+#include "Input/Keyboard.h"
+#include "Input/KeyboardState.h"
 #include "Input/Mouse.h"
 #include "Input/MouseState.h"
 #include "Vector3.h"
@@ -18,11 +20,14 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     }
     
     Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game, nullptr);
+    Inferno::Input::KeyboardState ks = Inferno::Input::Keyboard::get_state();
     
     Inferno::Graphics::Color c;
     
-    if (s.left_button == Inferno::Input::Released) {
+    if (s.left_button == Inferno::Input::Pressed) {
         c = Inferno::Graphics::Color(0.5f, 1.0f, 1.0f, 1.0f);
+    } else if (ks.is_key_down(Inferno::Input::Space)) {
+        c = Inferno::Graphics::Color(1.0f, 1.0f, 0.5f, 1.0f);
     } else {
         c = Inferno::Graphics::Color(1.0f, 0.5f, 1.0f, 1.0f);
     }

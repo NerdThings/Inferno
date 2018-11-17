@@ -9,7 +9,7 @@
 
 namespace Inferno {
     namespace Input {
-        enum ButtonState {
+        enum INFERNO_API ButtonState {
             Pressed,
             Released
         };
