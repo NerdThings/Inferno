@@ -44,4 +44,6 @@ TestGame::TestGame() : Inferno::Game(1024, 768) {
     
     graphics_device->attach_shader(test_fshader);
     graphics_device->attach_shader(test_vshader);
+    
+    graphics_device->clear(Inferno::Graphics::Color(0, 0, 0, 0));
 }

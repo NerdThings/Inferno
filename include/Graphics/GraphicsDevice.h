@@ -7,6 +7,7 @@
 
 #include "Inferno.h"
 
+#include <string>
 #include <vector>
 
 #include "Point.h"
@@ -63,62 +64,62 @@ namespace Inferno {
             void set_view_matrix(Matrix view_matrix);
             
             //TEMP:
-            int shader_get_attrib(const char* attrib);
-            int shader_get_uniform(const char* uniform);
+            int shader_get_attrib(std::string attrib);
+            int shader_get_uniform(std::string uniform);
             
             //TODO: Implement everything below:
             
-            void shader_attrib_set(const char* attrib, float value);
-            void shader_attrib_set(const char* attrib, short value);
-            void shader_attrib_set(const char* attrib, double value);
-            void shader_attrib_set(const char* attrib, int value);
-            void shader_attrib_set(const char* attrib, unsigned int value);
-            void shader_attrib_set(const char* attrib, Vector2 value);
-            void shader_attrib_set(const char* attrib, Point value);
-            void shader_attrib_set(const char* attrib, float value1, float value2);
-            void shader_attrib_set(const char* attrib, short value1, short value2);
-            void shader_attrib_set(const char* attrib, double value1, double value2);
-            void shader_attrib_set(const char* attrib, int value1, int value2);
-            void shader_attrib_set(const char* attrib, unsigned int value1, unsigned int value2);
-            void shader_attrib_set(const char* attrib, Vector3 value);
-            void shader_attrib_set(const char* attrib, float value1, float value2, float value3);
-            void shader_attrib_set(const char* attrib, short value1, short value2, short value3);
-            void shader_attrib_set(const char* attrib, double value1, double value2, double value3);
-            void shader_attrib_set(const char* attrib, int value1, int value2, int value3);
-            void shader_attrib_set(const char* attrib, unsigned int value1, unsigned int value2, unsigned int value3);
-            void shader_attrib_set(const char* attrib, Vector4 value);
-            void shader_attrib_set(const char* attrib, float value1, float value2, float value3, float value4);
-            void shader_attrib_set(const char* attrib, short value1, short value2, short value3, short value4);
-            void shader_attrib_set(const char* attrib, double value1, double value2, double value3, double value4);
-            void shader_attrib_set(const char* attrib, int value1, int value2, int value3, int value4);
-            void shader_attrib_set(const char* attrib, unsigned int value1, unsigned int value2, unsigned int value3, unsigned int value4);
-            void shader_attrib_set(const char* attrib, Matrix value);
+            void shader_attrib_set(std::string attrib, float value);
+            void shader_attrib_set(std::string attrib, short value);
+            void shader_attrib_set(std::string attrib, double value);
+            void shader_attrib_set(std::string attrib, int value);
+            void shader_attrib_set(std::string attrib, unsigned int value);
+            void shader_attrib_set(std::string attrib, Vector2 value);
+            void shader_attrib_set(std::string attrib, Point value);
+            void shader_attrib_set(std::string attrib, float value1, float value2);
+            void shader_attrib_set(std::string attrib, short value1, short value2);
+            void shader_attrib_set(std::string attrib, double value1, double value2);
+            void shader_attrib_set(std::string attrib, int value1, int value2);
+            void shader_attrib_set(std::string attrib, unsigned int value1, unsigned int value2);
+            void shader_attrib_set(std::string attrib, Vector3 value);
+            void shader_attrib_set(std::string attrib, float value1, float value2, float value3);
+            void shader_attrib_set(std::string attrib, short value1, short value2, short value3);
+            void shader_attrib_set(std::string attrib, double value1, double value2, double value3);
+            void shader_attrib_set(std::string attrib, int value1, int value2, int value3);
+            void shader_attrib_set(std::string attrib, unsigned int value1, unsigned int value2, unsigned int value3);
+            void shader_attrib_set(std::string attrib, Vector4 value);
+            void shader_attrib_set(std::string attrib, float value1, float value2, float value3, float value4);
+            void shader_attrib_set(std::string attrib, short value1, short value2, short value3, short value4);
+            void shader_attrib_set(std::string attrib, double value1, double value2, double value3, double value4);
+            void shader_attrib_set(std::string attrib, int value1, int value2, int value3, int value4);
+            void shader_attrib_set(std::string attrib, unsigned int value1, unsigned int value2, unsigned int value3, unsigned int value4);
+            void shader_attrib_set(std::string attrib, Matrix value);
         
-            void shader_uniform_set(const char* uniform, float value);
-            void shader_uniform_set(const char* uniform, short value);
-            void shader_uniform_set(const char* uniform, double value);
-            void shader_uniform_set(const char* uniform, int value);
-            void shader_uniform_set(const char* uniform, unsigned int value);
-            void shader_uniform_set(const char* uniform, Vector2 value);
-            void shader_uniform_set(const char* uniform, Point value);
-            void shader_uniform_set(const char* uniform, float value1, float value2);
-            void shader_uniform_set(const char* uniform, short value1, short value2);
-            void shader_uniform_set(const char* uniform, double value1, double value2);
-            void shader_uniform_set(const char* uniform, int value1, int value2);
-            void shader_uniform_set(const char* uniform, unsigned int value1, unsigned int value2);
-            void shader_uniform_set(const char* uniform, Vector3 value);
-            void shader_uniform_set(const char* uniform, float value1, float value2, float value3);
-            void shader_uniform_set(const char* uniform, short value1, short value2, short value3);
-            void shader_uniform_set(const char* uniform, double value1, double value2, double value3);
-            void shader_uniform_set(const char* uniform, int value1, int value2, int value3);
-            void shader_uniform_set(const char* uniform, unsigned int value1, unsigned int value2, unsigned int value3);
-            void shader_uniform_set(const char* uniform, Vector4 value);
-            void shader_uniform_set(const char* uniform, float value1, float value2, float value3, float value4);
-            void shader_uniform_set(const char* uniform, short value1, short value2, short value3, short value4);
-            void shader_uniform_set(const char* uniform, double value1, double value2, double value3, double value4);
-            void shader_uniform_set(const char* uniform, int value1, int value2, int value3, int value4);
-            void shader_uniform_set(const char* uniform, unsigned int value1, unsigned int value2, unsigned int value3, unsigned int value4);
-            void shader_uniform_set(const char* uniform, Matrix value);
+            void shader_uniform_set(std::string uniform, float value);
+            void shader_uniform_set(std::string uniform, short value);
+            void shader_uniform_set(std::string uniform, double value);
+            void shader_uniform_set(std::string uniform, int value);
+            void shader_uniform_set(std::string uniform, unsigned int value);
+            void shader_uniform_set(std::string uniform, Vector2 value);
+            void shader_uniform_set(std::string uniform, Point value);
+            void shader_uniform_set(std::string uniform, float value1, float value2);
+            void shader_uniform_set(std::string uniform, short value1, short value2);
+            void shader_uniform_set(std::string uniform, double value1, double value2);
+            void shader_uniform_set(std::string uniform, int value1, int value2);
+            void shader_uniform_set(std::string uniform, unsigned int value1, unsigned int value2);
+            void shader_uniform_set(std::string uniform, Vector3 value);
+            void shader_uniform_set(std::string uniform, float value1, float value2, float value3);
+            void shader_uniform_set(std::string uniform, short value1, short value2, short value3);
+            void shader_uniform_set(std::string uniform, double value1, double value2, double value3);
+            void shader_uniform_set(std::string uniform, int value1, int value2, int value3);
+            void shader_uniform_set(std::string uniform, unsigned int value1, unsigned int value2, unsigned int value3);
+            void shader_uniform_set(std::string uniform, Vector4 value);
+            void shader_uniform_set(std::string uniform, float value1, float value2, float value3, float value4);
+            void shader_uniform_set(std::string uniform, short value1, short value2, short value3, short value4);
+            void shader_uniform_set(std::string uniform, double value1, double value2, double value3, double value4);
+            void shader_uniform_set(std::string uniform, int value1, int value2, int value3, int value4);
+            void shader_uniform_set(std::string uniform, unsigned int value1, unsigned int value2, unsigned int value3, unsigned int value4);
+            void shader_uniform_set(std::string uniform, Matrix value);
         };
     }
 }

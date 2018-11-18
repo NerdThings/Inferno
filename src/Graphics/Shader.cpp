@@ -30,7 +30,7 @@ namespace Inferno {
     
         //Methods
     
-        void Shader::set_source(const char *source, Inferno::Graphics::ShaderLanguage language) {
+        void Shader::set_source(std::string source, Inferno::Graphics::ShaderLanguage language) {
             //This makes it so that a game can have GLSL, GLSL ES and HLSL code, but only the correct code is loaded
             if (language == GLSL) {
 #ifndef OPENGL_ES
@@ -51,7 +51,8 @@ namespace Inferno {
         
         void Shader::compile() {
 #ifdef OPENGL
-            glShaderSource(id, 1, &_source, nullptr);
+            const char* src = _source.c_str();
+            glShaderSource(id, 1, &src, nullptr);
             glCompileShader(id);
     
     

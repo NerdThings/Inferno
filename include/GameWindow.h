@@ -24,7 +24,7 @@ namespace Inferno {
     public:
         //Constructors
         
-        GameWindow(Game* parent_game, const char* title, int width, int height);
+        GameWindow(Game* parent_game, std::string title, int width, int height);
         
         //Deconstructors
         
@@ -42,7 +42,7 @@ namespace Inferno {
         void set_fullscreen(bool fullscreen);
         void set_position(Point position);
         void set_size(Point size);
-        void set_title(const char* title);
+        void set_title(std::string title);
         void set_v_sync(bool vsync);
         void set_cursor(bool visible);
         void present();

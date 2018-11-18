@@ -5,6 +5,8 @@
 #ifndef INFERNO_CONTENTLOADER_H
 #define INFERNO_CONTENTLOADER_H
 
+#include <string>
+
 #include "Inferno.h"
 
 namespace Inferno {
@@ -16,7 +18,8 @@ namespace Inferno {
     namespace Content {
         class INFERNO_API ContentLoader {
         public:
-            static Graphics::Texture2D* load_texture(Graphics::GraphicsDevice* graphics_device, const char* filename);
+            static std::string get_working_directory();
+            static Graphics::Texture2D* load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename);
         };
     }
 }

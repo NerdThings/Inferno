@@ -7,6 +7,8 @@
 
 #include "Inferno.h"
 
+#include <string>
+
 #include "Graphics/ShaderEnums.h"
 
 namespace Inferno {
@@ -17,7 +19,7 @@ namespace Inferno {
         private:
             //Fields
             
-            const char* _source;
+            std::string _source;
             
         public:
             //Fields
@@ -38,7 +40,7 @@ namespace Inferno {
             
             //Methods
             
-            void set_source(const char* source, ShaderLanguage language);
+            void set_source(std::string source, ShaderLanguage language);
             
             void compile();
         };

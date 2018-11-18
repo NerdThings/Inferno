@@ -121,7 +121,7 @@ namespace Inferno {
     
     //Constructors
     
-    Game::Game(int width, int height, const char *title, int fps, bool fullscreen) : _virtual_width(width), _virtual_height(height), frames_per_second(fps) {
+    Game::Game(int width, int height, std::string title, int fps, bool fullscreen) : _virtual_width(width), _virtual_height(height), frames_per_second(fps) {
         //Create window
         game_window = new GameWindow(this, title, width, height);
         

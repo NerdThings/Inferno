@@ -172,14 +172,14 @@ namespace Inferno {
     
     //Constructors
     
-    GameWindow::GameWindow(Game* parent_game, const char *title, int width, int height) : _parent_game(parent_game) {
+    GameWindow::GameWindow(Game* parent_game, std::string title, int width, int height) : _parent_game(parent_game) {
 #ifdef SDL
         //SDL Init
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
             throw "Failed to init SDL.";
         
         //Create window
-        _sdl_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+        _sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
         
         //Check window was created
         if (_sdl_window == nullptr)
@@ -335,9 +335,9 @@ namespace Inferno {
 #endif
     }
     
-    void GameWindow::set_title(const char *title) {
+    void GameWindow::set_title(std::string title) {
 #ifdef SDL
-        SDL_SetWindowTitle(_sdl_window, title);
+        SDL_SetWindowTitle(_sdl_window, title.c_str());
 #endif
     }
     

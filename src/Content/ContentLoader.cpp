@@ -4,6 +4,9 @@
 
 #include "IL/il.h"
 
+#include <filesystem>
+#include <cstring>
+
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
 #include "Graphics/GraphicsDevice.h"
@@ -11,8 +14,13 @@
 
 namespace Inferno {
     namespace Content {
-        Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, const char *filename) {
-            ilLoadImage(filename);
+        std::string ContentLoader::get_working_directory() {
+            std::filesystem::path cwd = std::filesystem::current_path();
+            return cwd.string();
+        }
+        
+        Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename) {
+            ilLoadImage(filename.c_str());
             ILubyte *idata = ilGetData();
     
             int width = ilGetInteger(IL_IMAGE_WIDTH);

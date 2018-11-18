@@ -244,15 +244,15 @@ namespace Inferno {
         
         //TEMP:
         
-        int GraphicsDevice::shader_get_attrib(const char *attrib){
+        int GraphicsDevice::shader_get_attrib(std::string attrib){
 #ifdef OPENGL
-            return glGetAttribLocation(_gl_program, attrib);
+            return glGetAttribLocation(_gl_program, attrib.c_str());
 #endif
         }
     
-        int GraphicsDevice::shader_get_uniform(const char *uniform){
+        int GraphicsDevice::shader_get_uniform(std::string uniform){
 #ifdef OPENGL
-            return glGetUniformLocation(_gl_program, uniform);
+            return glGetUniformLocation(_gl_program, uniform.c_str());
 #endif
         }
     }

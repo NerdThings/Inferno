@@ -7,6 +7,8 @@
 
 #include "Inferno.h"
 
+#include <string>
+
 #include "Graphics/Color.h"
 
 namespace Inferno {
@@ -60,7 +62,7 @@ namespace Inferno {
         
         //Constructors
         
-        Game(int width, int height, const char* title = "Created with Inferno", int fps = 60, bool fullscreen = false);
+        Game(int width, int height, std::string title = "Created with Inferno", int fps = 60, bool fullscreen = false);
         
         //Deconstructors
         ~Game();
