@@ -14,7 +14,7 @@ namespace Inferno {
     }
     
     namespace Content {
-        class ContentLoader {
+        class INFERNO_API ContentLoader {
         public:
             static Graphics::Texture2D* load_texture(Graphics::GraphicsDevice* graphics_device, const char* filename);
         };
