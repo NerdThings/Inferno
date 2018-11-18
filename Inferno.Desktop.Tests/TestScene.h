@@ -20,6 +20,7 @@ class TestScene : public Inferno::Scene {
 public:
     TestScene(Inferno::Game* parent_game);
     void draw(Inferno::Graphics::Renderer* renderer) override;
+	void update() override;
 };
 
 

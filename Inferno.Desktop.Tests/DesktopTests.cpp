@@ -1,6 +1,7 @@
 #include "TestGame.h"
 
-GAME_ENTRY
+//GAME_ENTRY
+int main()
 {
 	TestGame* t = new TestGame();
 	t->run();

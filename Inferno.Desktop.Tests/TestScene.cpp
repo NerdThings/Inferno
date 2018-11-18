@@ -17,7 +17,7 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     if (tmb == nullptr) {
         Inferno::Graphics::Texture2D* temp = Inferno::Content::ContentLoader::load_texture(parent_game->graphics_device, working_dir + "/Content/Test_Sprite.png");
-        tmb = new Inferno::Graphics::Sprite(temp, Inferno::Vector2(0, 0), 16, 16);
+        tmb = new Inferno::Graphics::Sprite(temp, Inferno::Vector2(0, 0), 16, 16, 10);
     }
     
     Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game, nullptr);
@@ -35,6 +35,9 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0);
     renderer->draw_texture(tmb->get_current_texture(), Inferno::Rectangle(60, 60, 16, 16), tmb->get_source_rectangle(), tmb->origin, Inferno::Graphics::Color(255, 255, 255, 255), 0);
-    
-    tmb->update();
+}
+
+void TestScene::update() {
+	if (tmb != nullptr)
+		tmb->update();
 }
