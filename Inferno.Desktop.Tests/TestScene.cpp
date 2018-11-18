@@ -35,9 +35,12 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0);
     renderer->draw_texture(tmb->get_current_texture(), Inferno::Rectangle(60, 60, 16, 16), tmb->get_source_rectangle(), tmb->origin, Inferno::Graphics::Color(255, 255, 255, 255), 0);
+    
+    printf("DRAWN\n");
 }
 
 void TestScene::update() {
 	if (tmb != nullptr)
 		tmb->update();
+	printf("UPDATED\n");
 }

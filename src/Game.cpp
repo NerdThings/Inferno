@@ -2,7 +2,7 @@
 // Created by Reece Mackie on 13/11/18.
 //
 
-#include <ctime>
+#include <chrono>
 
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
@@ -24,20 +24,6 @@ namespace Inferno {
             _current_scene->begin_update();
     }
     
-    void Game::do_draw() {
-        if (paused | lock_framerate)
-            return;
-    
-        //Draw frame
-        draw();
-    
-        //Present
-        game_window->present();
-        
-        //End draw
-        graphics_device->end_draw();
-    }
-    
     void Game::do_tick() {
         if (paused)
             return;
@@ -47,17 +33,14 @@ namespace Inferno {
         update();
         end_update();
     
-        //Draw a frame if the framerate is locked
-        if (lock_framerate) {
-            //Draw
-            draw();
-        
-            //Present
-            game_window->present();
-            
-            //End draw
-            graphics_device->end_draw();
-        }
+        //Draw
+        draw();
+    
+        //Present
+        game_window->present();
+    
+        //End draw
+        graphics_device->end_draw();
     }
     
     void Game::draw() {
@@ -151,18 +134,24 @@ namespace Inferno {
     Point Game::get_virtual_dimensions() {
         return {_virtual_width, _virtual_height};
     }
+
+#define CLOCKS_PER_MS CLOCKS_PER_SEC * 1000
     
     void Game::run() {
         //Run init
         initialise();
         
         //Begin loop
-        int previous = int(double(clock()) / CLOCKS_PER_SEC * 1000);
+        float previous = float(clock()) / CLOCKS_PER_MS;
         float lag = 0.0f;
         running = true;
+    
+        //Run an initial tick
+        do_tick();
+        
         while (running) {
-            const int current = int(double(clock()) / CLOCKS_PER_SEC * 1000);
-            const int delta = current - previous;
+            float current = float(clock()) / CLOCKS_PER_MS;
+            const float delta = current - previous;
             previous = current;
             lag += delta;
             
@@ -174,15 +163,8 @@ namespace Inferno {
                 //Run a tick
                 do_tick();
                 
-                lag -= 1000.f / frames_per_second;
+                lag -= 1000.0f / frames_per_second;
             }
-            
-            //Draw a frame
-            do_draw();
-            
-            //Run window events
-            if (!game_window->run_events())
-                running = false;
         }
         
         //Fix for the linus resolution bug
