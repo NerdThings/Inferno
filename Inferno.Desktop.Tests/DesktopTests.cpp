@@ -1,11 +1,6 @@
 #include "TestGame.h"
 
-#ifdef _WIN32
-#include <windows.h>
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
-#else
-int main()
-#endif
+GAME_ENTRY
 {
 	TestGame* t = new TestGame();
 	t->run();

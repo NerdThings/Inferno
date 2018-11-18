@@ -16,4 +16,13 @@
 #define INFERNO_API
 #endif
 
+//Define game entrypoint
+#ifdef _WIN32
+//Include windows
+#include <windows.h>
+#define GAME_ENTRY int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
+#else
+#define GAME_ENTRY int main()
+#endif
+
 #endif //INFERNO_INFERNO_H
