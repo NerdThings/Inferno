@@ -4,7 +4,7 @@
 
 #include "IL/il.h"
 
-#include <filesystem>
+#include <experimental\filesystem>
 #include <cstring>
 
 #include "Content/ContentLoader.h"
@@ -15,7 +15,7 @@
 namespace Inferno {
     namespace Content {
         std::string ContentLoader::get_working_directory() {
-            std::filesystem::path cwd = std::filesystem::current_path();
+            std::experimental::filesystem::path cwd = std::experimental::filesystem::current_path();
             return cwd.string();
         }
         

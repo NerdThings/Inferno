@@ -157,11 +157,11 @@ namespace Inferno {
         initialise();
         
         //Begin loop
-        int previous = int(double(clock()) / CLOCKS_PER_SEC) * 1000;
+        int previous = int(double(clock()) / CLOCKS_PER_SEC * 1000);
         float lag = 0.0f;
         running = true;
         while (running) {
-            const int current = int(double(clock()) / CLOCKS_PER_SEC) * 1000;
+            const int current = int(double(clock()) / CLOCKS_PER_SEC * 1000);
             const int delta = current - previous;
             previous = current;
             lag += delta;
