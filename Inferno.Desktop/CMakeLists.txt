@@ -46,9 +46,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/include")
 
 # Check SDL is on the UNIX system
 IF (UNIX)
-
-find_package(SDL2 REQUIRED)
-
+    find_package(SDL2 REQUIRED)
 ENDIF()
 
 # Include Inferno shared headers
@@ -64,7 +62,9 @@ SET_TARGET_PROPERTIES(Inferno.Desktop PROPERTIES PREFIX "")
 target_compile_definitions(Inferno.Desktop PRIVATE INFERNO=1 SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
 # Link stdc++fs
-target_link_libraries(Inferno.Desktop stdc++fs)
+IF (UNIX)
+    target_link_libraries(Inferno.Desktop stdc++fs)
+ENDIF()
 
 # Link SDL
 target_link_libraries(Inferno.Desktop ${SDL2_LIBRARY})
