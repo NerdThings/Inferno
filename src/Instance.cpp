@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include "Instance.h"
+#include "Scene.h"
 
 namespace Inferno {
     //Private methods
@@ -220,7 +221,7 @@ namespace Inferno {
     
     void Instance::set_height(int height) {
         //Save old bounds for spatial recalculation
-        Rectangle oldBounds = get_bounds();
+        Rectangle old_bounds = get_bounds();
         
         //Update height
         if (sprite != nullptr)
@@ -228,22 +229,22 @@ namespace Inferno {
         else
             _height = height;
         
-        //TODO: Update spatial hashing
+        parent_scene->spatial_move_instance(old_bounds, get_bounds(), this);
     }
     
     void Instance::set_position(Vector2 position) {
         //Save old bounds for spatial recalculation
-        Rectangle oldBounds = get_bounds();
+        Rectangle old_bounds = get_bounds();
         
         //Update position
         _position = position;
     
-        //TODO: Update spatial hashing
+        parent_scene->spatial_move_instance(old_bounds, get_bounds(), this);
     }
     
     void Instance::set_width(int width) {
         //Save old bounds for spatial recalculation
-        Rectangle oldBounds = get_bounds();
+        Rectangle old_bounds = get_bounds();
     
         //Update height
         if (sprite != nullptr)
@@ -251,7 +252,7 @@ namespace Inferno {
         else
             _width = width;
     
-        //TODO: Update spatial hashing
+        parent_scene->spatial_move_instance(old_bounds, get_bounds(), this);
     }
     
     void Instance::update() {
