@@ -9,17 +9,17 @@ namespace Inferno {
         //Constructors
         Sprite::Sprite() {}
         
-        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true) {
+        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true), width(texture->get_width()), height(texture->get_height()) {
             //Add texture
             _textures.emplace_back(texture);
         }
         
-        Sprite::Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed, int starting_frame, double rotation) : origin(origin), frame_width(frame_width), frame_height(frame_height), image_speed(image_speed), current_frame(starting_frame), _spritesheet(true) {
+        Sprite::Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed, int starting_frame, double rotation) : origin(origin), width(frame_width), height(frame_height), frame_width(frame_width), frame_height(frame_height), image_speed(image_speed), current_frame(starting_frame), _spritesheet(true) {
             //Add texture
             _textures.emplace_back(texture);
         }
         
-        Sprite::Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed, int starting_frame, double rotation) : _textures(textures), origin(origin), image_speed(image_speed), current_frame(starting_frame), _spritesheet(false) {}
+        //Sprite::Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed, int starting_frame, double rotation) : _textures(textures), origin(origin), image_speed(image_speed), current_frame(starting_frame), _spritesheet(false) {}
         
         //Deconstructors
         

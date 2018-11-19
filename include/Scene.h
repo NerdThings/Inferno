@@ -19,24 +19,31 @@ namespace Inferno {
     }
     
     class INFERNO_API Scene {
-    protected:
+    private:
         //Fields
         
         std::vector<Instance*> _instances;
+    protected:
+        //Fields
+        
         int height;
-        Game* parent_game;
         int width;
     public:
+        //Fields
+        
+        Game* parent_game;
+        
         //Constructors
         
         Scene(Game* parent_game, int width, int height);
         
         //Methods
-        
+        void add_instance(Instance* instance);
         virtual void begin_update();
         virtual void draw(Graphics::Renderer* renderer);
         virtual void end_update();
         virtual void loaded();
+        void remove_instance(Instance* instance);
         virtual void unloaded();
         virtual void update();
     };

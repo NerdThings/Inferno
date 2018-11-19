@@ -3,6 +3,7 @@
 //
 
 #include <chrono>
+#include <thread>
 
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
@@ -22,25 +23,6 @@ namespace Inferno {
     void Game::begin_update() {
         if (_current_scene != nullptr)
             _current_scene->begin_update();
-    }
-    
-    void Game::do_tick() {
-        if (paused)
-            return;
-    
-        //Run an update
-        begin_update();
-        update();
-        end_update();
-    
-        //Draw
-        draw();
-    
-        //Present
-        game_window->present();
-    
-        //End draw
-        graphics_device->end_draw();
     }
     
     void Game::draw() {
@@ -97,6 +79,43 @@ namespace Inferno {
         if (_current_scene != nullptr)
             _current_scene->update();
     }
+
+#define CLOCKS_PER_MS CLOCKS_PER_SEC * 1000
+    
+    void Game::update_thread() {
+        //Begin loop
+        float previous = float(clock()) / CLOCKS_PER_MS;
+        float lag = 0.0f;
+        running = true;
+    
+        //Run an initial tick
+        begin_update();
+        update();
+        end_update();
+    
+        while (running) {
+            float current = float(clock()) / CLOCKS_PER_MS;
+            const float delta = current - previous;
+            previous = current;
+            lag += delta;
+        
+            while (lag >= 1000.0f / frames_per_second) {
+                lag -= 1000.0f / frames_per_second;
+                
+                //Run window events
+                if (!game_window->run_events())
+                    running = false;
+    
+                if (paused)
+                    return;
+    
+                //Run an update
+                begin_update();
+                update();
+                end_update();
+            }
+        }
+    }
     
     //Protected Methods
     void Game::initialise() {
@@ -134,20 +153,18 @@ namespace Inferno {
     Point Game::get_virtual_dimensions() {
         return {_virtual_width, _virtual_height};
     }
-
-#define CLOCKS_PER_MS CLOCKS_PER_SEC * 1000
     
     void Game::run() {
         //Run init
         initialise();
         
-        //Begin loop
+        //Launch update thread
+        std::thread thread(&Game::update_thread, this);
+        
+        //Begin draw loop
         float previous = float(clock()) / CLOCKS_PER_MS;
         float lag = 0.0f;
         running = true;
-    
-        //Run an initial tick
-        do_tick();
         
         while (running) {
             float current = float(clock()) / CLOCKS_PER_MS;
@@ -156,38 +173,55 @@ namespace Inferno {
             lag += delta;
             
             while (lag >= 1000.0f / frames_per_second) {
-                //Run window events
-                if (!game_window->run_events())
-                    running = false;
-                
-                //Run a tick
-                do_tick();
-                
                 lag -= 1000.0f / frames_per_second;
+                if (locked_framerate) {
+                    //Draw
+                    draw();
+    
+                    //Present
+                    game_window->present();
+    
+                    //End draw
+                    graphics_device->end_draw();
+                }
+            }
+            
+            if (!locked_framerate) {
+                //Draw
+                draw();
+    
+                //Present
+                game_window->present();
+    
+                //End draw
+                graphics_device->end_draw();
             }
         }
         
-        //Fix for the linus resolution bug
+        //Wait for update thread to finish
+        thread.join();
+    
+        //Fix for the linux resolution bug
         game_window->set_fullscreen(false);
-        
+    
         //Unload current scene
         if (_current_scene != nullptr) {
             _current_scene->unloaded();
             _current_scene = nullptr;
         }
-        
+    
         //Delete render target
         delete render_target;
         render_target = nullptr;
-        
+    
         //Delete renderer
         delete renderer;
         renderer = nullptr;
-        
+    
         //Delete graphics device
         delete graphics_device;
         graphics_device = nullptr;
-        
+    
         //Delete game window
         delete game_window;
         game_window = nullptr;

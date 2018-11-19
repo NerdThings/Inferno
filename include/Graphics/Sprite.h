@@ -40,7 +40,9 @@ namespace Inferno {
             Sprite();
             Sprite(Texture2D* texture, Vector2 origin);
             Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed = 30, int starting_frame = 0, double rotation = 0);
-            Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed = 30, int starting_frame = 0, double rotation = 0);
+            
+            //Disabled for now
+            //Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed = 30, int starting_frame = 0, double rotation = 0);
             
             //Deconstructors
             

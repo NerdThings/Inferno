@@ -33,16 +33,17 @@ namespace Inferno {
         //Methods
         
         void begin_update();
-        void do_tick();
         void draw();
         void end_update();
         void update();
-        
+        void update_thread();
+
     protected:
         //Fields
         
         Graphics::Color clear_color = Graphics::Color(255, 255, 255, 255);
         bool paused = false;
+        bool locked_framerate = false;
         Graphics::Renderer* renderer = nullptr;
         Graphics::RenderTarget* render_target = nullptr;
         bool running = false;

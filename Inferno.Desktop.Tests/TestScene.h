@@ -14,13 +14,17 @@
 #include "Rectangle.h"
 #include "Scene.h"
 #include "Vector2.h"
+#include "TestPlayer.h"
 
 class TestScene : public Inferno::Scene {
     Inferno::Graphics::Sprite* tmb = nullptr;
+    TestPlayer* player;
 public:
     TestScene(Inferno::Game* parent_game);
     void draw(Inferno::Graphics::Renderer* renderer) override;
 	void update() override;
+	void loaded() override;
+	void unloaded() override;
 };
 
 
