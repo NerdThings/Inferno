@@ -6,6 +6,7 @@
 #include <type_traits>
 
 #include "Instance.h"
+#include "MathHelper.h"
 #include "Scene.h"
 
 namespace Inferno {
@@ -22,10 +23,10 @@ namespace Inferno {
             throw "Cannot per pixel check animated sprites";
         
         //Build bounding box of collision area
-        int left = std::max(bounds_a.get_left_coord(), bounds_b.get_left_coord());
-        int top = std::max(bounds_a.get_top_coord(), bounds_b.get_top_coord());
-        int width = std::min(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
-        int height = std::min(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
+        int left = MathHelper::max(bounds_a.get_left_coord(), bounds_b.get_left_coord());
+        int top = MathHelper::max(bounds_a.get_top_coord(), bounds_b.get_top_coord());
+        int width = MathHelper::min(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
+        int height = MathHelper::min(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
         
         //Check pixels
         for (int x = left; x < left + width; x++) {
@@ -80,10 +81,10 @@ namespace Inferno {
         Rectangle source = sprite->get_source_rectangle();
     
         //Build bounding box of collision area
-        int left = std::max(bounds_a.get_left_coord(), bounds_b.get_left_coord());
-        int top = std::max(bounds_a.get_top_coord(), bounds_b.get_top_coord());
-        int width = std::min(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
-        int height = std::min(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
+        int left = MathHelper::max(bounds_a.get_left_coord(), bounds_b.get_left_coord());
+        int top = MathHelper::max(bounds_a.get_top_coord(), bounds_b.get_top_coord());
+        int width = MathHelper::min(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
+        int height = MathHelper::min(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
         
         //Check for animations
         if (sprite->is_animated())
