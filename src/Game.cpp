@@ -171,10 +171,6 @@ namespace Inferno {
             while (lag >= 1000.0f / frames_per_second) {
                 lag -= 1000.0f / frames_per_second;
 
-				//Run window events
-				if (!game_window->run_events())
-					running = false;
-
                 if (locked_framerate) {
                     //Draw
                     draw();
@@ -186,6 +182,10 @@ namespace Inferno {
                     graphics_device->end_draw();
                 }
             }
+    
+            //Run window events
+            if (!game_window->run_events())
+                running = false;
             
             if (!locked_framerate) {
                 //Draw
