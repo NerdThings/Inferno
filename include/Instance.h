@@ -7,7 +7,8 @@
 
 #include "Inferno.h"
 
-#include <typeinfo>
+#include <algorithm>
+#include <vector>
 
 #include "Graphics/Renderer.h"
 #include "Graphics/Sprite.h"
@@ -63,11 +64,11 @@ namespace Inferno {
         
         virtual void begin_update();
         
-        template <class instance_type> bool colliding() {
+        template <typename instance_type> bool colliding() {
             return colliding<instance_type>(_position);
         }
         
-        template <class instance_type> bool colliding(Vector2 position) {
+        template <typename instance_type> bool colliding(Vector2 position) {
             //Check collision mask is valid
             if (get_collision_mask() != nullptr)
                 if (collision_mode == PerPixel)
@@ -81,12 +82,12 @@ namespace Inferno {
             _position = position;
     
             //Get everything that is nearby
-            std::vector<Instance*> near = parent_scene->get_nearby_instances(this);
+			std::vector<Instance*> nearby = parent_scene->get_nearby_instances(this);
     
             //Search for collision
-            for (Instance* inst : near) {
+            for (Instance* inst : nearby) {
                 //Skip invalid instances
-                if (std::is_base_of<instance_type, typeof(inst)>() || inst == this)
+                if (dynamic_cast<instance_type*>(inst) == nullptr || inst == this)
                     continue;
         
                 if (!collision_check(get_collision_mask(), inst->get_collision_mask(), get_bounds(), inst->get_bounds(), collision_mode, inst->collision_mode))
