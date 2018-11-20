@@ -53,11 +53,11 @@ namespace Inferno {
         if (position.x < 0 || position.y < 0 || position.x > width || position.y > height)
             return;
         
-        float width = width / space_size;
+        float w = width / space_size;
         
         int x_position = (int)floorf(position.x / space_size);
         int y_position = (int)floorf(position.y / space_size);
-        int index = (int)(y_position * width + x_position);
+        int index = (int)(y_position * w + x_position);
         
         if (std::find(spaces->begin(), spaces->end(), index) == spaces->end()) {
             spaces->emplace_back(index);

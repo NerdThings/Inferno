@@ -22,13 +22,13 @@ namespace Inferno {
         //static double lerp_precise(double value1, double value2, double amount);
         //static float lerp_precise(float value1, float value2, float amount);
         //static int lerp_precise(int value1, int value2, int amount);
-        template <typename T> static T max(T t1, T t2) {
+        template <typename T> static T maximum(T t1, T t2) {
             if (t1 > t2)
                 return t1;
             return t2;
-        }
+		}
     
-        template <typename T> static T min(T t1, T t2) {
+        template <typename T> static T minimum(T t1, T t2) {
             if (t1 < t2)
                 return t1;
             return t2;
