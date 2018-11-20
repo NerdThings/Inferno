@@ -9,6 +9,7 @@
 #include "Input/Mouse.h"
 #include "Input/MouseState.h"
 #include "Vector3.h"
+#include "TestWall.h"
 
 TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768) {
 
@@ -40,6 +41,8 @@ void TestScene::update() {
 void TestScene::loaded() {
     player = new TestPlayer(this);
     add_instance(player);
+    
+    add_instance(new TestWall(this, Inferno::Vector2(20, 20)));
 }
 
 void TestScene::unloaded() {

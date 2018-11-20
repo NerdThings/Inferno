@@ -10,9 +10,11 @@
 #include <map>
 #include <vector>
 
-#include "Instance.h"
+#include "Rectangle.h"
+#include "Vector2.h"
 
 namespace Inferno {
+    class Instance;
     class Game;
     
     namespace Graphics {

@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "Scene.h"
+#include "Instance.h"
 
 namespace Inferno {
     //Private methods

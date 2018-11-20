@@ -4,10 +4,14 @@
 
 #include "TestPlayer.h"
 
+#include <cmath>
+#include <MathHelper.h>
+
 #include "Content/ContentLoader.h"
 #include "Input/Keyboard.h"
 #include "Game.h"
 #include "Scene.h"
+#include "TestWall.h"
 
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
@@ -34,6 +38,18 @@ void TestPlayer::update() {
     }
     if (s.is_key_down(Inferno::Input::D)) {
         velocity.x += 2;
+    }
+    
+    if (colliding<TestWall>(Inferno::Vector2(get_next_position().x, get_position().y))) {
+        while (colliding<TestWall>(Inferno::Vector2(Inferno::Vector2(get_position().x + Inferno::MathHelper::sign(velocity.x), get_position().y)))) {
+            velocity.x -= Inferno::MathHelper::sign(velocity.x);
+        }
+    }
+    
+    if (colliding<TestWall>(Inferno::Vector2(get_position().x, get_next_position().y))) {
+        while (colliding<TestWall>(Inferno::Vector2(Inferno::Vector2(get_position().x, get_position().y + Inferno::MathHelper::sign(velocity.y))))) {
+            velocity.y -= Inferno::MathHelper::sign(velocity.y);
+        }
     }
     
     //Run standard updates

@@ -25,6 +25,9 @@ namespace Inferno {
         static double nearest_multiple(double number, double multiple);
         static float nearest_multiple(float number, float multiple);
         static int nearest_multiple(int number, int multiple);
+        template <typename T> static int sign(T val) {
+            return (T(0) < val) - (val < T(0));
+        }
     };
 }
 

@@ -11,6 +11,7 @@
 
 #include "Graphics/Renderer.h"
 #include "Graphics/Sprite.h"
+#include "Scene.h"
 #include "Vector2.h"
 
 namespace Inferno {
@@ -61,8 +62,46 @@ namespace Inferno {
         //Methods
         
         virtual void begin_update();
-        bool colliding(const std::type_info* instance_type);
-        bool colliding(Vector2 position, const std::type_info* instance_type);
+        
+        template <class instance_type> bool colliding() {
+            return colliding<instance_type>(_position);
+        }
+        
+        template <class instance_type> bool colliding(Vector2 position) {
+            //Check collision mask is valid
+            if (get_collision_mask() != nullptr)
+                if (collision_mode == PerPixel)
+                    if (get_collision_mask()->is_animated())
+                        throw "An instance collision mask cannot be animated.";
+            
+            //Store current position
+            Vector2 current_pos = _position;
+    
+            //Move to the target position (so bounds can be calculated)
+            _position = position;
+    
+            //Get everything that is nearby
+            std::vector<Instance*> near = parent_scene->get_nearby_instances(this);
+    
+            //Search for collision
+            for (Instance* inst : near) {
+                //Skip invalid instances
+                if (std::is_base_of<instance_type, typeof(inst)>() || inst == this)
+                    continue;
+        
+                if (!collision_check(get_collision_mask(), inst->get_collision_mask(), get_bounds(), inst->get_bounds(), collision_mode, inst->collision_mode))
+                    continue;
+        
+                //Reset and return
+                _position = current_pos;
+                return true;
+            }
+    
+            //Reset and return
+            _position = current_pos;
+            return false;
+        }
+        
         virtual void draw(Graphics::Renderer* renderer);
         virtual void end_update();
         Rectangle get_bounds();

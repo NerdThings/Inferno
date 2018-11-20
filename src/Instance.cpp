@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <type_traits>
 
 #include "Instance.h"
 #include "Scene.h"
@@ -17,8 +18,8 @@ namespace Inferno {
         Rectangle source_b = sprite_b->get_source_rectangle();
         
         //Animation check
-        //if (sprite_a->is_animated() || sprite_b->is_animated())
-        //    throw "Cannot per pixel check animated sprites";
+        if (sprite_a->is_animated() || sprite_b->is_animated())
+            throw "Cannot per pixel check animated sprites";
         
         //Build bounding box of collision area
         int left = std::max(bounds_a.get_left_coord(), bounds_b.get_left_coord());
@@ -85,8 +86,8 @@ namespace Inferno {
         int height = std::min(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
         
         //Check for animations
-        //if (sprite->is_animated())
-        //    throw "Cannot per pixel check animated sprites";
+        if (sprite->is_animated())
+            throw "Cannot per pixel check animated sprites";
         
         //Look for collision
         for (int x = left; x < left + width; x++) {
@@ -106,6 +107,10 @@ namespace Inferno {
         //No collision
         return false;
     }
+    
+    //Constructors
+    
+    Instance::Instance(Scene *parent_scene) : parent_scene(parent_scene) {}
     
     Instance::Instance(Scene *parent_scene, Vector2 position, float depth, bool updates, bool draws) {
         this->parent_scene = parent_scene;
@@ -130,32 +135,6 @@ namespace Inferno {
     //Methods
     
     void Instance::begin_update() {}
-    
-    bool Instance::colliding(const std::type_info* instance_type) {
-        return colliding(_position, instance_type);
-    }
-    
-    bool Instance::colliding(Vector2 position, const std::type_info* instance_type) {
-        //Check collision mask is valid
-        if (get_collision_mask() != nullptr)
-            if (get_collision_mask()->is_animated())
-                throw "An instance collision mask cannot be animated.";
-            
-            //If the instance type is null, set it to Instance
-            if (instance_type == nullptr)
-                instance_type = &typeid(Instance);
-            
-            //Store current position
-            Vector2 current_pos = _position;
-            
-            //Move to the target position (so bounds can be calculated)
-            _position = position;
-            
-            //Get everything that is nearby
-            //TODO
-            
-            return false;
-    }
     
     void Instance::draw(Graphics::Renderer *renderer) {
         if (sprite != nullptr) {
