@@ -7,7 +7,7 @@
 
 #include "TestGame.h"
 
-TestGame::TestGame() : Inferno::Game(1024, 768, "Created with Inferno", 1) {
+TestGame::TestGame() : Inferno::Game(1024, 768, "Created with Inferno", 60) {
     game_window->resizable(true);
     game_window->set_v_sync(false);
     test_scene = new TestScene(this);

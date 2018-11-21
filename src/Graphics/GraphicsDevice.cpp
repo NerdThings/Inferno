@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by Reece Mackie on 14/11/18.
 //
@@ -255,5 +259,80 @@ namespace Inferno {
             return glGetUniformLocation(_gl_program, uniform.c_str());
 #endif
         }
+        
+        void GraphicsDevice::shader_uniform_set(std::string uniform, float value) {
+#ifdef OPENGL
+            glUniform1f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value);
+#endif
+        }
+        
+        void GraphicsDevice::shader_uniform_set(std::string uniform, int value) {
+#ifdef OPENGL
+            glUniform1i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value);
+#endif
+        }
+        
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector2 value) {
+            shader_uniform_set(std::move(uniform), value.x, value.y);
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Point value) {
+            shader_uniform_set(std::move(uniform), value.x, value.y);
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2) {
+#ifdef OPENGL
+            glUniform2f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2);
+#endif
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2) {
+#ifdef OPENGL
+            glUniform2i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2);
+#endif
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector3 value) {
+            shader_uniform_set(std::move(uniform), value.x, value.y, value.z);
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2, float value3) {
+#ifdef OPENGL
+            glUniform3f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3);
+#endif
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2, int value3) {
+#ifdef OPENGL
+            glUniform3i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3);
+#endif
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector4 value) {
+            shader_uniform_set(std::move(uniform), value.x, value.y, value.z, value.w);
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Color value) {
+            shader_uniform_set(std::move(uniform), value.get_r(), value.get_g(), value.get_b(), value.get_a());
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2, float value3, float value4) {
+#ifdef OPENGL
+            glUniform4f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3, value4);
+#endif
+        }
+    
+        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2, int value3, int value4) {
+#ifdef OPENGL
+            glUniform4i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3, value4);
+#endif
+        }
+        
+        void GraphicsDevice::shader_uniform_set(std::string uniform, Inferno::Matrix value) {
+#ifdef OPENGL
+            glUniformMatrix4fv(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), 1, GL_FALSE, value.to_float_vector().data());
+#endif
+        }
+
     }
 }

@@ -84,7 +84,7 @@ namespace Inferno {
     
     int get_time() {
         auto time = std::chrono::high_resolution_clock::now();
-        std::chrono::milliseconds ms = std::chrono::time_point_cast<std::chrono::milliseconds>(time);
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch());
         return ms.count();
     }
     

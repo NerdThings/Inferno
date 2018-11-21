@@ -7,6 +7,8 @@
 
 #include "Inferno.h"
 
+#include <string>
+
 #ifdef SDL
 struct SDL_Window;
 #endif

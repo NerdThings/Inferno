@@ -7,6 +7,8 @@
 
 #include "Inferno.h"
 
+#include <vector>
+
 namespace Inferno {
     struct Rectangle;
     struct Matrix;
@@ -28,6 +30,17 @@ namespace Inferno {
 #endif
             GraphicsDevice* _graphics_device;
             
+            //Methods
+            
+            void add_to_buffer(Vector3 position, Vector2 texcoord, Color color, std::vector<float>* data);
+            void set_matrix(Vector2 translation);
+
+#ifdef OPENGL
+            
+            void gl_draw_buffer(int drawmode, std::vector<float> data);
+            
+#endif
+            
         public:
             //Constructors
         
@@ -39,7 +52,21 @@ namespace Inferno {
             
             //Methods
             
-            void draw_rectangle(Rectangle rect, Color color, float depth = 0);
+            void draw_circle(Vector2 position, float radius, Color color, float depth, bool filled, int line_width, int circle_precision);
+            void draw_line(Vector2 pos_a, Vector2 pos_b, Color color, int line_width, float depth);
+            void draw_lines(std::vector<Vector2> points, Color color, int line_width, float depth);
+            void draw_rectangle(Rectangle rect, Color color, float depth, bool filled, int line_width);
+            void draw_render_target(RenderTarget* target, Vector2 pos, Rectangle* source_rectangle, float depth, Color color);
+            void draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, Color color);
+            //void draw_text(std::string text, Vector2 position, Font font, Color color, float depth, Vector2 origin);
+            void draw_texture(Texture2D* texture, Vector2 position, Rectangle* source_rectangle, Color color, float depth, Vector2 origin);
+            void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle, Color color, float depth, Vector2 origin);
+            
+            
+            
+            
+            
+            
             void draw_render_target(RenderTarget* target, Vector2 position, Color color, float depth = 0);
             void draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Color color, float depth = 0);
             void draw_texture(Texture2D* texture, Vector2 position, Color color, float depth = 0);

@@ -29,7 +29,9 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
         c = Inferno::Graphics::Color(1.0f, 0.5f, 1.0f, 1.0f);
     }
     
-    renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0);
+    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0);
+    
+    renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, c, 0, false, 2, 48);
     
     Scene::draw(renderer);
 }
