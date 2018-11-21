@@ -84,7 +84,7 @@ namespace Inferno {
     
     int get_time() {
         auto time = std::chrono::high_resolution_clock::now();
-        return std::chrono::duration_cast<std::chrono::millisecond>(time);
+        return std::chrono::duration_cast<std::chrono::milliseconds>(time);
     }
     
     void Game::update_thread() {
