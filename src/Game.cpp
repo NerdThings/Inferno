@@ -82,9 +82,14 @@ namespace Inferno {
 
 #define CLOCKS_PER_MS CLOCKS_PER_SEC * 1000
     
+    int get_time() {
+        auto time = std::chrono::high_resolution_clock::now();
+        return std::chrono::duration_cast<std::chrono::millisecond>(time);
+    }
+    
     void Game::update_thread() {
         //Begin loop
-        float previous = float(clock()) / CLOCKS_PER_MS;
+        int previous = get_time();
         float lag = 0.0f;
         running = true;
     
@@ -94,7 +99,7 @@ namespace Inferno {
         end_update();
     
         while (running) {
-            float current = float(clock()) / CLOCKS_PER_MS;
+            int current = get_time();
             const float delta = current - previous;
             previous = current;
             lag += delta;
@@ -158,12 +163,12 @@ namespace Inferno {
         std::thread thread(&Game::update_thread, this);
         
         //Begin draw loop
-        float previous = float(clock()) / CLOCKS_PER_MS;
+        int previous = get_time();
         float lag = 0.0f;
         running = true;
         
         while (running) {
-            float current = float(clock()) / CLOCKS_PER_MS;
+            int current = get_time();
             const float delta = current - previous;
             previous = current;
             lag += delta;
