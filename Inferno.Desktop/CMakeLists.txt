@@ -13,6 +13,12 @@ IF (UNIX)
     # Require DevIL
     find_package(DevIL REQUIRED)
 
+    # Require Freetype
+    find_package(Freetype REQUIRED)
+
+    # Require harfbuzz
+    find_package(Harfbuzz REQUIRED)
+
 ELSE()
 
     # Add Windows SDL2
@@ -22,6 +28,10 @@ ELSE()
     # Add Windows DevIL
     set (IL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/lib")
     set(IL_LIBRARIES "${IL_DIR}/DevIL.lib")
+
+    # Add Freetype
+    set (FREETYPE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/lib")
+    set(FREETYPE_LIBRARIES "${FREETYPE_DIR}/freetype.lib")
 
 ENDIF()
 
@@ -38,11 +48,14 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/SDL2/include")
 # Include glad headers
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/glad/include")
 
-# Include CImg Headers
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/CImg/include")
-
 # Include DevIL Headers
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/include")
+
+# Include GZIP
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/gzip/include")
+
+# Include Freetype
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/include")
 
 # Check SDL is on the UNIX system
 IF (UNIX)
@@ -74,6 +87,12 @@ target_link_libraries(Inferno.Desktop ${OPENGL_LIBRARIES})
 
 # Link DevIL
 target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
+
+# Link Freetype
+target_link_libraries(Inferno.Desktop ${FREETYPE_LIBRARIES})
+
+# Include Harfbuzz
+target_link_libraries(Inferno.Desktop ${HarfBuzz_LIBRARIES})
 
 IF (WIN32)
 

@@ -34,8 +34,8 @@ namespace Inferno {
             data->emplace_back(position.z);
     
             //U,V
-            data->emplace_back(0);
-            data->emplace_back(0);
+            data->emplace_back(texcoord.x);
+            data->emplace_back(texcoord.y);
     
             //R,G,B,A
             data->emplace_back(color.get_r());
@@ -246,6 +246,7 @@ namespace Inferno {
         }
         
         void Renderer::draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, Color color) {
+#ifdef OPENGL
             //Set matrix
             set_matrix(Vector2(0, 0));
     
@@ -276,154 +277,59 @@ namespace Inferno {
             //Build buffer
             std::vector<float> data;
             
-            add_to_buffer(Vector3(left, top, depth), Vector2(0, 0), color, &data);
-            add_to_buffer(Vector3(right, top, depth), Vector2(1, 0), color, &data);
-            add_to_buffer(Vector3(right, bottom, depth), Vector2(1, 1), color, &data);
-            add_to_buffer(Vector3(left, bottom, depth), Vector2(0, 1), color, &data);
+            add_to_buffer(Vector3(left, top, depth), Vector2(tex_left, tex_top), color, &data);
+            add_to_buffer(Vector3(right, top, depth), Vector2(tex_right, tex_top), color, &data);
+            add_to_buffer(Vector3(right, bottom, depth), Vector2(tex_right, tex_bottom), color, &data);
+            add_to_buffer(Vector3(left, bottom, depth), Vector2(tex_left, tex_bottom), color, &data);
             
             //Draw
             gl_draw_buffer(GL_QUADS, data);
-        }
-        
-        void Renderer::draw_render_target(RenderTarget* target, Vector2 position, Color color, float depth) {
-            draw_render_target(target, Rectangle((int)position.x, (int)position.y, target->width, target->height), color, depth);
-        }
-    
-        void Renderer::draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Color color, float depth) {
-#ifdef OPENGL
-            //Set matrix
-            set_matrix(Vector2(0, 0));
-        
-            //Bind blank texture
-            glBindTexture(GL_TEXTURE_2D, target->rendered_texture);
-        
-            //Set texture sampler
-            _graphics_device->shader_uniform_set("inf_texture", 0);
-        
-            //Get shader attrib locations
-            int position_loc = _graphics_device->shader_get_attrib("inf_position");
-            int texcoord_loc = _graphics_device->shader_get_attrib("inf_texcoord");
-            int color_loc = _graphics_device->shader_get_attrib("inf_color");
-        
-            //Check shaders have been configured correctly
-            if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
-                throw "Shaders are not correctly configured.";
-        
-            //Get coords from the rectangle
-            float left = destination_rectangle.get_left_coord();
-            float right = destination_rectangle.get_right_coord();
-            float top = destination_rectangle.get_top_coord();
-            float bottom = destination_rectangle.get_bottom_coord();
-        
-            float buffer_data[] =
-                    {
-                            //XYZ   UV    RBGA
-                            left, top, depth, 0, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, top, depth, 1, 1, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, bottom, depth, 1, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            left, bottom, depth, 0, 0, color.get_r(), color.get_g(), color.get_b(), color.get_a()
-                    };
-        
-            //Send data to buffer
-            glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
-        
-            //Enable attributes
-            glEnableVertexAttribArray(position_loc);
-            glEnableVertexAttribArray(texcoord_loc);
-            glEnableVertexAttribArray(color_loc);
-        
-            //Configure attributes
-            glVertexAttribPointer(position_loc, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*) nullptr);
-            glVertexAttribPointer(texcoord_loc, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(3*sizeof(float)));
-            glVertexAttribPointer(color_loc, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(5*sizeof(float)));
-        
-            //Draw
-            glDrawArrays(GL_QUADS, 0, 4);
-        
-            //Disable attributes
-            glDisableVertexAttribArray(position_loc);
-            glDisableVertexAttribArray(texcoord_loc);
-            glDisableVertexAttribArray(color_loc);
-        
-            //Flush
-            glFlush();
 #endif
         }
-
-        void Renderer::draw_texture(Texture2D* texture, Vector2 position, Color color, float depth) {
-            draw_texture(texture, Rectangle((int)position.x, (int)position.y, texture->get_width(), texture->get_height()), Vector2(0, 0), color, depth);
+        
+        void Renderer::draw_texture(Texture2D* texture, Vector2 position, Rectangle* source_rectangle, float depth, Color color, Vector2 origin) {
+            draw_texture(texture, Rectangle((int) position.x, (int) position.y, texture->get_width(), texture->get_height()), source_rectangle, depth, color, origin);
         }
         
-        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Vector2 origin, Color color, float depth) {
-            draw_texture(texture, destination_rectangle, Rectangle(0, 0, texture->get_width(), texture->get_height()), origin, color, depth);
-        }
-    
-        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle source_rectangle, Vector2 origin, Color color, float depth) {
+        void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, Color color, Vector2 origin) {
 #ifdef OPENGL
             //Set matrix
-            set_matrix(-origin);
+            set_matrix(Vector2(-origin.x, -origin.y));
             
-            //Bind blank texture
+            //Bind rendered texture
             glBindTexture(GL_TEXTURE_2D, texture->id);
-    
+            
             //Set texture sampler
             _graphics_device->shader_uniform_set("inf_texture", 0);
-        
-            //Get shader attrib locations
-            int position_loc = _graphics_device->shader_get_attrib("inf_position");
-            int texcoord_loc = _graphics_device->shader_get_attrib("inf_texcoord");
-            int color_loc = _graphics_device->shader_get_attrib("inf_color");
-        
-            //Check shaders have been configured correctly
-            if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
-                throw "Shaders are not correctly configured.";
-        
-            //Get coords from the rectangle
+            
+            //Get coords from the destination rectangle
             float left = destination_rectangle.get_left_coord();
             float right = destination_rectangle.get_right_coord();
             float top = destination_rectangle.get_top_coord();
             float bottom = destination_rectangle.get_bottom_coord();
             
             //Calculate source rectangle texcoords
-            float tex_left = float(source_rectangle.x) / texture->get_width();
-            float tex_right = tex_left + float(source_rectangle.width) / texture->get_width();
-            float tex_top = float(source_rectangle.y) / texture->get_height();
-            float tex_bottom = tex_top + float(source_rectangle.height) / texture->get_height();
-        
-            float buffer_data[] =
-                    {
-                            //XYZ   UV    RBGA
-                            left, top, depth, tex_left, tex_top, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, top, depth, tex_right, tex_top, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            right, bottom, depth, tex_right, tex_bottom, color.get_r(), color.get_g(), color.get_b(), color.get_a(),
-                            left, bottom, depth, tex_left, tex_bottom, color.get_r(), color.get_g(), color.get_b(), color.get_a()
-                    };
-        
-            //Send data to buffer
-            glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
-        
-            //Enable attributes
-            glEnableVertexAttribArray(position_loc);
-            glEnableVertexAttribArray(texcoord_loc);
-            glEnableVertexAttribArray(color_loc);
-        
-            //Configure attributes
-            glVertexAttribPointer(position_loc, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*) nullptr);
-            glVertexAttribPointer(texcoord_loc, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(3*sizeof(float)));
-            glVertexAttribPointer(color_loc, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(5*sizeof(float)));
-        
+            float tex_left = 0;
+            float tex_right = 1;
+            float tex_top = 0;
+            float tex_bottom = 1;
+            if (source_rectangle != nullptr) {
+                tex_left = float(source_rectangle->x) / texture->get_width();
+                tex_right = tex_left + float(source_rectangle->width) / texture->get_width();
+                tex_top = float(source_rectangle->y) / texture->get_height();
+                tex_bottom = tex_top + float(source_rectangle->height) / texture->get_height();
+            }
+            
+            //Build buffer
+            std::vector<float> data;
+            
+            add_to_buffer(Vector3(left, top, depth), Vector2(tex_left, tex_top), color, &data);
+            add_to_buffer(Vector3(right, top, depth), Vector2(tex_right, tex_top), color, &data);
+            add_to_buffer(Vector3(right, bottom, depth), Vector2(tex_right, tex_bottom), color, &data);
+            add_to_buffer(Vector3(left, bottom, depth), Vector2(tex_left, tex_bottom), color, &data);
+            
             //Draw
-            glDrawArrays(GL_QUADS, 0, 4);
-        
-            //Disable attributes
-            glDisableVertexAttribArray(position_loc);
-            glDisableVertexAttribArray(texcoord_loc);
-            glDisableVertexAttribArray(color_loc);
-        
-            //Flush
-            glFlush();
+            gl_draw_buffer(GL_QUADS, data);
 #endif
         }
     }

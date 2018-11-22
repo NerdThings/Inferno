@@ -140,7 +140,8 @@ namespace Inferno {
     void Instance::draw(Graphics::Renderer *renderer) {
         if (sprite != nullptr) {
             Rectangle bounds = get_bounds();
-            renderer->draw_texture(sprite->get_current_texture(), Rectangle(bounds.x, bounds.y, sprite->width, sprite->height), sprite->get_source_rectangle(), sprite->origin, Graphics::Color(255, 255, 255, 255), 0);
+            Rectangle src = sprite->get_source_rectangle();
+            renderer->draw_texture(sprite->get_current_texture(), Rectangle(bounds.x, bounds.y, sprite->width, sprite->height), &src, 0, Graphics::Color(255, 255, 255, 255), Vector2());
         }
     }
     

@@ -1,7 +1,3 @@
-#include <utility>
-
-#include <utility>
-
 //
 // Created by Reece Mackie on 14/11/18.
 //
@@ -42,7 +38,7 @@ namespace Inferno {
                                                "out vec4 fragColor;\n"
                                                "out vec2 texCoord;\n"
                                                "void main() {\n"
-                                               "    gl_Position = inf_matrix * vec4(inf_position, 1);\n"
+                                               "    gl_Position = inf_matrix * vec4(inf_position, 0);\n"
                                                "    fragColor = inf_color;\n"
                                                "    texCoord = inf_texcoord;\n"
                                                "}";

@@ -4,11 +4,18 @@
 
 #include "IL/il.h"
 
-#include <filesystem>
 #include <cstring>
+#include <filesystem>
+#include <gzip/decompress.hpp>
+#include <gzip/utils.hpp>
+#include <iostream>
+#include <fstream>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
+#include "Graphics/Font.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Texture2D.h"
 
@@ -17,6 +24,38 @@ namespace Inferno {
         std::string ContentLoader::get_working_directory() {
             std::filesystem::path cwd = std::filesystem::current_path();
             return cwd.string();
+        }
+        
+        Graphics::Font* ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename) {
+            FT_Library ft;
+            if (FT_Init_FreeType(&ft))
+                throw "Could not init FreeType Library";
+    
+            FT_Face face;
+            if (FT_New_Face(ft, filename.c_str(), 0, &face))
+                throw "Failed to load font";
+            
+            for (int c = 0; c < 128; c++) {
+                if (FT_Load_Char(face, c, FT_LOAD_RENDER)){
+                    throw "Error, failed to load glyph.";
+                }
+                
+                //Create texture
+                
+                unsigned char* data = face->glyph->bitmap.buffer;
+                int width = face->glyph->bitmap.width;
+                int height = face->glyph->bitmap.rows;
+                int count = width * height;
+                
+                std::vector<Graphics::Color> colordata;
+                for (int i = 0; i < count; i++) {
+                    colordata.emplace_back(Graphics::Color(data[i]));
+                }
+                
+                Graphics::Texture2D* glyphtex = new Graphics::Texture2D(graphics_device, width, height, colordata);
+            }
+            
+            return new Graphics::Font();
         }
         
         Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename) {

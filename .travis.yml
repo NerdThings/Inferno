@@ -12,7 +12,7 @@ before_install:
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; brew install libcxx; brew install cmake; brew install sdl2; brew install devil; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:glasen/freetype2; sudo apt-get update; sudo apt-get upgrade; sudo apt-get install libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev; fi
   - cmake .
 
 script:

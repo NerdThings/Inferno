@@ -8,6 +8,7 @@
 #include <MathHelper.h>
 
 #include "Content/ContentLoader.h"
+#include "Graphics/Color.h"
 #include "Input/Keyboard.h"
 #include "Game.h"
 #include "Scene.h"
@@ -25,31 +26,35 @@ void TestPlayer::update() {
     
     //Get keyboard state
     auto s = Inferno::Input::Keyboard::get_state();
+
+#define MOVE_SPEED 2
     
     //Move logic
     if (s.is_key_down(Inferno::Input::W)) {
-        velocity.y -= 2;
+        velocity.y -= MOVE_SPEED;
     }
     if (s.is_key_down(Inferno::Input::S)) {
-        velocity.y += 2;
+        velocity.y += MOVE_SPEED;
     }
     if (s.is_key_down(Inferno::Input::A)) {
-        velocity.x -= 2;
+        velocity.x -= MOVE_SPEED;
     }
     if (s.is_key_down(Inferno::Input::D)) {
-        velocity.x += 2;
+        velocity.x += MOVE_SPEED;
     }
     
     if (colliding<TestWall>(Inferno::Vector2(get_next_position().x, get_position().y))) {
         while (colliding<TestWall>(Inferno::Vector2(Inferno::Vector2(get_position().x + Inferno::MathHelper::sign(velocity.x), get_position().y)))) {
-            velocity.x -= Inferno::MathHelper::sign(velocity.x);
+            set_position(Inferno::Vector2(get_position().x - Inferno::MathHelper::sign(velocity.x), get_position().y));
         }
+        velocity.x = 0;
     }
     
     if (colliding<TestWall>(Inferno::Vector2(get_position().x, get_next_position().y))) {
         while (colliding<TestWall>(Inferno::Vector2(Inferno::Vector2(get_position().x, get_position().y + Inferno::MathHelper::sign(velocity.y))))) {
-            velocity.y -= Inferno::MathHelper::sign(velocity.y);
+            set_position(Inferno::Vector2(get_position().x, get_position().y - Inferno::MathHelper::sign(velocity.y)));
         }
+        velocity.y = 0;
     }
     
     //Run standard updates
@@ -57,5 +62,6 @@ void TestPlayer::update() {
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
+    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color(0, 255, 0, 255), 1, false, 1);
     Instance::draw(renderer);
 }

@@ -4,6 +4,7 @@
 
 #include "TestScene.h"
 
+#include "Graphics/GraphicsDevice.h"
 #include "Input/Keyboard.h"
 #include "Input/KeyboardState.h"
 #include "Input/Mouse.h"
@@ -45,6 +46,9 @@ void TestScene::loaded() {
     add_instance(player);
     
     add_instance(new TestWall(this, Inferno::Vector2(20, 20)));
+    
+    std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
+    Inferno::Content::ContentLoader::load_font(parent_game->graphics_device, working_dir + "/Content/DejaVuSans.fnt");
 }
 
 void TestScene::unloaded() {

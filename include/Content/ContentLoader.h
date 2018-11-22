@@ -12,6 +12,7 @@
 namespace Inferno {
     namespace Graphics {
         class GraphicsDevice;
+        struct Font;
         struct Texture2D;
     }
     
@@ -19,6 +20,7 @@ namespace Inferno {
         class INFERNO_API ContentLoader {
         public:
             static std::string get_working_directory();
+            static Graphics::Font* load_font(Graphics::GraphicsDevice* graphics_device, std::string filename);
             static Graphics::Texture2D* load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename);
         };
     }

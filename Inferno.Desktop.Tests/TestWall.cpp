@@ -10,5 +10,5 @@ TestWall::TestWall(Inferno::Scene *parent_scene, Inferno::Vector2 position) : In
 }
 
 void TestWall::draw(Inferno::Graphics::Renderer *renderer) {
-    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color(255, 255, 0, 255), 0, false, 2);
+    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color(255, 255, 0, 255), 0, false, 1);
 }
