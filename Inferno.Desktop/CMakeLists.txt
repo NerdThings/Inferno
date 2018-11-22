@@ -119,7 +119,10 @@ IF (WIN32)
     # Copy DevIL DLL to output path
     file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-    # Copy DevIL DLL to output path
+    # Copy freetype DLL to output path
+    file(COPY ${FREETYPE_DIR}/freetype.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+    # Copy ZLIB DLL to output path
     file(COPY ${ZLIB_DIR}/zlib.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ENDIF()

@@ -298,6 +298,10 @@ namespace Inferno {
                     tx = position.x;
                     continue;
                 }
+                if (text[i] == ' ') {
+                    tx += font.glyphs['A'].size.y;
+                    continue;
+                }
                 
                 Glyph g = font.glyphs[text[i]];
                 

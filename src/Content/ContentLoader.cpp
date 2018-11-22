@@ -27,7 +27,7 @@ namespace Inferno {
             return cwd.string();
         }
         
-        Graphics::Font ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename) {
+        Graphics::Font ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename, int font_size) {
             FT_Library ft;
             if (FT_Init_FreeType(&ft))
                 throw "Could not init FreeType Library";
@@ -36,7 +36,7 @@ namespace Inferno {
             if (FT_New_Face(ft, filename.c_str(), 0, &face))
                 throw "Failed to load font";
     
-            FT_Set_Pixel_Sizes(face, 0, 48);
+            FT_Set_Pixel_Sizes(face, 0, font_size);
             
             std::vector<Graphics::Glyph> glyphs;
     
