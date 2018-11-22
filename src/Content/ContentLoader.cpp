@@ -6,12 +6,13 @@
 
 #include <cstring>
 #include <filesystem>
-#include <gzip/decompress.hpp>
-#include <gzip/utils.hpp>
-#include <iostream>
 #include <fstream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include <gzip/decompress.hpp>
+#include <gzip/utils.hpp>
+#include <iostream>
+#include <map>
 
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
@@ -26,7 +27,7 @@ namespace Inferno {
             return cwd.string();
         }
         
-        Graphics::Font* ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename) {
+        Graphics::Font ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename) {
             FT_Library ft;
             if (FT_Init_FreeType(&ft))
                 throw "Could not init FreeType Library";
@@ -34,10 +35,15 @@ namespace Inferno {
             FT_Face face;
             if (FT_New_Face(ft, filename.c_str(), 0, &face))
                 throw "Failed to load font";
+    
+            FT_Set_Pixel_Sizes(face, 0, 48);
             
+            std::vector<Graphics::Glyph> glyphs;
+    
             for (int c = 0; c < 128; c++) {
-                if (FT_Load_Char(face, c, FT_LOAD_RENDER)){
-                    throw "Error, failed to load glyph.";
+                int s = FT_Load_Char(face, c, FT_LOAD_RENDER);
+                if (s) {
+                    throw "Unable to load char";
                 }
                 
                 //Create texture
@@ -49,13 +55,22 @@ namespace Inferno {
                 
                 std::vector<Graphics::Color> colordata;
                 for (int i = 0; i < count; i++) {
-                    colordata.emplace_back(Graphics::Color(data[i]));
+                    colordata.emplace_back(Graphics::Color(255, 255, 255, data[i]));
                 }
                 
                 Graphics::Texture2D* glyphtex = new Graphics::Texture2D(graphics_device, width, height, colordata);
+                Graphics::Glyph g;
+                g.texture = glyphtex;
+                g.size = Vector2(width, height);
+                g.bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
+                g.advance = (unsigned int)face->glyph->advance.x;
+                glyphs.push_back(g);
             }
             
-            return new Graphics::Font();
+            FT_Done_Face(face);
+            FT_Done_FreeType(ft);
+
+            return Graphics::Font(glyphs);
         }
         
         Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename) {

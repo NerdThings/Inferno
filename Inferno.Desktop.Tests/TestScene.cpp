@@ -4,6 +4,7 @@
 
 #include "TestScene.h"
 
+#include "Graphics/Glyph.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Input/Keyboard.h"
 #include "Input/KeyboardState.h"
@@ -30,9 +31,13 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
         c = Inferno::Graphics::Color(1.0f, 0.5f, 1.0f, 1.0f);
     }
     
-    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0);
+    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0, true, 0);
     
     renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, c, 0, false, 2, 48);
+    //auto a = fnt.glyphs['A'].texture;
+    //renderer->draw_texture(fnt.glyphs['@'].texture, Inferno::Vector2(60, 60), nullptr, 0, Inferno::Graphics::Color(0, 0, 0, 255), Inferno::Vector2());
+    
+    renderer->draw_text("H@LL0\nW0RLD\n:3", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color(0, 0, 0, 255), 0);
     
     Scene::draw(renderer);
 }
@@ -48,7 +53,7 @@ void TestScene::loaded() {
     add_instance(new TestWall(this, Inferno::Vector2(20, 20)));
     
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
-    Inferno::Content::ContentLoader::load_font(parent_game->graphics_device, working_dir + "/Content/DejaVuSans.fnt");
+    fnt = Inferno::Content::ContentLoader::load_font(parent_game->graphics_device, working_dir + "/Content/Roboto-Black.ttf");
 }
 
 void TestScene::unloaded() {

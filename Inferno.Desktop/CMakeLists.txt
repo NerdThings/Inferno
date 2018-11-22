@@ -35,6 +35,9 @@ ELSE()
 
 ENDIF()
 
+# Find ZLIB
+find_package(ZLIB REQUIRED)
+
 # Add source files
 file(GLOB_RECURSE src
 	"../src/*.cpp"
@@ -56,6 +59,9 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/gzip/include")
 
 # Include Freetype
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/include")
+
+# Include ZLIB
+include_directories(${ZLIB_INCLUDE_DIRS})
 
 # Check SDL is on the UNIX system
 IF (UNIX)
@@ -95,8 +101,11 @@ target_link_libraries(Inferno.Desktop ${IL_LIBRARIES})
 # Link Freetype
 target_link_libraries(Inferno.Desktop ${FREETYPE_LIBRARIES})
 
-# Include Harfbuzz
+# Link Harfbuzz
 target_link_libraries(Inferno.Desktop ${HarfBuzz_LIBRARIES})
+
+# Link ZLIB
+target_link_libraries(Inferno.Desktop ${ZLIB_LIBRARIRES})
 
 IF (WIN32)
 

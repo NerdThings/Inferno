@@ -7,6 +7,7 @@
 
 #include "Inferno.h"
 
+#include <string>
 #include <vector>
 
 namespace Inferno {
@@ -17,6 +18,7 @@ namespace Inferno {
     
     namespace Graphics {
         struct Color;
+        struct Font;
         class GraphicsDevice;
         struct RenderTarget;
         struct Texture2D;
@@ -58,7 +60,7 @@ namespace Inferno {
             void draw_rectangle(Rectangle rect, Color color, float depth, bool filled, int line_width);
             void draw_render_target(RenderTarget* target, Vector2 pos, Rectangle* source_rectangle, float depth, Color color);
             void draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, Color color);
-            //void draw_text(std::string text, Vector2 position, Font font, Color color, float depth, Vector2 origin);
+            void draw_text(std::string text, Vector2 position, Font font, Color color, float depth);
             void draw_texture(Texture2D* texture, Vector2 position, Rectangle* source_rectangle, float depth, Color color, Vector2 origin);
             void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, Color color, Vector2 origin);
         };

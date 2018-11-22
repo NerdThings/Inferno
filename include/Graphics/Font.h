@@ -23,6 +23,8 @@ namespace Inferno {
             //Constructors
             
             Font();
+    
+            explicit Font(std::vector<Glyph> glyphs);
         };
     }
 }

@@ -7,6 +7,7 @@
 
 #include "Content/ContentLoader.h"
 #include "Graphics/Color.h"
+#include "Graphics/Font.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/Sprite.h"
 #include "Graphics/Texture2D.h"
@@ -19,6 +20,7 @@
 class TestScene : public Inferno::Scene {
     Inferno::Graphics::Sprite* tmb = nullptr;
     TestPlayer* player;
+    Inferno::Graphics::Font fnt;
 public:
     TestScene(Inferno::Game* parent_game);
     void draw(Inferno::Graphics::Renderer* renderer) override;

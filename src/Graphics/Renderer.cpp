@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "Graphics/Color.h"
+#include "Graphics/Font.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/RenderTarget.h"
@@ -146,6 +147,7 @@ namespace Inferno {
 #endif
             } else {
 #ifdef OPENGL
+                //TODO: Fix scaling issue
                 //Bind blank texture
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
@@ -158,10 +160,10 @@ namespace Inferno {
                 std::vector<float> data;
                 
                 for (float i = 0; i < circle_precision; i++) {
-                    float theta = 2 * M_PI * i / circle_precision;
+                    float theta = 2.0f * float(M_PI) * i / float(circle_precision);
                     
-                    float x = radius * cos(theta);
-                    float y = radius * sin(theta);
+                    float x = radius * cosf(theta);
+                    float y = radius * sinf(theta);
     
                     add_to_buffer(Vector3(position.x + x, position.y + y, depth), Vector2(0, 0), color, &data);
                 }
@@ -285,6 +287,29 @@ namespace Inferno {
             //Draw
             gl_draw_buffer(GL_QUADS, data);
 #endif
+        }
+        
+        void Renderer::draw_text(std::string text, Vector2 position, Font font, Color color, float depth) {
+            float tx = position.x;
+            float ty = position.y;
+            for (int i = 0; i < text.size(); i++) {
+                if (text[i] == '\n') {
+                    ty += font.glyphs['A'].size.y + font.glyphs['A'].bearing.y;
+                    tx = position.x;
+                    continue;
+                }
+                
+                Glyph g = font.glyphs[text[i]];
+                
+                float x = tx + g.bearing.x;
+                float y = ty - g.bearing.y;
+                float w = g.size.x;
+                float h = g.size.y;
+                
+                draw_texture(g.texture, Rectangle(x, y, w, h), nullptr, depth, color, Vector2());
+    
+                tx += g.size.x;
+            }
         }
         
         void Renderer::draw_texture(Texture2D* texture, Vector2 position, Rectangle* source_rectangle, float depth, Color color, Vector2 origin) {
