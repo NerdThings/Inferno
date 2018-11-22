@@ -30,8 +30,12 @@ ELSE()
     set(IL_LIBRARIES "${IL_DIR}/DevIL.lib")
 
     # Add Freetype
-    set (FREETYPE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/lib")
+    set(FREETYPE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/lib")
     set(FREETYPE_LIBRARIES "${FREETYPE_DIR}/freetype.lib")
+
+    # Add ZLIB
+    set(ZLIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/zlib/lib")
+    set(ZLIB_LIBRARIES "${ZLIB_DIR}/zlib.lib")
 
 ENDIF()
 
@@ -61,7 +65,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/gzip/include")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/include")
 
 # Include ZLIB
-include_directories(${ZLIB_INCLUDE_DIRS})
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/zlib/include")
 
 # Check SDL is on the UNIX system
 IF (UNIX)
