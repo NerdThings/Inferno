@@ -119,6 +119,9 @@ IF (WIN32)
     # Copy DevIL DLL to output path
     file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+    # Copy DevIL DLL to output path
+    file(COPY ${ZLIB_DIR}/zlib.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 ENDIF()
 
 # Copy include folder
