@@ -19,6 +19,9 @@ IF (UNIX)
     # Require harfbuzz
     find_package(Harfbuzz REQUIRED)
 
+    # Find ZLIB
+    find_package(ZLIB REQUIRED)
+
 ELSE()
 
     # Add Windows SDL2
@@ -38,9 +41,6 @@ ELSE()
     set(ZLIB_LIBRARIES "${ZLIB_DIR}/zlib.lib")
 
 ENDIF()
-
-# Find ZLIB
-find_package(ZLIB REQUIRED)
 
 # Add source files
 file(GLOB_RECURSE src
