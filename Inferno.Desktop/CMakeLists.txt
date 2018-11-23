@@ -89,10 +89,6 @@ IF (UNIX)
     target_link_libraries(Inferno.Desktop stdc++fs)
 ENDIF()
 
-IF (APPLE)
-    target_link_libraries(Inferno.Desktop c++experimental)
-ENDIF()
-
 # Link SDL
 target_link_libraries(Inferno.Desktop ${SDL2_LIBRARY})
 
