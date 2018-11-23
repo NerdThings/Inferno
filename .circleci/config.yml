@@ -6,15 +6,12 @@ jobs:
     steps:
       - checkout
       - run:
-          command: add-apt-repository ppa:glasen/freetype2
-      - run:
-          command: apt-get update
-      - run:
-          command: apt install libfreetype6-dev libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev build-essential cmake
-      - run:
-          command: mkdir build && cd build
-      - run:
-          command: cmake ..
-      - run:
-          command: make
+        name: Installing SUDO
+        command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
+      - run: 'add-apt-repository ppa:glasen/freetype2'
+      - run: 'apt-get update'
+      - run: 'apt install libfreetype6-dev libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev build-essential cmake -y'
+      - run: 'mkdir build && cd build'
+      - run: 'cmake ..'
+      - run: 'make'
 
