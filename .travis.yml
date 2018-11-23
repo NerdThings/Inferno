@@ -4,10 +4,6 @@ matrix:
   include:
     - os: osx
       osx_image: xcode10.1
-      compiler: clang
-      
-    - os: osx
-      osx_image: xcode10.1
       env:
         - MATRIX_EVAL="brew install gcc && brew link gcc && CC=gcc-8 && CXX=g++-8"
 
