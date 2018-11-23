@@ -126,6 +126,8 @@ namespace Inferno {
         //Methods
         
         void Renderer::draw_circle(Vector2 position, float radius, Color color, float depth, bool filled, int line_width, int circle_precision) {
+            set_matrix(Vector2(0, 0));
+            
             if (filled) {
 #ifdef OPENGL
                 //Bind blank texture
@@ -142,7 +144,6 @@ namespace Inferno {
                 for (float i = 0; i < 2 * M_PI; i += M_PI / circle_precision)
                     add_to_buffer(Vector3(x + (cosf(i) * radius), y + (sinf(i) * radius), depth), Vector2(0, 0), color, &data);
                 
-                set_matrix(Vector2(0, 0));
                 gl_draw_buffer(GL_POLYGON, data);
 #endif
             } else {
@@ -167,7 +168,7 @@ namespace Inferno {
     
                     add_to_buffer(Vector3(position.x + x, position.y + y, depth), Vector2(0, 0), color, &data);
                 }
-    
+                
                 gl_draw_buffer(GL_LINE_LOOP, data);
 #endif
             }
