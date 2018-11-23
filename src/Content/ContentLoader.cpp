@@ -9,8 +9,6 @@
 #include <fstream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <gzip/decompress.hpp>
-#include <gzip/utils.hpp>
 #include <iostream>
 #include <map>
 

@@ -19,9 +19,6 @@ IF (UNIX)
     # Require harfbuzz
     find_package(Harfbuzz REQUIRED)
 
-    # Find ZLIB
-    find_package(ZLIB REQUIRED)
-
 ELSE()
 
     # Add Windows SDL2
@@ -35,10 +32,6 @@ ELSE()
     # Add Freetype
     set(FREETYPE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/lib")
     set(FREETYPE_LIBRARIES "${FREETYPE_DIR}/freetype.lib")
-
-    # Add ZLIB
-    set(ZLIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../deps/zlib/lib")
-    set(ZLIB_LIBRARIES "${ZLIB_DIR}/zlib.lib")
 
 ENDIF()
 
@@ -58,14 +51,8 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/glad/include")
 # Include DevIL Headers
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/include")
 
-# Include GZIP
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/gzip/include")
-
 # Include Freetype
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/include")
-
-# Include ZLIB
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/zlib/include")
 
 # Check SDL is on the UNIX system
 IF (UNIX)
@@ -108,9 +95,6 @@ target_link_libraries(Inferno.Desktop ${FREETYPE_LIBRARIES})
 # Link Harfbuzz
 target_link_libraries(Inferno.Desktop ${HarfBuzz_LIBRARIES})
 
-# Link ZLIB
-target_link_libraries(Inferno.Desktop ${ZLIB_LIBRARIRES})
-
 IF (WIN32)
 
     # Copy SDL2 DLL to output path )
@@ -121,9 +105,6 @@ IF (WIN32)
 
     # Copy freetype DLL to output path
     file(COPY ${FREETYPE_DIR}/freetype.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-    # Copy ZLIB DLL to output path
-    file(COPY ${ZLIB_DIR}/zlib.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ENDIF()
 
