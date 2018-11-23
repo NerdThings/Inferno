@@ -10,7 +10,7 @@ jobs:
             name: Installing SUDO
             command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run: 'apt-get update'
-      - run: 'apt install libfreetype6-dev libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev build-essential cmake libc++-dev -y'
+      - run: 'apt install libfreetype6-dev libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev build-essential cmake libc++-dev libstdc++-7-dev -y'
       - run: 'cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ .'
       - run: 'make'
 
