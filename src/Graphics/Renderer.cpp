@@ -293,18 +293,18 @@ namespace Inferno {
         void Renderer::draw_text(std::string text, Vector2 position, Font font, Color color, float depth) {
             float tx = position.x;
             float ty = position.y;
-            for (int i = 0; i < text.size(); i++) {
-                if (text[i] == '\n') {
+            for (char c : text) {
+                if (c == '\n') {
                     ty += font.glyphs['A'].size.y + font.glyphs['A'].bearing.y;
                     tx = position.x;
                     continue;
                 }
-                if (text[i] == ' ') {
+                if (c == ' ') {
                     tx += font.glyphs['A'].size.y;
                     continue;
                 }
                 
-                Glyph g = font.glyphs[text[i]];
+                Glyph g = font.glyphs[c];
                 
                 float x = tx + g.bearing.x;
                 float y = ty - g.bearing.y;

@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          command: sudo add-apt-repository ppa:glasen/freetype2
+      - run:
+          command: sudo apt-get update
+      - run:
+          command: sudo apt install libfreetype6-dev libdevil-dev libegl1-mesa-dev libgles2-mesa-dev libsdl2-dev build-essential cmake
+      - run:
+          command: mkdir build && cd build
+      - run:
+          command: cmake ..
+      - run:
+          command: make
+
