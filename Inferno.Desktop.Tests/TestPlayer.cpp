@@ -16,7 +16,7 @@
 
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
-    Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(parent_scene->parent_game->graphics_device, working_dir + "/Content/Test_Sprite.png");
+    Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
     sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(0, 0), 16, 16, 10);
 }
 
@@ -56,9 +56,6 @@ void TestPlayer::update() {
         }
         velocity.y = 0;
     }
-    
-    //Run standard updates
-    Instance::update();
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {

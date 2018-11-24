@@ -236,8 +236,5 @@ namespace Inferno {
         parent_scene->spatial_move_instance(old_bounds, get_bounds(), this);
     }
     
-    void Instance::update() {
-        if (sprite != nullptr)
-            sprite->update();
-    }
+    void Instance::update() {}
 }

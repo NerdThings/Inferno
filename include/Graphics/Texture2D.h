@@ -20,7 +20,6 @@ namespace Inferno {
             //Fields
             
             std::vector<Color> _cached_data;
-            GraphicsDevice* _graphics_device;
             int _width;
             int _height;
             
@@ -37,8 +36,8 @@ namespace Inferno {
             //Constructors
             
             Texture2D();
-            Texture2D(GraphicsDevice* graphics_device, int width, int height, Color color);
-            Texture2D(GraphicsDevice* graphics_device, int width, int height, std::vector<Color> data);
+            Texture2D(int width, int height, Color color);
+            Texture2D(int width, int height, std::vector<Color> data);
             
             //Deconstructors
             
@@ -50,10 +49,6 @@ namespace Inferno {
             int get_height();
             int get_width();
             void set_data(std::vector<Color> data);
-            
-            //Operators
-            
-            void operator=(Texture2D texture);
         };
     }
 }

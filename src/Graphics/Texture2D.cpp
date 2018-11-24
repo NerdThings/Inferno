@@ -66,9 +66,10 @@ namespace Inferno {
             _height = 0;
         }
         
-        Texture2D::Texture2D(GraphicsDevice *graphics_device, int width, int height, Color color) : _graphics_device(graphics_device), _width(width), _height(height) {
+        Texture2D::Texture2D(int width, int height, Color color) : _width(width), _height(height) {
             //Create vector
             std::vector<Color> colordata;
+            colordata.reserve(width * height);
             for (int i = 0; i < width * height; i++) {
                 colordata.emplace_back(color);
             }
@@ -77,7 +78,7 @@ namespace Inferno {
             create_texture(colordata);
         }
         
-        Texture2D::Texture2D(GraphicsDevice *graphics_device, int width, int height, std::vector<Color> data) : _graphics_device(graphics_device), _width(width), _height(height) {
+        Texture2D::Texture2D(int width, int height, std::vector<Color> data) : _width(width), _height(height) {
             //Create texture
             create_texture(data);
         }
@@ -85,7 +86,16 @@ namespace Inferno {
         //Deconstructors
         
         Texture2D::~Texture2D() {
-            //TODO
+#ifdef OPENGL
+            //Unbind textures
+            glBindTexture(GL_TEXTURE_2D, 0);
+    
+            //Delete OpenGL Texture
+            glDeleteTextures(1, &id);
+    
+            //Unset id
+            id = 0;
+#endif
         }
         
         //Methods
@@ -103,14 +113,21 @@ namespace Inferno {
         }
         
         void Texture2D::set_data(std::vector<Color> data) {
-            //TODO:
-            throw "Not implemented.";
-        }
-        
-        //Operators
-        
-        void Texture2D::operator=(Texture2D texture) {
-            //TODO
+#ifdef OPENGL
+            //Delete current texture
+            
+            //Unbind textures
+            glBindTexture(GL_TEXTURE_2D, 0);
+    
+            //Delete OpenGL Texture
+            glDeleteTextures(1, &id);
+    
+            //Unset id
+            id = 0;
+#endif
+            
+            //Create texture using new data
+            create_texture(std::move(data));
         }
     }
 }

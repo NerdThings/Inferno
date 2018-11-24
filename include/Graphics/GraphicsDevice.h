@@ -34,9 +34,6 @@ namespace Inferno {
             unsigned int _gl_program;
 #endif
             Game* _parent_game;
-            std::vector<RenderTarget*> _queue_rendertarget;
-            std::vector<Shader*> _queue_shader;
-            std::vector<Texture2D*> _queue_texture2d;
             Matrix _projection_matrix;
             Matrix _view_matrix;
         public:
@@ -49,13 +46,9 @@ namespace Inferno {
             ~GraphicsDevice();
             
             //Methods
-    
+            
             void attach_shader(Shader* shader);
             void clear(Color color);
-            void delete_render_target(RenderTarget* target);
-            void delete_shader(Shader* shader);
-            void delete_texture2d(Texture2D* texture);
-            void end_draw();
             
             Matrix get_complete_matrix();
             Matrix get_projection_matrix();

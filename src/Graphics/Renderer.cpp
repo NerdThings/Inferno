@@ -103,7 +103,7 @@ namespace Inferno {
         
         Renderer::Renderer(GraphicsDevice *graphics_device) : _graphics_device(graphics_device) {
             //Create blank white texture for shaders
-            _blank_texture = new Texture2D(_graphics_device, 1, 1, Color(255, 255, 255, 255));
+            _blank_texture = new Texture2D(1, 1, Color(255, 255, 255, 255));
 
 #ifdef OPENGL
             //Create vertex array
@@ -300,7 +300,8 @@ namespace Inferno {
                     continue;
                 }
                 if (c == ' ') {
-                    tx += font.glyphs['A'].size.y;
+                    //TODO: Make this configurable
+                    tx += font.glyphs['I'].size.x;
                     continue;
                 }
                 

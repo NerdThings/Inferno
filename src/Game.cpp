@@ -137,7 +137,7 @@ namespace Inferno {
         renderer = new Graphics::Renderer(graphics_device);
         
         //Create main render target
-        render_target = new Graphics::RenderTarget(graphics_device, _virtual_width, _virtual_height);
+        render_target = new Graphics::RenderTarget(_virtual_width, _virtual_height);
     
         //Set properties
         game_window->set_fullscreen(fullscreen);
@@ -184,9 +184,6 @@ namespace Inferno {
     
                     //Present
                     game_window->present();
-    
-                    //End draw
-                    graphics_device->end_draw();
                 }
             }
     
@@ -200,9 +197,6 @@ namespace Inferno {
     
                 //Present
                 game_window->present();
-    
-                //End draw
-                graphics_device->end_draw();
             }
         }
         

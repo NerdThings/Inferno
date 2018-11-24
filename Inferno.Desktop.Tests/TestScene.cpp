@@ -35,7 +35,7 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, c, 0, false, 2, 48);
     
-    renderer->draw_text("Hello World.", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color(0, 0, 0, 255), 0);
+    renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color(0, 0, 0, 255), 0);
     
     Scene::draw(renderer);
 }
@@ -51,7 +51,7 @@ void TestScene::loaded() {
     add_instance(new TestWall(this, Inferno::Vector2(20, 20)));
     
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
-    fnt = Inferno::Content::ContentLoader::load_font(parent_game->graphics_device,  working_dir + "/Content/Roboto-Black.ttf", 36);
+    fnt = Inferno::Content::ContentLoader::load_font(working_dir + "/Content/Roboto-Black.ttf", 36);
 }
 
 void TestScene::unloaded() {

@@ -11,12 +11,13 @@
 #endif
 
 #include "Graphics/Shader.h"
+#include "Graphics/GraphicsDevice.h"
 
 namespace Inferno {
     namespace Graphics {
         //Constructors
     
-        Shader::Shader(Inferno::Graphics::ShaderType type) : type(type) {
+        Shader::Shader(ShaderType type) : type(type) {
 #ifdef OPENGL
             id = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 #endif
@@ -25,7 +26,13 @@ namespace Inferno {
         //Deconstructors
         
         Shader::~Shader() {
-            //TODO: Destroy shader
+#ifdef OPENGL
+            //Delete OpenGL Shader
+            glDeleteShader(id);
+    
+            //Unset shader id
+            id = 0;
+#endif
         }
     
         //Methods

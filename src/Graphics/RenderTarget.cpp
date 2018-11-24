@@ -17,7 +17,7 @@ namespace Inferno {
     namespace Graphics {
         //Constructors
         
-        RenderTarget::RenderTarget(GraphicsDevice *graphics_device, int width, int height) : _graphics_device(graphics_device), width(width), height(height) {
+        RenderTarget::RenderTarget(int width, int height) :  width(width), height(height) {
 #ifdef OPENGL
             //OPENGL CREATE RENDERTARGET
             
@@ -73,7 +73,22 @@ namespace Inferno {
         //Deconstructors
         
         RenderTarget::~RenderTarget() {
-            _graphics_device->delete_render_target(this);
+#ifdef OPENGL
+            //Unbinds
+            glBindRenderbuffer(GL_RENDERBUFFER, 0);
+            glBindTexture(GL_TEXTURE_2D, 0);
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    
+            //Delete OpenGL target
+            glDeleteRenderbuffers(1, &depth_render_buffer);
+            glDeleteTextures(1, &rendered_texture);
+            glDeleteFramebuffers(1, &framebuffer);
+    
+            //Unset ids
+            depth_render_buffer = 0;
+            rendered_texture = 0;
+            framebuffer = 0;
+#endif
         }
     }
 }

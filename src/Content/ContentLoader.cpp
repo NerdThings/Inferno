@@ -25,7 +25,7 @@ namespace Inferno {
             return cwd.string();
         }
         
-        Graphics::Font ContentLoader::load_font(Graphics::GraphicsDevice *graphics_device, std::string filename, int font_size) {
+        Graphics::Font ContentLoader::load_font(std::string filename, int font_size) {
             FT_Library ft;
             if (FT_Init_FreeType(&ft))
                 throw "Could not init FreeType Library";
@@ -56,7 +56,7 @@ namespace Inferno {
                     colordata.emplace_back(Graphics::Color(255, 255, 255, data[i]));
                 }
                 
-                Graphics::Texture2D* glyphtex = new Graphics::Texture2D(graphics_device, width, height, colordata);
+                Graphics::Texture2D* glyphtex = new Graphics::Texture2D(width, height, colordata);
                 Graphics::Glyph g;
                 g.texture = glyphtex;
                 g.size = Vector2(width, height);
@@ -71,7 +71,7 @@ namespace Inferno {
             return Graphics::Font(glyphs);
         }
         
-        Graphics::Texture2D* ContentLoader::load_texture(Graphics::GraphicsDevice* graphics_device, std::string filename) {
+        Graphics::Texture2D* ContentLoader::load_texture(std::string filename) {
             ilLoadImage(filename.c_str());
             ILubyte *idata = ilGetData();
     
@@ -93,7 +93,7 @@ namespace Inferno {
                 data.emplace_back(r, g, b, a);
             }
     
-            return new Graphics::Texture2D(graphics_device, width, height, data);
+            return new Graphics::Texture2D(width, height, data);
         }
     }
 }

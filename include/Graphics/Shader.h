@@ -13,7 +13,7 @@
 
 namespace Inferno {
     namespace Graphics {
-        
+        class GraphicsDevice;
         
         struct INFERNO_API Shader {
         private:
@@ -32,7 +32,7 @@ namespace Inferno {
             
             //Constructors
             
-            explicit Shader(ShaderType type);
+            Shader(ShaderType type);
             
             //Deconstructors
             
