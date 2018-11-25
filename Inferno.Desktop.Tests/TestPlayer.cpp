@@ -59,6 +59,6 @@ void TestPlayer::update() {
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
-    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color(0, 255, 0, 255), 1, false, 1);
+    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::orange, 1, false, 1);
     Instance::draw(renderer);
 }

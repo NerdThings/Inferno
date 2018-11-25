@@ -32,7 +32,7 @@ namespace Inferno {
             
             //Constructors
             
-            Shader(ShaderType type);
+            explicit Shader(ShaderType type);
             
             //Deconstructors
             

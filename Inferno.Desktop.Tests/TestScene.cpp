@@ -35,7 +35,7 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, c, 0, false, 2, 48);
     
-    renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color(0, 0, 0, 255), 0);
+    renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0);
     
     Scene::draw(renderer);
 }

@@ -13,5 +13,5 @@ TestGame::TestGame() : Inferno::Game(1024, 768, "Created with Inferno", 120) {
     test_scene = new TestScene(this);
     set_scene(test_scene);
     
-    graphics_device->clear(Inferno::Graphics::Color(0, 0, 0, 0));
+    graphics_device->clear(Inferno::Graphics::Color::white);
 }
