@@ -13,6 +13,3 @@ jobs:
       - run: 'apt install libfreetype6-dev build-essential cmake libdevil-dev libsdl2-dev libegl1-mesa-dev libgles2-mesa-dev -y'
       - run: 'cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ .'
       - run: 'make'
-      - run: 'ls'
-      - store_artifacts: 
-            path: /root/CMakeFiles
