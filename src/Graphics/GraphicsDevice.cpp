@@ -125,7 +125,11 @@ namespace Inferno {
         }
         
         Matrix GraphicsDevice::get_complete_matrix() {
-            return get_view_matrix() * get_projection_matrix();
+            return get_model_matrix() * get_view_matrix() * get_projection_matrix();
+        }
+        
+        Matrix GraphicsDevice::get_model_matrix() {
+            return _model_matrix;
         }
         
         Matrix GraphicsDevice::get_projection_matrix() {
@@ -134,6 +138,34 @@ namespace Inferno {
         
         Matrix GraphicsDevice::get_view_matrix() {
             return _view_matrix;
+        }
+    
+        void GraphicsDevice::pop_model_matrix() {
+            if (_model_matrices.empty())
+                throw std::runtime_error("No model matrix to pop.");
+        
+            _model_matrix = _model_matrices.at(_model_matrices.size() - 1);
+            _model_matrices.pop_back();
+        }
+    
+        void GraphicsDevice::push_model_matrix() {
+            _model_matrices.emplace_back(_model_matrix);
+        }
+        
+        void GraphicsDevice::pop_view_matrix() {
+            if (_view_matrices.empty())
+                throw std::runtime_error("No view matrix to pop.");
+    
+            _view_matrix = _view_matrices.at(_view_matrices.size() - 1);
+            _view_matrices.pop_back();
+        }
+        
+        void GraphicsDevice::push_view_matrix() {
+            _view_matrices.emplace_back(_view_matrix);
+        }
+        
+        void GraphicsDevice::set_model_matrix(Matrix model_matrix) {
+            _model_matrix = model_matrix;
         }
         
         void GraphicsDevice::set_render_target(RenderTarget* target) {

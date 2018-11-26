@@ -17,7 +17,8 @@
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
     Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
-    sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(0, 0), 16, 16, 10);
+    sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(8, 8), 16, 16, 10);
+    sprite->rotation = 1.5f;
 }
 
 void TestPlayer::update() {
@@ -59,6 +60,6 @@ void TestPlayer::update() {
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
-    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::orange, 1, false, 1);
+    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::orange, false, 1, 0, 1.5f, Inferno::Vector2(get_bounds().width / 2, get_bounds().height / 2));
     Instance::draw(renderer);
 }

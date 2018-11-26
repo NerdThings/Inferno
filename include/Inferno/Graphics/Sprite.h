@@ -32,7 +32,7 @@ namespace Inferno {
             int height = 0;
             float image_speed = 0;
             Vector2 origin = Vector2(0, 0);
-            //float rotation; Will be implemented once rotation is supported
+            float rotation;
             int width = 0;
             
             //Constructors

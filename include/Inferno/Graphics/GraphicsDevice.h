@@ -33,8 +33,11 @@ namespace Inferno {
 #ifdef OPENGL
             unsigned int _gl_program;
 #endif
-            Game* _parent_game;
+            std::vector<Matrix> _model_matrices;
+            Matrix _model_matrix;
+            Game* _parent_game = nullptr;
             Matrix _projection_matrix;
+            std::vector<Matrix> _view_matrices;
             Matrix _view_matrix;
         public:
             //Constructors
@@ -51,8 +54,14 @@ namespace Inferno {
             void clear(Color color);
             
             Matrix get_complete_matrix();
+            Matrix get_model_matrix();
             Matrix get_projection_matrix();
             Matrix get_view_matrix();
+            void pop_model_matrix();
+            void push_model_matrix();
+            void pop_view_matrix();
+            void push_view_matrix();
+            void set_model_matrix(Matrix model_matrix);
             void set_render_target(RenderTarget* target);
             void set_view_matrix(Matrix view_matrix);
             

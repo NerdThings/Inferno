@@ -21,14 +21,14 @@ namespace Inferno {
             //Draw background
             if (background != nullptr) {
                 Rectangle back_src = background->get_source_rectangle();
-                renderer->draw_texture(background->get_current_texture(), position, &back_src, 0, Graphics::Color::white, background->origin);
+                renderer->draw_texture(background->get_current_texture(), position, &back_src, 0, 0, Graphics::Color::white, background->origin);
             }
             
             //Draw highlight
             if (highlight_on_hover && highlight != nullptr) {
                 if (state == Hover) {
                     Rectangle highlight_src = highlight->get_source_rectangle();
-                    renderer->draw_texture(highlight->get_current_texture(), position, &highlight_src, 0, Graphics::Color::white, highlight->origin);
+                    renderer->draw_texture(highlight->get_current_texture(), position, &highlight_src, 0, 0, Graphics::Color::white, highlight->origin);
                 }
             }
             

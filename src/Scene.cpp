@@ -91,7 +91,7 @@ namespace Inferno {
         //Draw background
         if (background != nullptr) {
             Rectangle back_src = background->get_source_rectangle();
-            renderer->draw_texture(background->get_current_texture(), Vector2(), &back_src, background_depth,
+            renderer->draw_texture(background->get_current_texture(), Vector2(), &back_src, background_depth, 0,
                                    Graphics::Color::white, background->origin);
         }
         

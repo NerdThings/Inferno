@@ -104,10 +104,10 @@ namespace Inferno {
         const float val1 = cosf(radians);
         const float val2 = sinf(radians);
     
+        result.m11 = val1;
+        result.m12 = -val2;
+        result.m21 = val2;
         result.m22 = val1;
-        result.m23 = val2;
-        result.m32 = -val2;
-        result.m33 = val1;
     
         return result;
     }

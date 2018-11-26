@@ -68,7 +68,7 @@ namespace Inferno {
         
         //Draw target
         //renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), Graphics::Color(255, 255, 255, 255), 0);
-        renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), nullptr, 0, Graphics::Color(255, 255, 255, 255));
+        renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), nullptr, 0, 0, Graphics::Color(255, 255, 255, 255));
     }
     
     void Game::end_update() {
