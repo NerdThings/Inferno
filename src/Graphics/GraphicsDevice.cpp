@@ -69,7 +69,7 @@ namespace Inferno {
     
             //Projection matrix
             Point window_size = _parent_game->game_window->get_size();
-            _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -1, 1);
+            _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
             
             //View matrix
             _view_matrix = Matrix();
@@ -139,11 +139,11 @@ namespace Inferno {
         void GraphicsDevice::set_render_target(RenderTarget* target) {
             //Update projection matrix
             if (target != nullptr) {
-                _projection_matrix = Matrix::create_orthographic_off_center(0, target->width, target->height, 0, -1, 1);
+                _projection_matrix = Matrix::create_orthographic_off_center(0, target->width, target->height, 0, -101, 101);
                 glViewport(0, 0, target->width, target->height);
             } else {
                 Point window_size = _parent_game->game_window->get_size();
-                _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -1, 1);
+                _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
                 glViewport(0, 0, window_size.x, window_size.y);
             }
 #ifdef OPENGL

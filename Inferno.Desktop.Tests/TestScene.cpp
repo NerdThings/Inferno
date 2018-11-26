@@ -16,6 +16,8 @@
 TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768), camera(Inferno::Graphics::Camera(this, 0.5f)) {
     background = new Inferno::Graphics::Sprite(new Inferno::Graphics::Texture2D(1024, 768, Inferno::Graphics::Color::white), Inferno::Vector2(0, 0));
     camera.center_on(Inferno::Vector2(50, 50));
+    
+    background_depth = -99;
 }
 
 void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
