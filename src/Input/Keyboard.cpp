@@ -21,7 +21,7 @@ namespace Inferno {
             SDL_Keymod mods = SDL_GetModState();
             bool caps = (mods & KMOD_CAPS) == KMOD_CAPS;
             bool num = (mods & KMOD_NUM) == KMOD_NUM;
-            return {internal_keys, caps, num};
+            return KeyboardState(internal_keys, caps, num);
 #endif
         }
     }
