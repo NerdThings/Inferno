@@ -2,8 +2,8 @@
 // Created by Reece Mackie on 13/11/18.
 //
 
-#include "Point.h"
-#include "Vector2.h"
+#include "Inferno/Point.h"
+#include "Inferno/Vector2.h"
 
 namespace Inferno {
     //Constructors

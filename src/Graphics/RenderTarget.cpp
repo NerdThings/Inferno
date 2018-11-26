@@ -2,8 +2,10 @@
 // Created by Reece Mackie on 14/11/18.
 //
 
-#include "Graphics/GraphicsDevice.h"
-#include "Graphics/RenderTarget.h"
+#include <stdexcept>
+
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/RenderTarget.h"
 
 #ifdef OPENGL
 #include "glad/glad.h"
@@ -41,7 +43,7 @@ namespace Inferno {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
             //Depth buffer
-            glGenRenderbuffers(0, &depth_render_buffer);
+            glGenRenderbuffers(1, &depth_render_buffer);
 
             //Bind buffer
             glBindRenderbuffer(GL_RENDERBUFFER, depth_render_buffer);
@@ -61,7 +63,7 @@ namespace Inferno {
             //Check the buffer is ok
             unsigned int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
             if (status != GL_FRAMEBUFFER_COMPLETE)
-                throw "Framebuffer is not complete.";
+                throw std::runtime_error("Framebuffer is not complete.");
 
             //Unbinds
             glBindRenderbuffer(GL_RENDERBUFFER, 0);

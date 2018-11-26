@@ -4,9 +4,9 @@
 
 #include <cmath>
 
-#include "Matrix.h"
-#include "Vector2.h"
-#include "Vector3.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
 
 namespace Inferno {
     //Constructors

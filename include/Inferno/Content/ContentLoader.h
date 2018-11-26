@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 namespace Inferno {
     namespace Graphics {
@@ -17,10 +17,24 @@ namespace Inferno {
     }
     
     namespace Content {
+        /*
+         * Inferno Content Loader.
+         */
         class INFERNO_API ContentLoader {
         public:
+            /*
+             * Get current working directory
+             */
             static std::string get_working_directory();
+            
+            /*
+             * Load a font from a file
+             */
             static Graphics::Font load_font(std::string filename, int font_size);
+            
+            /*
+             * Load a texture from a file
+             */
             static Graphics::Texture2D* load_texture(std::string filename);
         };
     }

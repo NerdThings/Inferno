@@ -2,11 +2,12 @@
 // Created by Reece Mackie on 17/11/18.
 //
 
-#include "Input/Mouse.h"
-#include "Game.h"
-#include "GameWindow.h"
-#include "Point.h"
-#include "Vector2.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Input/Mouse.h"
+#include "Inferno/Game.h"
+#include "Inferno/GameWindow.h"
+#include "Inferno/Point.h"
+#include "Inferno/Vector2.h"
 
 namespace Inferno {
     namespace Input {
@@ -45,7 +46,7 @@ namespace Inferno {
             internal_x2 = false;
         }
         
-        MouseState Mouse::get_state(Game* current_game, Matrix* translation_matrix) {
+        MouseState Mouse::get_state(Game* current_game) {
             //Initial position
             Vector2 pos = Vector2(internal_x, internal_y);
             
@@ -84,10 +85,8 @@ namespace Inferno {
             pos.y *= virtual_size.y;
             pos.y /= view_height;
             
-            //Apply translation matrix if valid
-            if (translation_matrix != nullptr) {
-                pos = Vector2::transform(pos, *translation_matrix);
-            }
+            //Apply graphics device view matrix
+            pos = Vector2::transform(pos, Matrix::invert(current_game->graphics_device->get_view_matrix()));
             
             //Create state
             MouseState state;

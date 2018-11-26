@@ -11,14 +11,15 @@
 #endif
 
 #include <algorithm>
+#include <stdexcept>
 
-#include "Input/Key.h"
-#include "Input/Keyboard.h"
-#include "Input/Mouse.h"
-#include "Game.h"
-#include "GameWindow.h"
-#include "Point.h"
-#include "Rectangle.h"
+#include "Inferno/Input/Key.h"
+#include "Inferno/Input/Keyboard.h"
+#include "Inferno/Input/Mouse.h"
+#include "Inferno/Game.h"
+#include "Inferno/GameWindow.h"
+#include "Inferno/Point.h"
+#include "Inferno/Rectangle.h"
 
 namespace Inferno {
 
@@ -176,14 +177,14 @@ namespace Inferno {
 #ifdef SDL
         //SDL Init
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
-            throw "Failed to init SDL.";
+            throw std::runtime_error("Failed to init SDL.");
         
         //Create window
         _sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
         
         //Check window was created
         if (_sdl_window == nullptr)
-            throw "Failed to create window.";
+            throw std::runtime_error("Failed to create window.");
         
         //Init SDL OpenGL
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -205,6 +206,8 @@ namespace Inferno {
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
 #endif
     }
     

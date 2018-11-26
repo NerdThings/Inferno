@@ -4,10 +4,16 @@
 
 #include <cmath>
 
-#include "Matrix.h"
-#include "Vector2.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Vector2.h"
 
 namespace Inferno {
+    //Static Constants
+    
+    const Vector2 Vector2::zero = Vector2(0, 0);
+    const Vector2 Vector2::unit_x = Vector2(1, 0);
+    const Vector2 Vector2::unit_y = Vector2(0, 1);
+    
     //Constructors
     
     Vector2::Vector2() : x(0), y(0) {}

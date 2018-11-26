@@ -19,7 +19,7 @@ namespace Inferno {
         //Constructors
         
         Point(int x, int y);
-        Point(int value);
+        explicit Point(int value);
         
         //Methods
         

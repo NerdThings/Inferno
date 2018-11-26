@@ -5,14 +5,14 @@
 #ifndef INFERNO_SPRITE_H
 #define INFERNO_SPRITE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <vector>
 
-#include "Graphics/Renderer.h"
-#include "Graphics/Texture2D.h"
-#include "Rectangle.h"
-#include "Vector2.h"
+#include "Renderer.h"
+#include "Texture2D.h"
+#include "Inferno/Rectangle.h"
+#include "Inferno/Vector2.h"
 
 namespace Inferno {
     namespace Graphics {

@@ -6,7 +6,7 @@
 #include "SDL.h"
 #endif
 
-#include "Input/Keyboard.h"
+#include "Inferno/Input/Keyboard.h"
 
 namespace Inferno {
     namespace Input {

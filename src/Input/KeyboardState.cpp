@@ -2,7 +2,7 @@
 // Created by Reece Mackie on 17/11/18.
 //
 
-#include "Input/KeyboardState.h"
+#include "Inferno/Input/KeyboardState.h"
 
 namespace Inferno {
     namespace Input {

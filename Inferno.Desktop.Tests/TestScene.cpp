@@ -4,21 +4,23 @@
 
 #include "TestScene.h"
 
-#include "Graphics/Glyph.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Input/Keyboard.h"
-#include "Input/KeyboardState.h"
-#include "Input/Mouse.h"
-#include "Input/MouseState.h"
-#include "Vector3.h"
+#include "Inferno/Graphics/Glyph.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Input/Keyboard.h"
+#include "Inferno/Input/KeyboardState.h"
+#include "Inferno/Input/Mouse.h"
+#include "Inferno/Input/MouseState.h"
+#include "Inferno/Vector3.h"
 #include "TestWall.h"
 
-TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768) {
-
+TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768), camera(Inferno::Graphics::Camera(this, 0.5f)) {
+    background = new Inferno::Graphics::Sprite(new Inferno::Graphics::Texture2D(1024, 768, Inferno::Graphics::Color::white), Inferno::Vector2(0, 0));
+    camera.center_on(Inferno::Vector2(50, 50));
 }
 
 void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
-    Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game, nullptr);
+    parent_game->graphics_device->set_view_matrix(camera.get_translation_matrix());
+    Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game);
     Inferno::Input::KeyboardState ks = Inferno::Input::Keyboard::get_state();
     
     Inferno::Graphics::Color c;
@@ -31,13 +33,14 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
         c = Inferno::Graphics::Color(1.0f, 0.5f, 1.0f, 1.0f);
     }
     
-    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 0, true, 0);
+    renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, 1, true, 0);
     
-    renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, c, 0, false, 2, 48);
+    renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, Inferno::Graphics::Color::red, 0, true, 2, 48);
     
     renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0);
     
     Scene::draw(renderer);
+    parent_game->graphics_device->set_view_matrix(Inferno::Matrix());
 }
 
 void TestScene::update() {

@@ -11,6 +11,12 @@ namespace Inferno {
     struct Matrix;
     
     struct INFERNO_API Vector2 {
+        //Static Constants
+        
+        static const Vector2 zero;
+        static const Vector2 unit_x;
+        static const Vector2 unit_y;
+        
         //Fields
         
         float x;

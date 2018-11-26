@@ -5,7 +5,7 @@
 #ifndef INFERNO_KEY_H
 #define INFERNO_KEY_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 namespace Inferno {
     namespace Input {

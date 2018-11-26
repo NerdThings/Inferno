@@ -5,13 +5,13 @@
 #include "TestPlayer.h"
 
 #include <cmath>
-#include <MathHelper.h>
+#include <Inferno/MathHelper.h>
 
-#include "Content/ContentLoader.h"
-#include "Graphics/Color.h"
-#include "Input/Keyboard.h"
-#include "Game.h"
-#include "Scene.h"
+#include "Inferno/Content/ContentLoader.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Input/Keyboard.h"
+#include "Inferno/Game.h"
+#include "Inferno/Scene.h"
 #include "TestWall.h"
 
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {

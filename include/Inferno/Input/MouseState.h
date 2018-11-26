@@ -5,7 +5,7 @@
 #ifndef INFERNO_MOUSESTATE_H
 #define INFERNO_MOUSESTATE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include "ButtonState.h"
 

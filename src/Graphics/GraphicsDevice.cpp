@@ -2,13 +2,15 @@
 // Created by Reece Mackie on 14/11/18.
 //
 
-#include "Game.h"
-#include "Graphics/Color.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Graphics/RenderTarget.h"
-#include "Graphics/Shader.h"
-#include "Graphics/Texture2D.h"
-#include "GameWindow.h"
+#include <stdexcept>
+
+#include "Inferno/Game.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/RenderTarget.h"
+#include "Inferno/Graphics/Shader.h"
+#include "Inferno/Graphics/Texture2D.h"
+#include "Inferno/GameWindow.h"
 
 #ifdef OPENGL
 #include "glad/glad.h"
@@ -49,7 +51,10 @@ namespace Inferno {
                                                 "out vec4 color;\n"
                                                 "uniform sampler2D inf_texture;\n"
                                                 "void main() {\n"
-                                                "   color = texture(inf_texture, texCoord) * fragColor;\n"
+                                                "   vec4 texel = texture(inf_texture, texCoord);\n"
+                                                "   if(texel.a == 0)\n"
+                                                "       discard;\n"
+                                                "   color = texel * fragColor;\n"
                                                 "}\n";
             _default_vertex_shader = new Shader(Vertex);
             _default_vertex_shader->set_source(GLSL_default_vertex, GLSL);
@@ -85,7 +90,7 @@ namespace Inferno {
         
         void GraphicsDevice::attach_shader(Shader* shader) {
             if (shader == nullptr)
-                throw "Cannot attach a null shader.";
+                throw std::runtime_error("Cannot attach a null shader.");
 
 #ifdef OPENGL
             //Detach existing shader]
@@ -115,12 +120,12 @@ namespace Inferno {
         void GraphicsDevice::clear(Color color) {
 #ifdef OPENGL
             glClearColor(color.get_r(), color.get_g(), color.get_b(), color.get_a());
-            glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 #endif
         }
         
         Matrix GraphicsDevice::get_complete_matrix() {
-            return get_projection_matrix() * get_view_matrix();
+            return get_view_matrix() * get_projection_matrix();
         }
         
         Matrix GraphicsDevice::get_projection_matrix() {

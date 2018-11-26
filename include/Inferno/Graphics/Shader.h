@@ -5,11 +5,11 @@
 #ifndef INFERNO_SHADER_H
 #define INFERNO_SHADER_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <string>
 
-#include "Graphics/ShaderEnums.h"
+#include "ShaderEnums.h"
 
 namespace Inferno {
     namespace Graphics {

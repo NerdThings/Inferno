@@ -2,6 +2,8 @@
 // Created by Reece Mackie on 13/11/18.
 //
 
+#include <stdexcept>
+
 #ifdef OPENGL
 #include "glad/glad.h"
 #endif
@@ -10,8 +12,8 @@
 #include "SDL_opengl.h"
 #endif
 
-#include "Graphics/Shader.h"
-#include "Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/Shader.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
 
 namespace Inferno {
     namespace Graphics {
@@ -42,7 +44,7 @@ namespace Inferno {
             if (language == GLSL) {
 #ifndef OPENGL_ES
 #ifdef OPENGL
-                _source = source;
+                _source = std::move(source);
 #endif
 #endif
             } else if (language == GLSL_ES) {
@@ -70,7 +72,7 @@ namespace Inferno {
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &info_log_length);
     
             if (info_log_length > 0 || result == GL_FALSE) {
-                throw "Shader failed to compile.";
+                throw std::runtime_error("Shader failed to compile.");
             }
 #endif
         }

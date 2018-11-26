@@ -12,11 +12,11 @@
 #include <iostream>
 #include <map>
 
-#include "Content/ContentLoader.h"
-#include "Graphics/Color.h"
-#include "Graphics/Font.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Graphics/Texture2D.h"
+#include "Inferno/Content/ContentLoader.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Graphics/Font.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/Texture2D.h"
 
 namespace Inferno {
     namespace Content {
@@ -28,11 +28,11 @@ namespace Inferno {
         Graphics::Font ContentLoader::load_font(std::string filename, int font_size) {
             FT_Library ft;
             if (FT_Init_FreeType(&ft))
-                throw "Could not init FreeType Library";
+                throw std::runtime_error("Could not init FreeType Library");
     
             FT_Face face;
             if (FT_New_Face(ft, filename.c_str(), 0, &face))
-                throw "Failed to load font";
+                throw std::runtime_error("Failed to load font");
     
             FT_Set_Pixel_Sizes(face, 0, font_size);
             
@@ -41,7 +41,7 @@ namespace Inferno {
             for (int c = 0; c < 128; c++) {
                 int s = FT_Load_Char(face, c, FT_LOAD_RENDER);
                 if (s) {
-                    throw "Unable to load char";
+                    throw std::runtime_error("Unable to load char");
                 }
                 
                 //Create texture
@@ -79,7 +79,6 @@ namespace Inferno {
             int height = ilGetInteger(IL_IMAGE_HEIGHT);
             int channels = ilGetInteger(IL_IMAGE_CHANNELS);
     
-            int size = width * height;
             std::vector<Graphics::Color> data;
     
             for (int i = 0; i < width * height * channels; i+=channels) {

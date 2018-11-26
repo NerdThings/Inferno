@@ -5,7 +5,7 @@
 #ifndef INFERNO_RENDERTARGET_H
 #define INFERNO_RENDERTARGET_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 namespace Inferno {
     namespace Graphics {

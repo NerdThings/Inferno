@@ -5,17 +5,17 @@
 #include <chrono>
 #include <thread>
 
-#include "Content/ContentLoader.h"
-#include "Graphics/Color.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Graphics/Renderer.h"
-#include "Graphics/RenderTarget.h"
-#include "Graphics/Texture2D.h"
-#include "Game.h"
-#include "GameWindow.h"
-#include "Scene.h"
-#include "Point.h"
-#include "Rectangle.h"
+#include "Inferno/Content/ContentLoader.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/Renderer.h"
+#include "Inferno/Graphics/RenderTarget.h"
+#include "Inferno/Graphics/Texture2D.h"
+#include "Inferno/Game.h"
+#include "Inferno/GameWindow.h"
+#include "Inferno/Scene.h"
+#include "Inferno/Point.h"
+#include "Inferno/Rectangle.h"
 
 namespace Inferno {
     //Private Methods
@@ -80,8 +80,6 @@ namespace Inferno {
         if (_current_scene != nullptr)
             _current_scene->update();
     }
-
-#define CLOCKS_PER_MS CLOCKS_PER_SEC * 1000
     
     int get_time() {
         auto time = std::chrono::high_resolution_clock::now();
@@ -147,9 +145,7 @@ namespace Inferno {
     
     //Deconstructors
     
-    Game::~Game() {
-    
-    }
+    Game::~Game() = default;
     
     //Methods
     

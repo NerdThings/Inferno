@@ -4,17 +4,18 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <stdexcept>
 
-#include "Graphics/Color.h"
-#include "Graphics/Font.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Graphics/Renderer.h"
-#include "Graphics/RenderTarget.h"
-#include "Graphics/Texture2D.h"
-#include "Rectangle.h"
-#include "Matrix.h"
-#include "Vector2.h"
-#include "Vector3.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Graphics/Font.h"
+#include "Inferno/Graphics/GraphicsDevice.h"
+#include "Inferno/Graphics/Renderer.h"
+#include "Inferno/Graphics/RenderTarget.h"
+#include "Inferno/Graphics/Texture2D.h"
+#include "Inferno/Rectangle.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
 
 #ifdef OPENGL
 #include "glad/glad.h"
@@ -66,7 +67,7 @@ namespace Inferno {
     
             //Check shaders have been configured correctly
             if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
-                throw "Shaders are not correctly configured.";
+                throw std::runtime_error("Shaders are not correctly configured.");
             
             //Get data from vector
             float* dat = data.data();

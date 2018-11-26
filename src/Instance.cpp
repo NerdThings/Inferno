@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <type_traits>
 
-#include "Instance.h"
-#include "MathHelper.h"
-#include "Scene.h"
+#include "Inferno/Instance.h"
+#include "Inferno/MathHelper.h"
+#include "Inferno/Scene.h"
 
 namespace Inferno {
     //Private methods
@@ -20,7 +20,7 @@ namespace Inferno {
         
         //Animation check
         if (sprite_a->is_animated() || sprite_b->is_animated())
-            throw "Cannot per pixel check animated sprites";
+            throw std::runtime_error("Cannot per pixel check animated sprites");
         
         //Build bounding box of collision area
         int left = MathHelper::maximum(bounds_a.get_left_coord(), bounds_b.get_left_coord());
@@ -88,7 +88,7 @@ namespace Inferno {
         
         //Check for animations
         if (sprite->is_animated())
-            throw "Cannot per pixel check animated sprites";
+            throw std::runtime_error("Cannot per pixel check animated sprites");
         
         //Look for collision
         for (int x = left; x < left + width; x++) {
@@ -125,12 +125,9 @@ namespace Inferno {
     
     Instance::~Instance() {
         //Delete all attached pointers (exception for parent and parent_scene)
-        if (_collision_mask != nullptr)
-            delete _collision_mask;
-        if (collision_rectangle != nullptr)
-            delete collision_rectangle;
-        if (sprite != nullptr)
-            delete sprite;
+        delete _collision_mask;
+        delete collision_rectangle;
+        delete sprite;
     }
     
     //Methods

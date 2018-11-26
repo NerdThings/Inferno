@@ -5,10 +5,9 @@
 #ifndef INFERNO_MOUSE_H
 #define INFERNO_MOUSE_H
 
-#include "Inferno.h"
-
-#include "Input/MouseState.h"
-#include "Matrix.h"
+#include "Inferno/Input/MouseState.h"
+#include "Inferno/Inferno.h"
+#include "Inferno/Matrix.h"
 
 namespace Inferno {
     class Game;
@@ -36,7 +35,12 @@ namespace Inferno {
             static void clear_right_button();
             static void clear_x_button_1();
             static void clear_x_button_2();
-            static MouseState get_state(Game* current_game, Matrix* translation_matrix = nullptr);
+            
+            /*
+             * Get the current mouse state.
+             * Mouse Position is translated by Graphics Device view matrix
+             */
+            static MouseState get_state(Game* current_game);
         };
     }
 }

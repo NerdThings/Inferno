@@ -5,11 +5,11 @@
 #ifndef INFERNO_KEYBOARDSTATE_H
 #define INFERNO_KEYBOARDSTATE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <vector>
 
-#include "Input/Key.h"
+#include "Key.h"
 
 namespace Inferno {
     namespace Input {
@@ -33,7 +33,7 @@ namespace Inferno {
             
             //Constructors
             
-            KeyboardState(std::vector<Key> keys, bool caps_lock = false, bool num_lock = false);
+            explicit KeyboardState(std::vector<Key> keys, bool caps_lock = false, bool num_lock = false);
             
             //Methods
             

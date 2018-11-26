@@ -5,10 +5,10 @@
 #ifndef INFERNO_GLYPH_H
 #define INFERNO_GLYPH_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
-#include "Graphics/Texture2D.h"
-#include "Vector2.h"
+#include "Texture2D.h"
+#include "Inferno/Vector2.h"
 
 namespace Inferno {
     namespace Graphics {

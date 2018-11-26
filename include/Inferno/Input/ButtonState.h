@@ -5,7 +5,7 @@
 #ifndef INFERNO_BUTTONSTATE_H
 #define INFERNO_BUTTONSTATE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 namespace Inferno {
     namespace Input {

@@ -5,11 +5,11 @@
 #ifndef INFERNO_TEXTURE2D_H
 #define INFERNO_TEXTURE2D_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <vector>
 
-#include "Graphics/Color.h"
+#include "Color.h"
 
 namespace Inferno {
     namespace Graphics {

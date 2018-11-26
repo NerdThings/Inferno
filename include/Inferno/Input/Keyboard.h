@@ -5,12 +5,12 @@
 #ifndef INFERNO_KEYBOARD_H
 #define INFERNO_KEYBOARD_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <vector>
 
-#include "Input/Key.h"
-#include "Input/KeyboardState.h"
+#include "Key.h"
+#include "KeyboardState.h"
 
 namespace Inferno {
     namespace Input {

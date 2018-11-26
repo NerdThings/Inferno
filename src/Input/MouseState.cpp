@@ -2,7 +2,7 @@
 // Created by Reece Mackie on 17/11/18.
 //
 
-#include "Input/MouseState.h"
+#include "Inferno/Input/MouseState.h"
 
 namespace Inferno {
     namespace Input {

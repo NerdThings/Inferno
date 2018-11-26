@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <cmath>
 
-#include "Scene.h"
-#include "Instance.h"
+#include "Inferno/Scene.h"
+#include "Inferno/Instance.h"
 
 namespace Inferno {
     //Private methods
@@ -14,7 +14,7 @@ namespace Inferno {
     void Scene::spatial_initialise() {
         //Check config
         if (spatialmode == SafeZone && !safezone_enabled)
-            throw "Safezone spatial mode requires safezone to be enabled.";
+            throw std::runtime_error("Safezone spatial mode requires safezone to be enabled.");
         
         //Calculate the size of the array
         int cols = abs(width / space_size);
@@ -53,11 +53,11 @@ namespace Inferno {
         if (position.x < 0 || position.y < 0 || position.x > width || position.y > height)
             return;
         
-        float w = width / space_size;
+        float w = float(width) / float(space_size);
         
-        int x_position = (int)floorf(position.x / space_size);
-        int y_position = (int)floorf(position.y / space_size);
-        int index = (int)(y_position * w + x_position);
+        auto x_position = (int)floorf(position.x / space_size);
+        auto y_position = (int)floorf(position.y / space_size);
+        auto index = (int)(y_position * w + x_position);
         
         if (std::find(spaces->begin(), spaces->end(), index) == spaces->end()) {
             spaces->emplace_back(index);
@@ -88,6 +88,13 @@ namespace Inferno {
     }
     
     void Scene::draw(Graphics::Renderer *renderer) {
+        //Draw background
+        if (background != nullptr) {
+            Rectangle back_src = background->get_source_rectangle();
+            renderer->draw_texture(background->get_current_texture(), Vector2(), &back_src, background_depth,
+                                   Graphics::Color::white, background->origin);
+        }
+        
         for (Instance* instance : _instances) {
             if (instance != nullptr)
                 if (instance->draws)

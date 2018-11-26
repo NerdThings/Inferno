@@ -5,8 +5,8 @@
 #ifndef INFERNO_TESTGAME_H
 #define INFERNO_TESTGAME_H
 
-#include "Graphics/Shader.h"
-#include "Game.h"
+#include "Inferno/Graphics/Shader.h"
+#include "Inferno/Game.h"
 
 #include "TestScene.h"
 

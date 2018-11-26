@@ -5,16 +5,16 @@
 #ifndef INFERNO_GRAPHICSDEVICE_H
 #define INFERNO_GRAPHICSDEVICE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <string>
 #include <vector>
 
-#include "Point.h"
-#include "Matrix.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "Inferno/Point.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
+#include "Inferno/Vector4.h"
 
 namespace Inferno {
     class Game;

@@ -4,17 +4,15 @@
 // Created by Reece Mackie on 22/11/18.
 //
 
-#include "Graphics/Font.h"
+#include "Inferno/Graphics/Font.h"
 
 namespace Inferno {
     namespace Graphics {
         //Constructors
         
-        Font::Font() {
+        Font::Font() = default;
         
-        }
-        
-        Font::Font(std::vector<Glyph> glyphs) : glyphs(glyphs) {
+        Font::Font(std::vector<Glyph> glyphs) : glyphs(std::move(glyphs)) {
         
         }
     }

@@ -5,7 +5,7 @@
 #ifndef INFERNO_TESTWALL_H
 #define INFERNO_TESTWALL_H
 
-#include "Instance.h"
+#include "Inferno/Instance.h"
 
 class TestWall : public Inferno::Instance {
 public:

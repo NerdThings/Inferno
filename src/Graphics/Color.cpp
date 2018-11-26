@@ -4,8 +4,8 @@
 
 #include <climits>
 
-#include "Graphics/Color.h"
-#include "MathHelper.h"
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/MathHelper.h"
 
 namespace Inferno {
     namespace Graphics {

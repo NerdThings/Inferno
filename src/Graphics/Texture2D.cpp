@@ -10,7 +10,7 @@
 #include "SDL_opengl.h"
 #endif
 
-#include "Graphics/Texture2D.h"
+#include "Inferno/Graphics/Texture2D.h"
 
 namespace Inferno {
     namespace Graphics {
@@ -80,7 +80,7 @@ namespace Inferno {
         
         Texture2D::Texture2D(int width, int height, std::vector<Color> data) : _width(width), _height(height) {
             //Create texture
-            create_texture(data);
+            create_texture(std::move(data));
         }
         
         //Deconstructors

@@ -5,13 +5,13 @@
 #ifndef INFERNO_FONT_H
 #define INFERNO_FONT_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
 
 #include <vector>
 
-#include "Graphics/Glyph.h"
-#include "Graphics/Texture2D.h"
-#include "Vector4.h"
+#include "Glyph.h"
+#include "Texture2D.h"
+#include "Inferno/Vector4.h"
 
 namespace Inferno {
     namespace Graphics {

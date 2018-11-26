@@ -10,8 +10,8 @@
 #include <algorithm>
 #include <vector>
 
-#include "Graphics/Renderer.h"
-#include "Graphics/Sprite.h"
+#include "Inferno/Graphics/Renderer.h"
+#include "Inferno/Graphics/Sprite.h"
 #include "Scene.h"
 #include "Vector2.h"
 
@@ -73,7 +73,7 @@ namespace Inferno {
             if (get_collision_mask() != nullptr)
                 if (collision_mode == PerPixel)
                     if (get_collision_mask()->is_animated())
-                        throw "An instance collision mask cannot be animated.";
+                        throw std::runtime_error("An instance collision mask cannot be animated.");
             
             //Store current position
             Vector2 current_pos = _position;

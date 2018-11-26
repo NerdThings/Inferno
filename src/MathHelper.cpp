@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-#include "MathHelper.h"
+#include "Inferno/MathHelper.h"
 
 namespace Inferno {
     double MathHelper::clamp(double value, double min, double max) {
@@ -42,10 +42,10 @@ namespace Inferno {
     }
     
     float MathHelper::nearest_multiple(float number, float multiple) {
-        return roundf((number / float(multiple))) * multiple;
+        return roundf((number / multiple)) * multiple;
     }
     
     int MathHelper::nearest_multiple(int number, int multiple) {
-        return (int)round((number / float(multiple))) * multiple;
+        return (int)round((double(number) / multiple)) * multiple;
     }
 }

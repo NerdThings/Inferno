@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "Graphics/Color.h"
+#include "Inferno/Graphics/Color.h"
 
 namespace Inferno {
     namespace Graphics {

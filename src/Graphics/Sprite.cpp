@@ -2,14 +2,14 @@
 // Created by Reece Mackie on 16/11/18.
 //
 
-#include "Graphics/Sprite.h"
+#include "Inferno/Graphics/Sprite.h"
 
 namespace Inferno {
     namespace Graphics {
         //Constructors
-        Sprite::Sprite() {}
+        Sprite::Sprite() = default;
         
-        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true), width(texture->get_width()), height(texture->get_height()) {
+        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true), width(texture->get_width()), height(texture->get_height()), frame_width(texture->get_width()), frame_height(texture->get_height()) {
             //Add texture
             _textures.emplace_back(texture);
         }

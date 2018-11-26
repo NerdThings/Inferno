@@ -43,7 +43,7 @@ namespace Inferno {
         //Fields
         
         int height = 0;
-        float background_depth = -99;
+        float background_depth = -0.9f;
         int space_size = 32;
         Graphics::Sprite* background = nullptr;
         bool safezone_enabled = false;
