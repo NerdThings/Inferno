@@ -2,15 +2,15 @@
 // Created by Reece Mackie on 13/11/18.
 //
 
-#include <stdexcept>
-
 #ifdef OPENGL
-#include "glad/glad.h"
+#include <glad/glad.h>
 #endif
 
 #ifdef SDL
-#include "SDL_opengl.h"
+#include <SDL_opengl.h>
 #endif
+
+#include <stdexcept>
 
 #include "Inferno/Graphics/Shader.h"
 #include "Inferno/Graphics/GraphicsDevice.h"
