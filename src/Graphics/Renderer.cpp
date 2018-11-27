@@ -2,6 +2,14 @@
 // Created by Reece Mackie on 14/11/18.
 //
 
+#ifdef OPENGL
+#include <glad/glad.h>
+#endif
+
+#ifdef SDL
+#include <SDL_opengl.h>
+#endif
+
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <stdexcept>
@@ -16,14 +24,6 @@
 #include "Inferno/Matrix.h"
 #include "Inferno/Vector2.h"
 #include "Inferno/Vector3.h"
-
-#ifdef OPENGL
-#include "glad/glad.h"
-#endif
-
-#ifdef SDL
-#include "SDL_opengl.h"
-#endif
 
 namespace Inferno {
     namespace Graphics {
