@@ -2,18 +2,18 @@
 // Created by Reece Mackie on 14/11/18.
 //
 
-#include <stdexcept>
-
 #include "Inferno/Graphics/GraphicsDevice.h"
 #include "Inferno/Graphics/RenderTarget.h"
 
 #ifdef OPENGL
-#include "glad/glad.h"
+#include <glad/glad.h>
 #endif
 
 #ifdef SDL
-#include "SDL_opengl.h"
+#include <SDL_opengl.h>
 #endif
+
+#include <stdexcept>
 
 namespace Inferno {
     namespace Graphics {

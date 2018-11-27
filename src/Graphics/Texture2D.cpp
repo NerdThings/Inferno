@@ -3,11 +3,11 @@
 //
 
 #if OPENGL
-#include "glad/glad.h"
+#include <glad/glad.h>
 #endif
 
 #if SDL
-#include "SDL_opengl.h"
+#include <SDL_opengl.h>
 #endif
 
 #include "Inferno/Graphics/Texture2D.h"
