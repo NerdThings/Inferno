@@ -28,9 +28,6 @@ namespace Inferno {
         
         GraphicsDevice::GraphicsDevice(Game *game) : _parent_game(game)
         {
-#ifdef OPENGL
-            _gl_program = glCreateProgram();
-#endif
             //Create default shaders
             //TODO: GLSL_ES and HLSL Source
             const char* GLSL_default_vertex =  "#version 330\n"
@@ -56,17 +53,15 @@ namespace Inferno {
                                                 "       discard;\n"
                                                 "   color = texel * fragColor;\n"
                                                 "}\n";
-            _default_vertex_shader = new Shader(Vertex);
-            _default_vertex_shader->set_source(GLSL_default_vertex, GLSL);
-            _default_vertex_shader->compile();
-            _default_fragment_shader = new Shader(Fragment);
-            _default_fragment_shader->set_source(GLSL_default_fragment, GLSL);
-            _default_fragment_shader->compile();
+            //Create and compile shader
+            default_shader = new Shader();
+            default_shader->set_source(Vertex, GLSL_default_vertex, GLSL);
+            default_shader->set_source(Fragment, GLSL_default_fragment, GLSL);
+            default_shader->compile();
             
-            //Attach
-            attach_shader(_default_vertex_shader);
-            attach_shader(_default_fragment_shader);
-    
+            //Use new shader
+            use_shader(default_shader);
+            
             //Projection matrix
             Point window_size = _parent_game->game_window->get_size();
             _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
@@ -81,41 +76,11 @@ namespace Inferno {
         //Deconstructors
         
         GraphicsDevice::~GraphicsDevice() {
-            //Delete default shaders
-            delete _default_vertex_shader;
-            delete _default_fragment_shader;
+            //Delete default shader
+            delete default_shader;
         }
         
         //Methods
-        
-        void GraphicsDevice::attach_shader(Shader* shader) {
-            if (shader == nullptr)
-                throw std::runtime_error("Cannot attach a null shader.");
-
-#ifdef OPENGL
-            //Detach existing shader]
-            if (shader->type == Vertex) {
-                if (_current_vertex_shader != nullptr) {
-                    glDetachShader(_gl_program, _current_vertex_shader->id);
-                }
-            } else {
-                if (_current_fragment_shader != nullptr) {
-                    glDetachShader(_gl_program, _current_fragment_shader->id);
-                }
-            }
-#endif
-            
-            shader->type == Vertex ? _current_vertex_shader = shader : _current_fragment_shader = shader;
-            
-#ifdef OPENGL
-            //Attach shaders to program
-            glAttachShader(_gl_program, shader->id);
-    
-            //Link and use program
-            glLinkProgram(_gl_program);
-            glUseProgram(_gl_program);
-#endif
-        }
         
         void GraphicsDevice::clear(Color color) {
 #ifdef OPENGL
@@ -126,6 +91,10 @@ namespace Inferno {
         
         Matrix GraphicsDevice::get_complete_matrix() {
             return get_model_matrix() * get_view_matrix() * get_projection_matrix();
+        }
+        
+        Shader* GraphicsDevice::get_current_shader() {
+            return _shader;
         }
         
         RenderTarget* GraphicsDevice::get_current_target() {
@@ -167,6 +136,18 @@ namespace Inferno {
         void GraphicsDevice::push_render_target() {
             _render_targets.emplace_back(_render_target);
         }
+    
+        void GraphicsDevice::pop_shader(){
+            if (_shaders.empty())
+                throw std::runtime_error("No model matrix to pop.");
+        
+            use_shader(_shaders.at(_shaders.size() - 1));
+            _shaders.pop_back();
+        }
+    
+        void GraphicsDevice::push_shader() {
+            _shaders.emplace_back(_shader);
+        }
         
         void GraphicsDevice::pop_view_matrix() {
             if (_view_matrices.empty())
@@ -206,94 +187,12 @@ namespace Inferno {
         void GraphicsDevice::set_view_matrix(Matrix view_matrix) {
             _view_matrix = view_matrix;
         }
-        
-        //TEMP:
-        
-        int GraphicsDevice::shader_get_attrib(std::string attrib){
-#ifdef OPENGL
-            return glGetAttribLocation(_gl_program, attrib.c_str());
-#endif
-        }
-    
-        int GraphicsDevice::shader_get_uniform(std::string uniform){
-#ifdef OPENGL
-            return glGetUniformLocation(_gl_program, uniform.c_str());
-#endif
-        }
-        
-        void GraphicsDevice::shader_uniform_set(std::string uniform, float value) {
-#ifdef OPENGL
-            glUniform1f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value);
-#endif
-        }
-        
-        void GraphicsDevice::shader_uniform_set(std::string uniform, int value) {
-#ifdef OPENGL
-            glUniform1i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value);
-#endif
-        }
-        
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector2 value) {
-            shader_uniform_set(std::move(uniform), value.x, value.y);
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Point value) {
-            shader_uniform_set(std::move(uniform), value.x, value.y);
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2) {
-#ifdef OPENGL
-            glUniform2f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2);
-#endif
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2) {
-#ifdef OPENGL
-            glUniform2i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2);
-#endif
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector3 value) {
-            shader_uniform_set(std::move(uniform), value.x, value.y, value.z);
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2, float value3) {
-#ifdef OPENGL
-            glUniform3f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3);
-#endif
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2, int value3) {
-#ifdef OPENGL
-            glUniform3i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3);
-#endif
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Vector4 value) {
-            shader_uniform_set(std::move(uniform), value.x, value.y, value.z, value.w);
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Color value) {
-            shader_uniform_set(std::move(uniform), value.get_r(), value.get_g(), value.get_b(), value.get_a());
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, float value1, float value2, float value3, float value4) {
-#ifdef OPENGL
-            glUniform4f(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3, value4);
-#endif
-        }
-    
-        void GraphicsDevice::shader_uniform_set(std::string uniform, int value1, int value2, int value3, int value4) {
-#ifdef OPENGL
-            glUniform4i(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), value1, value2, value3, value4);
-#endif
-        }
-        
-        void GraphicsDevice::shader_uniform_set(std::string uniform, Inferno::Matrix value) {
-#ifdef OPENGL
-            glUniformMatrix4fv(static_cast<GLuint>(shader_get_uniform(std::move(uniform))), 1, GL_FALSE, value.to_float_vector().data());
-#endif
-        }
 
+        void GraphicsDevice::use_shader(Inferno::Graphics::Shader *shader) {
+#ifdef OPENGL
+            glUseProgram(shader->gl_program);
+            _shader = shader;
+#endif
+        }
     }
 }

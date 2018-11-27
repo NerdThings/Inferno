@@ -11,6 +11,7 @@
 #include "Inferno/Graphics/GraphicsDevice.h"
 #include "Inferno/Graphics/Renderer.h"
 #include "Inferno/Graphics/RenderTarget.h"
+#include "Inferno/Graphics/Shader.h"
 #include "Inferno/Graphics/Texture2D.h"
 #include "Inferno/Rectangle.h"
 #include "Inferno/Matrix.h"
@@ -69,7 +70,7 @@ namespace Inferno {
             Matrix matrix = _graphics_device->get_complete_matrix();
             
             //Set matrix in shader
-            _graphics_device->shader_uniform_set("inf_matrix", matrix);
+            _graphics_device->get_current_shader()->uniform_set("inf_matrix", matrix);
             
             //Pop matrix
             _graphics_device->pop_model_matrix();
@@ -79,9 +80,10 @@ namespace Inferno {
 
         void Renderer::gl_draw_buffer(int drawmode, std::vector<float> data){
             //Get shader attrib locations
-            int position_loc = _graphics_device->shader_get_attrib("inf_position");
-            int texcoord_loc = _graphics_device->shader_get_attrib("inf_texcoord");
-            int color_loc = _graphics_device->shader_get_attrib("inf_color");
+            int gl_program = _graphics_device->get_current_shader()->gl_program;
+            int position_loc = glGetAttribLocation(gl_program, "inf_position");
+            int texcoord_loc = glGetAttribLocation(gl_program, "inf_texcoord");
+            int color_loc = glGetAttribLocation(gl_program, "inf_color");
     
             //Check shaders have been configured correctly
             if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
@@ -154,7 +156,7 @@ namespace Inferno {
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
                 //Set texture sampler
-                _graphics_device->shader_uniform_set("inf_texture", 0);
+                _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
                 
                 float x = position.x;
                 float y = position.y;
@@ -172,7 +174,7 @@ namespace Inferno {
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
                 //Set texture sampler
-                _graphics_device->shader_uniform_set("inf_texture", 0);
+                _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
     
                 //Line width
                 glLineWidth(line_width);
@@ -202,7 +204,7 @@ namespace Inferno {
             glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
             //Set texture sampler
-            _graphics_device->shader_uniform_set("inf_texture", 0);
+            _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
     
             //Line width
             glLineWidth(line_width);
@@ -240,7 +242,7 @@ namespace Inferno {
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
                 //Set texture sampler
-                _graphics_device->shader_uniform_set("inf_texture", 0);
+                _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
     
                 std::vector<float> data;
     
@@ -279,7 +281,7 @@ namespace Inferno {
             glBindTexture(GL_TEXTURE_2D, target->rendered_texture);
     
             //Set texture sampler
-            _graphics_device->shader_uniform_set("inf_texture", 0);
+            _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
     
             //Get coords from the destination rectangle
             float left = destination_rectangle.get_left_coord();
@@ -359,7 +361,7 @@ namespace Inferno {
             glBindTexture(GL_TEXTURE_2D, texture->id);
             
             //Set texture sampler
-            _graphics_device->shader_uniform_set("inf_texture", 0);
+            _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
             
             //Get coords from the destination rectangle
             float left = destination_rectangle.get_left_coord();
