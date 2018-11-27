@@ -20,6 +20,6 @@ void TestWall::draw(Inferno::Graphics::Renderer *renderer) {
     if (s.left_button == Inferno::Input::Pressed)
         rot += 0.05f;
     
-    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::pink, true, 1, 0, rot, Inferno::Vector2(16, 16));
-    renderer->draw_circle(get_position() + Inferno::Vector2(16, 16), 2, Inferno::Graphics::Color::black, 4);
+    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::pink, false, 1, 0, rot, Inferno::Vector2(16, 16));
+    renderer->draw_circle(get_position() + Inferno::Vector2(16, 16), 5, Inferno::Graphics::Color::black, 0, rot, false, 2);
 }

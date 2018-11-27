@@ -7,10 +7,12 @@
 
 #include "Inferno/Inferno.h"
 
+#include <string>
 #include <vector>
 
-#include "Glyph.h"
-#include "Texture2D.h"
+#include "Inferno/Graphics/Glyph.h"
+#include "Inferno/Graphics/Texture2D.h"
+#include "Inferno/Point.h"
 #include "Inferno/Vector4.h"
 
 namespace Inferno {
@@ -25,6 +27,10 @@ namespace Inferno {
             Font();
     
             explicit Font(std::vector<Glyph> glyphs);
+            
+            //Methods
+    
+            Vector2 measure_string(std::string string);
         };
     }
 }

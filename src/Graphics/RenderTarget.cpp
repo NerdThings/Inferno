@@ -76,11 +76,6 @@ namespace Inferno {
         
         RenderTarget::~RenderTarget() {
 #ifdef OPENGL
-            //Unbinds
-            glBindRenderbuffer(GL_RENDERBUFFER, 0);
-            glBindTexture(GL_TEXTURE_2D, 0);
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    
             //Delete OpenGL target
             glDeleteRenderbuffers(1, &depth_render_buffer);
             glDeleteTextures(1, &rendered_texture);

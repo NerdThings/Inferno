@@ -35,6 +35,7 @@ namespace Inferno {
             //Methods
             
             void add_to_buffer(Vector3 position, Vector2 texcoord, Color color, std::vector<float>* data);
+            Matrix create_model_matrix(Vector2 origin = Vector2(), float rotation = 0, float scale = 1);
             void set_matrix(Vector2 origin = Vector2(), float rotation = 0, float scale = 1);
 
 #ifdef OPENGL
@@ -54,7 +55,7 @@ namespace Inferno {
             
             //Methods
             
-            void draw_circle(Vector2 position, float radius, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24);
+            void draw_circle(Vector2 position, float radius, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24, Vector2 origin = Vector2());
             void draw_line(Vector2 pos_a, Vector2 pos_b, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
             void draw_lines(std::vector<Vector2> points, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
             void draw_rectangle(Rectangle rect, Color color, bool filled = true, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());

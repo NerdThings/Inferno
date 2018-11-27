@@ -128,6 +128,10 @@ namespace Inferno {
             return get_model_matrix() * get_view_matrix() * get_projection_matrix();
         }
         
+        RenderTarget* GraphicsDevice::get_current_target() {
+            return _render_target;
+        }
+        
         Matrix GraphicsDevice::get_model_matrix() {
             return _model_matrix;
         }
@@ -150,6 +154,18 @@ namespace Inferno {
     
         void GraphicsDevice::push_model_matrix() {
             _model_matrices.emplace_back(_model_matrix);
+        }
+    
+        void GraphicsDevice::pop_render_target() {
+            if (_render_targets.empty())
+                throw std::runtime_error("No model matrix to pop.");
+    
+            set_render_target(_render_targets.at(_render_targets.size() - 1));
+            _render_targets.pop_back();
+        }
+    
+        void GraphicsDevice::push_render_target() {
+            _render_targets.emplace_back(_render_target);
         }
         
         void GraphicsDevice::pop_view_matrix() {
@@ -184,6 +200,7 @@ namespace Inferno {
             else
                 glBindFramebuffer(GL_FRAMEBUFFER, 0);
 #endif
+            _render_target = target;
         }
         
         void GraphicsDevice::set_view_matrix(Matrix view_matrix) {

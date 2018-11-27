@@ -37,6 +37,8 @@ namespace Inferno {
             Matrix _model_matrix;
             Game* _parent_game = nullptr;
             Matrix _projection_matrix;
+            RenderTarget* _render_target = nullptr;
+            std::vector<RenderTarget*> _render_targets;
             std::vector<Matrix> _view_matrices;
             Matrix _view_matrix;
         public:
@@ -54,11 +56,14 @@ namespace Inferno {
             void clear(Color color);
             
             Matrix get_complete_matrix();
+            RenderTarget* get_current_target(); //TEMP
             Matrix get_model_matrix();
             Matrix get_projection_matrix();
             Matrix get_view_matrix();
             void pop_model_matrix();
             void push_model_matrix();
+            void pop_render_target();
+            void push_render_target();
             void pop_view_matrix();
             void push_view_matrix();
             void set_model_matrix(Matrix model_matrix);

@@ -18,11 +18,11 @@
 #include "Inferno/Vector3.h"
 
 #ifdef OPENGL
-#include "glad/glad.h"
+#include <glad/glad.h>
 #endif
 
 #ifdef SDL
-#include "SDL_opengl.h"
+#include <SDL_opengl.h>
 #endif
 
 namespace Inferno {
@@ -46,15 +46,21 @@ namespace Inferno {
             data->emplace_back(color.get_a());
         }
         
-        void Renderer::set_matrix(Vector2 origin, float rotation, float scale) {
-            //Push model matrix
-            _graphics_device->push_model_matrix();
-            
+        Matrix Renderer::create_model_matrix(Vector2 origin, float rotation, float scale) {
             //Build model matrix
             Matrix model = Matrix::create_translation(Vector3(-origin, 0));
             model = model * Matrix::create_rotation_z(rotation);
             model = model * Matrix::create_scale(scale, scale, 1);
             model = model * Matrix::create_translation(Vector3(origin, 0));
+            return model;
+        }
+        
+        void Renderer::set_matrix(Vector2 origin, float rotation, float scale) {
+            //Push model matrix
+            _graphics_device->push_model_matrix();
+            
+            //Build model matrix
+            Matrix model = create_model_matrix(origin, rotation, scale);
             
             //Set model matrix
             _graphics_device->set_model_matrix(model);
@@ -138,9 +144,9 @@ namespace Inferno {
         
         //Methods
         
-        void Renderer::draw_circle(Vector2 position, float radius, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision) {
+        void Renderer::draw_circle(Vector2 position, float radius, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
             //Set matrix
-            set_matrix(Vector2(), rotation);
+            set_matrix(position + origin, rotation);
             
             if (filled) {
 #ifdef OPENGL
@@ -188,34 +194,34 @@ namespace Inferno {
         }
         
         void Renderer::draw_line(Vector2 pos_a, Vector2 pos_b, Color color, int line_width, float depth, float rotation, Vector2 origin) {
-            std::vector<Vector2> points;
-            points.emplace_back(pos_a);
-            points.emplace_back(pos_b);
-            draw_lines(points, color, line_width, depth, rotation, origin);
-        }
-        
-        void Renderer::draw_lines(std::vector<Vector2> points, Color color, int line_width, float depth, float rotation, Vector2 origin) {
-#ifdef OPENGL
             //Set matrix
-            set_matrix(Vector2(), rotation);
+            set_matrix(origin, rotation);
             
+#ifdef OPENGL
             //Bind blank texture
             glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
     
             //Set texture sampler
             _graphics_device->shader_uniform_set("inf_texture", 0);
-            
+    
             //Line width
             glLineWidth(line_width);
-            
+    
             std::vector<float> data;
-            
-            for (Vector2 point : points) {
-                add_to_buffer(Vector3(point.x, point.y, depth), Vector2(0, 0), color, &data);
-            }
-            
+    
+            add_to_buffer(Vector3(pos_a.x, pos_a.y, depth), Vector2(0, 0), color, &data);
+            add_to_buffer(Vector3(pos_b.x, pos_b.y, depth), Vector2(0, 0), color, &data);
+    
             gl_draw_buffer(GL_LINES, data);
 #endif
+        }
+        
+        void Renderer::draw_lines(std::vector<Vector2> points, Color color, int line_width, float depth, float rotation, Vector2 origin) {
+            if (points.size() % 2 != 0)
+                return;
+            for (int i = 0; i < points.size(); i += 2) {
+                draw_line(points[i], points[i + 1], color, line_width, depth, rotation, origin);
+            }
         }
         
         void Renderer::draw_rectangle(Rectangle rect, Color color, bool filled, int line_width, float depth, float rotation, Vector2 origin) {
@@ -255,7 +261,7 @@ namespace Inferno {
                 points.emplace_back(Vector2(left, bottom));
                 points.emplace_back(Vector2(left, bottom));
                 points.emplace_back(Vector2(left, top));
-                draw_lines(points, color, line_width, depth, rotation);
+                draw_lines(points, color, line_width, depth, rotation, Vector2(left, top) + origin);
             }
 #endif
         }
@@ -307,6 +313,12 @@ namespace Inferno {
         }
         
         void Renderer::draw_text(std::string text, Vector2 position, Font font, Color color, float depth, float rotation) {
+            Vector2 size = font.measure_string(text);
+            
+            //TODO: Implement rotation
+            if (rotation != 0)
+                throw std::runtime_error("Cannot currently rotate text.");
+            
             float tx = position.x;
             float ty = position.y;
             for (char c : text) {
@@ -328,9 +340,7 @@ namespace Inferno {
                 float w = g.size.x;
                 float h = g.size.y;
                 
-                //TODO: Rotation support
-                
-                draw_texture(g.texture, Rectangle(x, y, w, h), nullptr, depth, 0, color, Vector2());
+                draw_texture(g.texture, Vector2(x, y), nullptr, depth, rotation, color, Vector2());
     
                 tx += g.size.x;
             }
