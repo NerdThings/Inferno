@@ -2,6 +2,7 @@
 // Created by Reece Mackie on 15/11/18.
 //
 
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include "TestScene.h"
