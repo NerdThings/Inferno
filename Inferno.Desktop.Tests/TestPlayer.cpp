@@ -28,7 +28,7 @@ void TestPlayer::update() {
     //Get keyboard state
     auto s = Inferno::Input::Keyboard::get_state();
 
-#define MOVE_SPEED 2
+#define MOVE_SPEED 1
     
     //Move logic
     if (s.is_key_down(Inferno::Input::W)) {

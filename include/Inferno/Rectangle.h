@@ -5,50 +5,46 @@
 #ifndef INFERNO_RECTANGLE_H
 #define INFERNO_RECTANGLE_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
 
 namespace Inferno {
     struct Point;
     struct Vector2;
     
     struct INFERNO_API Rectangle {
+    private:
+        //Methods
+        
+        Matrix get_matrix(bool invert = false);
+    public:
         //Fields
         
-        int x;
-        int y;
-        int width;
-        int height;
+        float height;
+        float rotation;
+        Vector2 rotation_origin;
+        float width;
+        float x;
+        float y;
         
         //Constructors
         
-        Rectangle(int x, int y, int width, int height);
-        Rectangle(Point position, Point size);
+        Rectangle(float x, float y, float width, float height, float rotation = 0, Vector2 rotation_origin = Vector2());
+        Rectangle(Vector2 position, Vector2 dimensions, float rotation = 0, Vector2 rotation_origin = Vector2());
         
         //Methods
         
-        bool contains(float x, float y);
-        bool contains(int x, int y);
-        bool contains(Point value);
-        bool contains(Vector2 value);
-        int get_bottom_coord();
-        Point get_center();
-        int get_left_coord();
-        Point get_location();
-        int get_right_coord();
-        Point get_size();
-        int get_top_coord();
+        Vector2 bottom_left();
+        Vector2 bottom_right();
+        Vector2 center();
+        bool contains(Vector2 point);
         bool intersects(Rectangle b);
-        bool touching(Rectangle b);
-        bool touching_bottom(Rectangle b);
-        bool touching_left(Rectangle b);
-        bool touching_right(Rectangle b);
-        bool touching_top(Rectangle b);
+        Vector2 top_left();
+        Vector2 top_right();
         
         //Operators
-        
-        /*
-         * Do we need more of these???
-         */
         
         bool operator==(Rectangle b);
         bool operator!=(Rectangle b);

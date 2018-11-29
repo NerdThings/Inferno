@@ -22,7 +22,9 @@ namespace Inferno {
         if (sprite_a->is_animated() || sprite_b->is_animated())
             throw std::runtime_error("Cannot per pixel check animated sprites");
         
-        //Build bounding box of collision area
+        //TODO: Support for the new rectangle
+        
+        /*//Build bounding box of collision area
         int left = MathHelper::maximum(bounds_a.get_left_coord(), bounds_b.get_left_coord());
         int top = MathHelper::maximum(bounds_a.get_top_coord(), bounds_b.get_top_coord());
         int width = MathHelper::minimum(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
@@ -31,11 +33,11 @@ namespace Inferno {
         //Check pixels
         for (int x = left; x < left + width; x++) {
             for (int y = top; y < top + height; y++) {
-                int color_a_x = x - bounds_a.get_left_coord() + source_a.get_left_coord();
-                int color_a_y = y - bounds_a.get_top_coord() + source_a.get_top_coord();
+                int color_a_x = x - bounds_a.get_left_coord() + source_a.x;
+                int color_a_y = y - bounds_a.get_top_coord() + source_a.y;
                 int color_a_i = color_a_y * sprite_a->get_current_texture()->get_width() + color_a_x;
-                int color_b_x = x - bounds_b.get_left_coord() + source_b.get_left_coord();
-                int color_b_y = y - bounds_b.get_top_coord() + source_b.get_top_coord();
+                int color_b_x = x - bounds_b.get_left_coord() + source_b.x;
+                int color_b_y = y - bounds_b.get_top_coord() + source_b.y;
                 int color_b_i = color_b_y * sprite_b->get_current_texture()->get_width() + color_b_x;
                 
                 Graphics::Color color_a = colordata_a[color_a_i];
@@ -44,7 +46,7 @@ namespace Inferno {
                 if (color_a.get_a() > 0 && color_b.get_a() > 0)
                     return true;
             }
-        }
+        }*/
         
         //No collision
         return false;
@@ -80,7 +82,9 @@ namespace Inferno {
         std::vector<Graphics::Color> color_data = sprite->get_current_texture()->get_data();
         Rectangle source = sprite->get_source_rectangle();
     
-        //Build bounding box of collision area
+        //TODO: New rectangle support
+        
+        /*//Build bounding box of collision area
         int left = MathHelper::maximum(bounds_a.get_left_coord(), bounds_b.get_left_coord());
         int top = MathHelper::maximum(bounds_a.get_top_coord(), bounds_b.get_top_coord());
         int width = MathHelper::minimum(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
@@ -103,7 +107,7 @@ namespace Inferno {
                 if (color.get_a() > 0 && bounds_b.contains(Vector2(x, y)))
                     return true;
             }
-        }
+        }*/
         
         //No collision
         return false;

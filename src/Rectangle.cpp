@@ -1,113 +1,142 @@
 //
-// Created by Reece Mackie on 13/11/18.
+// Created by Reece Mackie on 29/11/18.
 //
 
-#include "Inferno/Point.h"
+#include <limits>
 #include "Inferno/Rectangle.h"
-#include "Inferno/Vector2.h"
 
 namespace Inferno {
+    //Private methods
+    Matrix Rectangle::get_matrix(bool invert) {
+        float r = rotation;
+        if (invert)
+            r = -r;
+        return Matrix::create_translation(Vector3(-(rotation_origin + Vector2(x, y)), 0))
+               * Matrix::create_rotation_z(r)
+               * Matrix::create_translation(Vector3(rotation_origin + Vector2(x, y), 0));
+    }
+    
     //Constructors
     
-    Rectangle::Rectangle(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
+    Rectangle::Rectangle(float x, float y, float width, float height, float rotation,
+                         Vector2 rotation_origin) : x(x), y(y), width(width), height(height), rotation(rotation), rotation_origin(rotation_origin) {
+        
+    }
     
-    Rectangle::Rectangle(Inferno::Point position, Inferno::Point size) : x(position.x), y(position.y), width(size.x), height(size.x) {}
+    Rectangle::Rectangle(Vector2 position, Vector2 dimensions, float rotation,
+                         Vector2 rotation_origin) : x(position.x), y(position.y), width(dimensions.x), height(dimensions.y), rotation(rotation), rotation_origin(rotation_origin)  {
+        
+    }
     
     //Methods
     
-    bool Rectangle::contains(float x, float y) {
-        return this->x <= x && x < this->x + this->width && this->y <= y && y < this->y + this->height;
+    Vector2 Rectangle::bottom_left() {
+        return Vector2::transform({x, y + height}, get_matrix());
     }
     
-    bool Rectangle::contains(int x, int y) {
-        return contains(float(x), float(y));
+    Vector2 Rectangle::bottom_right() {
+        return Vector2::transform({x + width, y + height}, get_matrix());
     }
     
-    bool Rectangle::contains(Point value) {
-        return contains(value.x, value.y);
+    Vector2 Rectangle::center() {
+        return Vector2::transform({x + width * 0.5f, y + height * 0.5f}, get_matrix());
     }
     
-    bool Rectangle::contains(Vector2 value) {
-        return contains(value.x, value.y);
+    bool Rectangle::contains(Vector2 point) {
+        Vector2 translated_point = Vector2::transform(point, get_matrix(true));
+        return this->x <= translated_point.x && translated_point.x < this->x + this->width && this->y <= translated_point.y && translated_point.y < this->y + this->height;
     }
     
-    int Rectangle::get_bottom_coord() {
-        return y + height;
+    //Thanks to https://manski.net/2011/05/rectangle-intersection-test-with-csharp/
+    /*bool DoAxisSeparationTest(Point x1, Point x2, Point x3, Point[] otherQuadPoints) {
+        Vector vec = x2 - x1;
+        Vector rotated = new Vector(-vec.Y, vec.X);
+        
+        bool refSide = (rotated.X * (x3.X - x1.X)
+                        + rotated.Y * (x3.Y - x1.Y)) >= 0;
+        
+        foreach (Point pt in otherQuadPoints) {
+            bool side = (rotated.X * (pt.X - x1.X)
+                         + rotated.Y * (pt.Y - x1.Y)) >= 0;
+            if (side == refSide) {
+                // At least one point of the other quad is one the same side as x3. Therefor the specified edge can't be a
+                // separating axis anymore.
+                return false;
+            }
+        }
+        
+        // All points of the other quad are on the other side of the edge. Therefor the edge is a separating axis and
+        // the quads don't intersect.
+        return true;
+    }
+    */
+    bool axis_separation(Vector2 x1, Vector2 x2, Vector2 x3, std::vector<Vector2> other_pts) {
+        Vector2 vec = x2 - x1;
+        Vector2 rotated = Vector2(-vec.y, vec.x);
+        
+        bool ref_size = (rotated.x * (x3.x - x1.x)
+                         + rotated.y * (x3.y - x1.y)) >= 0;
+        
+        for (Vector2 v : other_pts) {
+            bool side = (rotated.x * (v.x - x1.x)
+                         + rotated.y * (v.y - x1.y)) >= 0;
+            if (side == ref_size)
+                return false;
+        }
+        return true;
     }
     
-    Point Rectangle::get_center() {
-        return {x + width / 2, y + height / 2};
+    bool Rectangle::intersects(Rectangle b) {
+        //TODO: Fix this
+        
+        std::vector<Vector2> a_pts;
+        a_pts.emplace_back(top_left());
+        a_pts.emplace_back(top_right());
+        a_pts.emplace_back(bottom_right());
+        a_pts.emplace_back(bottom_left());
+        
+        std::vector<Vector2> b_pts;
+        a_pts.emplace_back(b.top_left());
+        a_pts.emplace_back(b.top_right());
+        a_pts.emplace_back(b.bottom_right());
+        a_pts.emplace_back(b.bottom_left());
+        
+        if (axis_separation(top_left(), top_right(), bottom_right(), b_pts))
+            return false;
+        if (axis_separation(top_left(), bottom_left(), bottom_right(), b_pts))
+            return false;
+        if (axis_separation(bottom_left(), bottom_right(), top_left(), b_pts))
+            return false;
+        if (axis_separation(bottom_right(), top_right(), top_left(), b_pts))
+            return false;
+    
+        if (axis_separation(b.top_left(), b.top_right(), b.bottom_right(), a_pts))
+            return false;
+        if (axis_separation(b.top_left(), b.bottom_left(), b.bottom_right(), a_pts))
+            return false;
+        if (axis_separation(b.bottom_left(), b.bottom_right(), b.top_left(), a_pts))
+            return false;
+        if (axis_separation(b.bottom_right(), b.top_right(), b.top_left(), a_pts))
+            return false;
+        
+        return true;
     }
     
-    int Rectangle::get_left_coord() {
-        return x;
+    Vector2 Rectangle::top_left() {
+        return Vector2::transform({x, y}, get_matrix());
     }
     
-    Point Rectangle::get_location() {
-        return {x, y};
-    }
-    
-    int Rectangle::get_right_coord() {
-        return x + width;
-    }
-    
-    Point Rectangle::get_size() {
-        return {width, height};
-    }
-    
-    int Rectangle::get_top_coord() {
-        return y;
-    }
-    
-    bool Rectangle::intersects(Rectangle value) {
-        return value.get_left_coord() < get_right_coord() &&
-               get_left_coord() < value.get_right_coord() &&
-               value.get_top_coord() < get_bottom_coord() &&
-               get_top_coord() < value.get_bottom_coord();
-    }
-    
-    bool Rectangle::touching(Rectangle b) {
-        return touching_bottom(b) || touching_left(b) || touching_right(b) || touching_left(b);
-    }
-    
-    bool Rectangle::touching_bottom(Rectangle b) {
-        return get_top_coord() < b.get_bottom_coord() &&
-               get_bottom_coord() > b.get_bottom_coord() &&
-               get_right_coord() > b.get_left_coord() &&
-               get_left_coord() < b.get_right_coord();
-    }
-    
-    bool Rectangle::touching_left(Rectangle b) {
-        return get_right_coord() > b.get_left_coord() &&
-               get_left_coord() < b.get_left_coord() &&
-               get_bottom_coord() > b.get_top_coord() &&
-               get_top_coord() < b.get_bottom_coord();
-    }
-    
-    bool Rectangle::touching_right(Rectangle b) {
-        return get_left_coord() < b.get_right_coord() &&
-               get_right_coord() > b.get_right_coord() &&
-               get_bottom_coord() > b.get_top_coord() &&
-               get_top_coord() < b.get_bottom_coord();
-    }
-    
-    bool Rectangle::touching_top(Rectangle b) {
-        return get_bottom_coord() > b.get_top_coord() &&
-               get_top_coord() < b.get_top_coord() &&
-               get_right_coord() > b.get_left_coord() &&
-               get_left_coord() < b.get_right_coord();
+    Vector2 Rectangle::top_right() {
+        return Vector2::transform({x + width, y}, get_matrix());
     }
     
     //Operators
     
-    bool Rectangle::operator==(Inferno::Rectangle b) {
-        return (x == b.x &&
-                y == b.y &&
-                width == b.width &&
-                height == b.height);
+    bool Rectangle::operator==(Rectangle b) {
+    
     }
     
-    bool Rectangle::operator!=(Inferno::Rectangle b) {
-        return !(*this == b);
+    bool Rectangle::operator!=(Rectangle b) {
+    
     }
 }

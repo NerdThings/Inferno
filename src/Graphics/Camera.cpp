@@ -43,7 +43,7 @@ namespace Inferno {
             Vector2 viewport_corner = screen_to_world(Vector2());
             Vector2 viewport_bottom_corner = screen_to_world(Vector2(get_viewport_width(), get_viewport_height()));
             
-            return {(int)viewport_corner.x, (int)viewport_corner.y, (int)(viewport_bottom_corner.x - viewport_corner.x), (int)(viewport_bottom_corner.y - viewport_corner.y)};
+            return {viewport_corner.x, viewport_corner.y, (viewport_bottom_corner.x - viewport_corner.x), (viewport_bottom_corner.y - viewport_corner.y)};
         }
         
         Vector2 Camera::screen_to_world(Vector2 screen_position) {
@@ -55,10 +55,10 @@ namespace Inferno {
         }
         
         bool Camera::drawable(Inferno::Rectangle rect) {
-            Vector2 top_left = Vector2(rect.get_left_coord(), rect.get_top_coord());
-            Vector2 top_right = Vector2(rect.get_right_coord(), rect.get_top_coord());
-            Vector2 bottom_left = Vector2(rect.get_left_coord(), rect.get_bottom_coord());
-            Vector2 bottom_right = Vector2(rect.get_right_coord(), rect.get_bottom_coord());
+            Vector2 top_left = rect.top_left();
+            Vector2 top_right = rect.top_right();
+            Vector2 bottom_left = rect.bottom_left();
+            Vector2 bottom_right = rect.bottom_right();
             
             Rectangle boundary = get_viewport_world_boundary();
     

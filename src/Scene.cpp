@@ -170,10 +170,10 @@ namespace Inferno {
     std::vector<int> Scene::spatial_get_spaces(Rectangle rectangle) {
         std::vector<int> spaces_in;
         
-        Vector2 topleft = Vector2(rectangle.get_left_coord(), rectangle.get_top_coord());
-        Vector2 topright = Vector2(rectangle.get_right_coord(), rectangle.get_top_coord());
-        Vector2 bottomleft = Vector2(rectangle.get_left_coord(), rectangle.get_bottom_coord());
-        Vector2 bottomright = Vector2(rectangle.get_right_coord(), rectangle.get_bottom_coord());
+        Vector2 topleft = rectangle.top_left();
+        Vector2 topright = rectangle.top_right();
+        Vector2 bottomleft = rectangle.bottom_left();
+        Vector2 bottomright = rectangle.bottom_right();
         
         spatial_add_to_space(topleft, &spaces_in);
         spatial_add_to_space(topright, &spaces_in);

@@ -228,15 +228,9 @@ namespace Inferno {
         
         void Renderer::draw_rectangle(Rectangle rect, Color color, bool filled, int line_width, float depth, float rotation, Vector2 origin) {
 #ifdef OPENGL
-            //Get coords from the rectangle
-            float left = rect.get_left_coord();
-            float right = rect.get_right_coord();
-            float top = rect.get_top_coord();
-            float bottom = rect.get_bottom_coord();
-            
             if (filled) {
                 //Set matrix
-                set_matrix(origin + Vector2(rect.x, rect.y), rotation);
+                set_matrix();
                 
                 //Bind blank texture
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
@@ -246,24 +240,24 @@ namespace Inferno {
     
                 std::vector<float> data;
     
-                add_to_buffer(Vector3(left, top, depth), Vector2(0, 0), color, &data);
-                add_to_buffer(Vector3(right, top, depth), Vector2(1, 0), color, &data);
-                add_to_buffer(Vector3(right, bottom, depth), Vector2(1, 1), color, &data);
-                add_to_buffer(Vector3(left, bottom, depth), Vector2(0, 1), color, &data);
+                add_to_buffer(Vector3(rect.top_left(), depth), Vector2(0, 0), color, &data);
+                add_to_buffer(Vector3(rect.top_right(), depth), Vector2(1, 0), color, &data);
+                add_to_buffer(Vector3(rect.bottom_right(), depth), Vector2(1, 1), color, &data);
+                add_to_buffer(Vector3(rect.bottom_left(), depth), Vector2(0, 1), color, &data);
     
                 //Load buffer
                 gl_draw_buffer(GL_QUADS, data);
             } else {
                 std::vector<Vector2> points;
-                points.emplace_back(Vector2(left, top));
-                points.emplace_back(Vector2(right, top));
-                points.emplace_back(Vector2(right, top));
-                points.emplace_back(Vector2(right, bottom));
-                points.emplace_back(Vector2(right, bottom));
-                points.emplace_back(Vector2(left, bottom));
-                points.emplace_back(Vector2(left, bottom));
-                points.emplace_back(Vector2(left, top));
-                draw_lines(points, color, line_width, depth, rotation, Vector2(left, top) + origin);
+                points.emplace_back(rect.top_left());
+                points.emplace_back(rect.top_right());
+                points.emplace_back(rect.top_right());
+                points.emplace_back(rect.bottom_right());
+                points.emplace_back(rect.bottom_right());
+                points.emplace_back(rect.bottom_left());
+                points.emplace_back(rect.bottom_left());
+                points.emplace_back(rect.top_left());
+                draw_lines(points, color, line_width, depth);
             }
 #endif
         }
@@ -282,12 +276,6 @@ namespace Inferno {
     
             //Set texture sampler
             _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
-    
-            //Get coords from the destination rectangle
-            float left = destination_rectangle.get_left_coord();
-            float right = destination_rectangle.get_right_coord();
-            float top = destination_rectangle.get_top_coord();
-            float bottom = destination_rectangle.get_bottom_coord();
             
             //Calculate source rectangle texcoords
             float tex_left = 0;
@@ -304,10 +292,10 @@ namespace Inferno {
             //Build buffer
             std::vector<float> data;
             
-            add_to_buffer(Vector3(left, top, depth), Vector2(tex_left, tex_top), color, &data);
-            add_to_buffer(Vector3(right, top, depth), Vector2(tex_right, tex_top), color, &data);
-            add_to_buffer(Vector3(right, bottom, depth), Vector2(tex_right, tex_bottom), color, &data);
-            add_to_buffer(Vector3(left, bottom, depth), Vector2(tex_left, tex_bottom), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.top_left(), depth), Vector2(tex_left, tex_top), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.top_right(), depth), Vector2(tex_right, tex_top), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.bottom_right(), depth), Vector2(tex_right, tex_bottom), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.bottom_left(), depth), Vector2(tex_left, tex_bottom), color, &data);
             
             //Draw
             gl_draw_buffer(GL_QUADS, data);
@@ -363,18 +351,15 @@ namespace Inferno {
             //Set texture sampler
             _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
             
-            //Get coords from the destination rectangle
-            float left = destination_rectangle.get_left_coord();
-            float right = destination_rectangle.get_right_coord();
-            float top = destination_rectangle.get_top_coord();
-            float bottom = destination_rectangle.get_bottom_coord();
-            
             //Calculate source rectangle texcoords
             float tex_left = 0;
             float tex_right = 1;
             float tex_top = 0;
             float tex_bottom = 1;
             if (source_rectangle != nullptr) {
+                if (source_rectangle->rotation != 0)
+                    throw std::runtime_error("Cannot rotate texture source rectangle.");
+                
                 tex_left = float(source_rectangle->x) / texture->get_width();
                 tex_right = tex_left + float(source_rectangle->width) / texture->get_width();
                 tex_top = float(source_rectangle->y) / texture->get_height();
@@ -384,10 +369,10 @@ namespace Inferno {
             //Build buffer
             std::vector<float> data;
             
-            add_to_buffer(Vector3(left, top, depth), Vector2(tex_left, tex_top), color, &data);
-            add_to_buffer(Vector3(right, top, depth), Vector2(tex_right, tex_top), color, &data);
-            add_to_buffer(Vector3(right, bottom, depth), Vector2(tex_right, tex_bottom), color, &data);
-            add_to_buffer(Vector3(left, bottom, depth), Vector2(tex_left, tex_bottom), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.top_left(), depth), Vector2(tex_left, tex_top), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.top_right(), depth), Vector2(tex_right, tex_top), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.bottom_right(), depth), Vector2(tex_right, tex_bottom), color, &data);
+            add_to_buffer(Vector3(destination_rectangle.bottom_left(), depth), Vector2(tex_left, tex_bottom), color, &data);
             
             //Draw
             gl_draw_buffer(GL_QUADS, data);
