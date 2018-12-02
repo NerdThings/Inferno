@@ -18,7 +18,8 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
     Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
     sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(8, 8), 16, 16, 10);
-    sprite->rotation = 1.5f;
+    rotation = 1.5f;
+    rotation_origin = Inferno::Vector2(8, 8);
 }
 
 void TestPlayer::update() {

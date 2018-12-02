@@ -32,14 +32,13 @@ namespace Inferno {
             int height = 0;
             float image_speed = 0;
             Vector2 origin = Vector2(0, 0);
-            float rotation;
             int width = 0;
             
             //Constructors
             
             Sprite();
             Sprite(Texture2D* texture, Vector2 origin);
-            Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed = 30, int starting_frame = 0, double rotation = 0);
+            Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed = 30, int starting_frame = 0);
             
             //Disabled for now
             //Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed = 30, int starting_frame = 0, double rotation = 0);

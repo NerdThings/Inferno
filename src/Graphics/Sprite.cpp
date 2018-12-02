@@ -14,7 +14,7 @@ namespace Inferno {
             _textures.emplace_back(texture);
         }
         
-        Sprite::Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed, int starting_frame, double rotation) : origin(origin), width(frame_width), height(frame_height), frame_width(frame_width), frame_height(frame_height), image_speed(image_speed), current_frame(starting_frame), _spritesheet(true), rotation(rotation) {
+        Sprite::Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed, int starting_frame) : origin(origin), width(frame_width), height(frame_height), frame_width(frame_width), frame_height(frame_height), image_speed(image_speed), current_frame(starting_frame), _spritesheet(true) {
             //Add texture
             _textures.emplace_back(texture);
         }

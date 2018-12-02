@@ -46,6 +46,11 @@ namespace Inferno {
         bool draws = false;
         Scene* parent_scene = nullptr;
         float rotation = 0;
+        
+        /*
+         * This is the point from which the instance will rotate from.
+         * This will not be applied to the sprite, use sprite->origin for that.
+         */
         Vector2 rotation_origin = Vector2();
         float roughness = 0;
         Graphics::Sprite* sprite = nullptr;
