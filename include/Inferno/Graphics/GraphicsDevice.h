@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 
-#include "Inferno/Point.h"
 #include "Inferno/Matrix.h"
 #include "Inferno/Vector2.h"
 #include "Inferno/Vector3.h"

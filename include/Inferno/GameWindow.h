@@ -15,8 +15,8 @@ struct SDL_Window;
 
 namespace Inferno {
     class Game;
-    struct Point;
     struct Rectangle;
+    struct Vector2;
     
     class INFERNO_API GameWindow {
         Game* _parent_game;
@@ -36,14 +36,14 @@ namespace Inferno {
         
         void alt_f4(bool enabled);
         Rectangle get_bounds();
-        Point get_position();
-        Point get_size();
+        Vector2 get_position();
+        Vector2 get_size();
         void resizable(bool resizable);
         bool run_events();
         void set_bounds(Rectangle bounds);
         void set_fullscreen(bool fullscreen);
-        void set_position(Point position);
-        void set_size(Point size);
+        void set_position(Vector2 position);
+        void set_size(Vector2 size);
         void set_title(std::string title);
         void set_v_sync(bool vsync);
         void set_cursor(bool visible);

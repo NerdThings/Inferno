@@ -3,6 +3,7 @@
 //
 
 #include <chrono>
+#include <cmath>
 #include <thread>
 
 #include "Inferno/Content/ContentLoader.h"
@@ -14,7 +15,6 @@
 #include "Inferno/Game.h"
 #include "Inferno/GameWindow.h"
 #include "Inferno/Scene.h"
-#include "Inferno/Point.h"
 #include "Inferno/Rectangle.h"
 
 namespace Inferno {
@@ -27,11 +27,11 @@ namespace Inferno {
     
     void Game::draw() {
         //Get window dimensions
-        Point window_size = game_window->get_size();
+        Vector2 window_size = game_window->get_size();
         
         //Set view size
-        int view_width = window_size.x;
-        int view_height = window_size.y;
+        float view_width = window_size.x;
+        float view_height = window_size.y;
         
         //Calculate ratios
         float output_aspect = window_size.x / float(window_size.y);
@@ -149,8 +149,8 @@ namespace Inferno {
     
     //Methods
     
-    Point Game::get_virtual_dimensions() {
-        return {_virtual_width, _virtual_height};
+    Vector2 Game::get_virtual_dimensions() {
+        return {float(_virtual_width), float(_virtual_height)};
     }
     
     void Game::run() {

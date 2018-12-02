@@ -6,7 +6,6 @@
 #include "Inferno/Input/Mouse.h"
 #include "Inferno/Game.h"
 #include "Inferno/GameWindow.h"
-#include "Inferno/Point.h"
 #include "Inferno/Vector2.h"
 
 namespace Inferno {
@@ -53,12 +52,12 @@ namespace Inferno {
             //Account for resolution independance
             
             //Get window dimensions
-            Point window_size = current_game->game_window->get_size();
-            Point virtual_size = current_game->get_virtual_dimensions();
+            Vector2 window_size = current_game->game_window->get_size();
+            Vector2 virtual_size = current_game->get_virtual_dimensions();
     
             //Set view size
-            int view_width = window_size.x;
-            int view_height = window_size.y;
+            float view_width = window_size.x;
+            float view_height = window_size.y;
     
             //Calculate ratios
             float output_aspect = window_size.x / float(window_size.y);

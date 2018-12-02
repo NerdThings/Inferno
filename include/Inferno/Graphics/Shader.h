@@ -11,7 +11,6 @@
 #include "Inferno/Graphics/ShaderEnums.h"
 #include "Inferno/Inferno.h"
 #include "Inferno/Matrix.h"
-#include "Inferno/Point.h"
 #include "Inferno/Vector2.h"
 #include "Inferno/Vector3.h"
 #include "Inferno/Vector4.h"
@@ -55,7 +54,6 @@ namespace Inferno {
             void uniform_set(std::string uniform, float value);
             void uniform_set(std::string uniform, int value);
             void uniform_set(std::string uniform, Vector2 value);
-            void uniform_set(std::string uniform, Point value);
             void uniform_set(std::string uniform, float value1, float value2);
             void uniform_set(std::string uniform, int value1, int value2);
             void uniform_set(std::string uniform, Vector3 value);

@@ -20,24 +20,27 @@ namespace Inferno {
         
         //Animation check
         if (sprite_a->is_animated() || sprite_b->is_animated())
-            throw std::runtime_error("Cannot per pixel check animated sprites");
+            throw std::runtime_error("Cannot per pixel check animated sprites.");
         
-        //TODO: Support for the new rectangle
+        //Rotation check (This is temporary)
+        //TODO: No rotation check
+        if (bounds_a.rotation != 0 || bounds_b.rotation != 0)
+            throw std::runtime_error("Cannot currently per pixel check rotated instances.");
         
-        /*//Build bounding box of collision area
-        int left = MathHelper::maximum(bounds_a.get_left_coord(), bounds_b.get_left_coord());
-        int top = MathHelper::maximum(bounds_a.get_top_coord(), bounds_b.get_top_coord());
-        int width = MathHelper::minimum(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
-        int height = MathHelper::minimum(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
+        //Build bounding box of collision area
+        int left = MathHelper::maximum(bounds_a.x, bounds_b.x);
+        int top = MathHelper::maximum(bounds_a.y, bounds_b.y);
+        int width = MathHelper::minimum(bounds_a.width, bounds_b.width);
+        int height = MathHelper::minimum(bounds_a.height, bounds_b.height);
         
         //Check pixels
         for (int x = left; x < left + width; x++) {
             for (int y = top; y < top + height; y++) {
-                int color_a_x = x - bounds_a.get_left_coord() + source_a.x;
-                int color_a_y = y - bounds_a.get_top_coord() + source_a.y;
+                int color_a_x = x - bounds_a.x + source_a.x;
+                int color_a_y = y - bounds_a.y + source_a.y;
                 int color_a_i = color_a_y * sprite_a->get_current_texture()->get_width() + color_a_x;
-                int color_b_x = x - bounds_b.get_left_coord() + source_b.x;
-                int color_b_y = y - bounds_b.get_top_coord() + source_b.y;
+                int color_b_x = x - bounds_b.x + source_b.x;
+                int color_b_y = y - bounds_b.y + source_b.y;
                 int color_b_i = color_b_y * sprite_b->get_current_texture()->get_width() + color_b_x;
                 
                 Graphics::Color color_a = colordata_a[color_a_i];
@@ -46,7 +49,7 @@ namespace Inferno {
                 if (color_a.get_a() > 0 && color_b.get_a() > 0)
                     return true;
             }
-        }*/
+        }
         
         //No collision
         return false;
@@ -63,53 +66,13 @@ namespace Inferno {
             return both_per_pixel_check(sprite_a, sprite_b, bounds_a, bounds_b);
         }
         
-        //Pixel to rectangle check
-        if (collision_mode_a == PerPixel && collision_mode_b == BoundingRectangle) {
-            return pixel_to_rectangle_check(sprite_a, bounds_a, bounds_b);
-        }
-        
-        //Rectangle to pixel check
-        if (collision_mode_a == BoundingRectangle && collision_mode_b == PerPixel) {
-            return pixel_to_rectangle_check(sprite_b, bounds_b, bounds_a);
+        //Just default to a standard rectangle check
+        if ((collision_mode_a == PerPixel && collision_mode_b == BoundingRectangle)
+            || (collision_mode_a == BoundingRectangle && collision_mode_b == PerPixel)) {
+            return bounds_a.intersects(bounds_b);
         }
         
         //Somehow?!?!
-        return false;
-    }
-    
-    bool Instance::pixel_to_rectangle_check(Graphics::Sprite *sprite, Rectangle bounds_a, Rectangle bounds_b){
-        //Get sprite data
-        std::vector<Graphics::Color> color_data = sprite->get_current_texture()->get_data();
-        Rectangle source = sprite->get_source_rectangle();
-    
-        //TODO: New rectangle support
-        
-        /*//Build bounding box of collision area
-        int left = MathHelper::maximum(bounds_a.get_left_coord(), bounds_b.get_left_coord());
-        int top = MathHelper::maximum(bounds_a.get_top_coord(), bounds_b.get_top_coord());
-        int width = MathHelper::minimum(bounds_a.get_right_coord(), bounds_b.get_right_coord()) - left;
-        int height = MathHelper::minimum(bounds_a.get_bottom_coord(), bounds_b.get_bottom_coord()) - top;
-        
-        //Check for animations
-        if (sprite->is_animated())
-            throw std::runtime_error("Cannot per pixel check animated sprites");
-        
-        //Look for collision
-        for (int x = left; x < left + width; x++) {
-            for (int y = top; y < top + height; y++) {
-                int color_x = x - bounds_a.get_left_coord() + source.get_left_coord();
-                int color_y = y - bounds_a.get_top_coord() + source.get_top_coord();
-                int color_i = color_y * sprite->get_current_texture()->get_width() + color_x;
-                
-                Graphics::Color color = color_data[color_i];
-                
-                //Check for collision
-                if (color.get_a() > 0 && bounds_b.contains(Vector2(x, y)))
-                    return true;
-            }
-        }*/
-        
-        //No collision
         return false;
     }
     
@@ -154,16 +117,16 @@ namespace Inferno {
     Rectangle Instance::get_bounds() {
         if (collision_rectangle != nullptr) {
             if (sprite == nullptr) {
-                return Rectangle(int(_position.x + collision_rectangle->x), int(_position.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height);
+                return Rectangle(int(_position.x + collision_rectangle->x), int(_position.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
             }
         
-            return Rectangle(int(_position.x - sprite->origin.x + collision_rectangle->x), int(_position.y - sprite->origin.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height);
+            return Rectangle(int(_position.x - sprite->origin.x + collision_rectangle->x), int(_position.y - sprite->origin.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
         } else {
             if (sprite == nullptr) {
-                return Rectangle(int(_position.x), int(_position.y), get_width(), get_height());
+                return Rectangle(int(_position.x), int(_position.y), get_width(), get_height(), rotation, rotation_origin);
             }
         
-            return Rectangle(int(_position.x - sprite->origin.x), int(_position.y - sprite->origin.y), get_width(), get_height());
+            return Rectangle(int(_position.x - sprite->origin.x), int(_position.y - sprite->origin.y), get_width(), get_height(), rotation, rotation_origin);
         }
     }
     

@@ -19,8 +19,8 @@ namespace Inferno {
     }
     
     class GameWindow;
-    struct Point;
     class Scene;
+    struct Vector2;
     
     class INFERNO_API Game {
     private:
@@ -67,8 +67,8 @@ namespace Inferno {
         ~Game();
         
         //Methods
-        
-        Point get_virtual_dimensions();
+    
+        Vector2 get_virtual_dimensions();
         void run();
         void set_scene(Scene* scene);
     };

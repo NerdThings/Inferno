@@ -12,7 +12,6 @@
 
 #include "Inferno/Graphics/Glyph.h"
 #include "Inferno/Graphics/Texture2D.h"
-#include "Inferno/Point.h"
 #include "Inferno/Vector4.h"
 
 namespace Inferno {

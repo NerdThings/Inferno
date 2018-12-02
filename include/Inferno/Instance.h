@@ -35,7 +35,6 @@ namespace Inferno {
         
         bool both_per_pixel_check(Graphics::Sprite* sprite_a, Graphics::Sprite* sprite_b, Rectangle bounds_a, Rectangle bounds_b);
         bool collision_check(Graphics::Sprite* sprite_a, Graphics::Sprite* sprite_b, Rectangle bounds_a, Rectangle bounds_b, CollisionMode collision_mode_a, CollisionMode collision_mode_b);
-        bool pixel_to_rectangle_check(Graphics::Sprite* sprite, Rectangle bounds_a, Rectangle bounds_b);
         
     public:
         //Fields
@@ -46,6 +45,8 @@ namespace Inferno {
         float depth = 0;
         bool draws = false;
         Scene* parent_scene = nullptr;
+        float rotation = 0;
+        Vector2 rotation_origin = Vector2();
         float roughness = 0;
         Graphics::Sprite* sprite = nullptr;
         bool updates = false;

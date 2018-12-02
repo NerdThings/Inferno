@@ -128,10 +128,6 @@ namespace Inferno {
             uniform_set(std::move(uniform), value.x, value.y);
         }
     
-        void Shader::uniform_set(std::string uniform, Point value) {
-            uniform_set(std::move(uniform), value.x, value.y);
-        }
-    
         void Shader::uniform_set(std::string uniform, float value1, float value2) {
 #ifdef OPENGL
             glUniform2f(static_cast<GLuint>(uniform_get(std::move(uniform))), value1, value2);

@@ -62,7 +62,7 @@ namespace Inferno {
             use_shader(default_shader);
             
             //Projection matrix
-            Point window_size = _parent_game->game_window->get_size();
+            Vector2 window_size = _parent_game->game_window->get_size();
             _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
             
             //View matrix
@@ -170,7 +170,7 @@ namespace Inferno {
                 _projection_matrix = Matrix::create_orthographic_off_center(0, target->width, target->height, 0, -101, 101);
                 glViewport(0, 0, target->width, target->height);
             } else {
-                Point window_size = _parent_game->game_window->get_size();
+                Vector2 window_size = _parent_game->game_window->get_size();
                 _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
                 glViewport(0, 0, window_size.x, window_size.y);
             }

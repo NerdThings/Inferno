@@ -283,10 +283,13 @@ namespace Inferno {
             float tex_top = 1;
             float tex_bottom = 0;
             if (source_rectangle != nullptr) {
-                tex_left = float(source_rectangle->x) / target->width;
-                tex_right = tex_left + float(source_rectangle->width) / target->width;
-                tex_bottom = float(source_rectangle->y) / target->height;
-                tex_top = tex_bottom + float(source_rectangle->height) / target->height;
+                if (source_rectangle->rotation != 0)
+                    throw std::runtime_error("Cannot rotate texture source rectangle.");
+                
+                tex_left = source_rectangle->x / target->width;
+                tex_right = tex_left + source_rectangle->width / target->width;
+                tex_bottom = source_rectangle->y / target->height;
+                tex_top = tex_bottom + source_rectangle->height / target->height;
             }
     
             //Build buffer

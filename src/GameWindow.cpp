@@ -18,7 +18,6 @@
 #include "Inferno/Input/Mouse.h"
 #include "Inferno/Game.h"
 #include "Inferno/GameWindow.h"
-#include "Inferno/Point.h"
 #include "Inferno/Rectangle.h"
 
 namespace Inferno {
@@ -236,24 +235,24 @@ namespace Inferno {
     }
     
     Rectangle GameWindow::get_bounds() {
-        Point pos = get_position();
-        Point size = get_size();
+        Vector2 pos = get_position();
+        Vector2 size = get_size();
         return {pos.x, pos.y, size.x, size.y};
     }
     
-    Point GameWindow::get_position() {
+    Vector2 GameWindow::get_position() {
 #ifdef SDL
         int x,y;
         SDL_GetWindowPosition(_sdl_window, &x, &y);
-        return {x, y};
+        return {float(x), float(y)};
 #endif
     }
     
-    Point GameWindow::get_size() {
+    Vector2 GameWindow::get_size() {
 #ifdef SDL
         int w,h;
         SDL_GL_GetDrawableSize(_sdl_window, &w, &h);
-        return {w, h};
+        return {float(w), float(h)};
 #endif
     }
     
@@ -326,13 +325,13 @@ namespace Inferno {
 #endif
     }
     
-    void GameWindow::set_position(Inferno::Point position) {
+    void GameWindow::set_position(Vector2 position) {
 #ifdef SDL
         SDL_SetWindowPosition(_sdl_window, position.x, position.y);
 #endif
     }
     
-    void GameWindow::set_size(Inferno::Point size) {
+    void GameWindow::set_size(Vector2 size) {
 #ifdef SDL
         SDL_SetWindowSize(_sdl_window, size.x, size.y);
 #endif

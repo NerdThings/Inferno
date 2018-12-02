@@ -8,7 +8,6 @@
 #include "Inferno/Game.h"
 #include "Inferno/Inferno.h"
 #include "Inferno/Matrix.h"
-#include "Inferno/Point.h"
 #include "Inferno/Rectangle.h"
 #include "Inferno/Scene.h"
 #include "Inferno/Vector2.h"
