@@ -48,28 +48,6 @@ namespace Inferno {
     }
     
     //Thanks to https://manski.net/2011/05/rectangle-intersection-test-with-csharp/
-    /*bool DoAxisSeparationTest(Point x1, Point x2, Point x3, Point[] otherQuadPoints) {
-        Vector vec = x2 - x1;
-        Vector rotated = new Vector(-vec.Y, vec.X);
-        
-        bool refSide = (rotated.X * (x3.X - x1.X)
-                        + rotated.Y * (x3.Y - x1.Y)) >= 0;
-        
-        foreach (Point pt in otherQuadPoints) {
-            bool side = (rotated.X * (pt.X - x1.X)
-                         + rotated.Y * (pt.Y - x1.Y)) >= 0;
-            if (side == refSide) {
-                // At least one point of the other quad is one the same side as x3. Therefor the specified edge can't be a
-                // separating axis anymore.
-                return false;
-            }
-        }
-        
-        // All points of the other quad are on the other side of the edge. Therefor the edge is a separating axis and
-        // the quads don't intersect.
-        return true;
-    }
-    */
     bool axis_separation(Vector2 x1, Vector2 x2, Vector2 x3, std::vector<Vector2> other_pts) {
         Vector2 vec = x2 - x1;
         Vector2 rotated = Vector2(-vec.y, vec.x);
@@ -87,8 +65,6 @@ namespace Inferno {
     }
     
     bool Rectangle::intersects(Rectangle b) {
-        //TODO: Fix this
-        
         std::vector<Vector2> a_pts;
         a_pts.emplace_back(top_left());
         a_pts.emplace_back(top_right());
@@ -96,10 +72,10 @@ namespace Inferno {
         a_pts.emplace_back(bottom_left());
         
         std::vector<Vector2> b_pts;
-        a_pts.emplace_back(b.top_left());
-        a_pts.emplace_back(b.top_right());
-        a_pts.emplace_back(b.bottom_right());
-        a_pts.emplace_back(b.bottom_left());
+        b_pts.emplace_back(b.top_left());
+        b_pts.emplace_back(b.top_right());
+        b_pts.emplace_back(b.bottom_right());
+        b_pts.emplace_back(b.bottom_left());
         
         if (axis_separation(top_left(), top_right(), bottom_right(), b_pts))
             return false;
