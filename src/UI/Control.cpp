@@ -45,7 +45,7 @@ namespace Inferno {
         }
         
         Rectangle Control::get_bounds() {
-            return {(int)position.x, (int)position.y, width, height};
+            return {position.x, position.y, width, height};
         }
         
         void Control::update() {

@@ -109,10 +109,15 @@ namespace Inferno {
     //Operators
     
     bool Rectangle::operator==(Rectangle b) {
-    
+        return (x == b.x &&
+                y == b.y &&
+                width == b.width &&
+                height == b.height &&
+                rotation == b.rotation &&
+                rotation_origin == b.rotation_origin);
     }
     
     bool Rectangle::operator!=(Rectangle b) {
-    
+        return !(*this == b);
     }
 }

@@ -34,8 +34,8 @@ namespace Inferno {
             bool highlight_on_hover = false;
             ControlState state = None;
             Vector2 position = Vector2(0, 0);
-            int height = 0;
-            int width = 0;
+            float height = 0;
+            float width = 0;
             
             //Constructors
             
