@@ -5,18 +5,17 @@
 #ifndef INFERNO_RENDERER_H
 #define INFERNO_RENDERER_H
 
-#include "Inferno/Graphics/Color.h"
-#include "Inferno/Inferno.h"
-#include "Inferno/Vector2.h"
-
 #include <string>
 #include <vector>
 
+#include "Inferno/Graphics/Color.h"
+#include "Inferno/Inferno.h"
+#include "Inferno/Matrix.h"
+#include "Inferno/Rectangle.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
+
 namespace Inferno {
-    struct Rectangle;
-    struct Matrix;
-    struct Vector3;
-    
     namespace Graphics {
         struct Font;
         class GraphicsDevice;

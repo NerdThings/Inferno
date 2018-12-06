@@ -9,24 +9,60 @@
 
 namespace Inferno {
     namespace Graphics {
+        /*
+         * A 32-bit packed color
+         */
         struct INFERNO_API Color {
             //Fields
             
+            /*
+             * The unsigned int value of the colour
+             */
             unsigned int packed_value;
             
             //Constructors
             
+            /*
+             * Create the default color (White)
+             */
             Color();
+            
+            /*
+             * Create a color using an existing packed value
+             */
             explicit Color(unsigned int packed_value);
+            
+            /*
+             * Create a color using float values between 0 and 1
+             */
             Color(float r, float g, float b, float a);
+            
+            /*
+             * Create a color using int values between 0 and 255
+             */
             Color(int r, int g, int b, int a);
             
             //Methods
             
-            float get_r();
-            float get_g();
-            float get_b();
-            float get_a();
+            /*
+             * Get the red value
+             */
+            float r();
+            
+            /*
+             * Get the green value
+             */
+            float g();
+            
+            /*
+             * Get the blue value
+             */
+            float b();
+            
+            /*
+             * Get the alpha value
+             */
+            float a();
             
             //Operators
             

@@ -16,19 +16,34 @@
 
 namespace Inferno {
     namespace Graphics {
+        /*
+         * A text font
+         */
         struct INFERNO_API Font {
             //Fields
             
+            /*
+             * Font Glyphs
+             */
             std::vector<Glyph> glyphs;
             
             //Constructors
             
+            /*
+             * An empty font
+             */
             Font();
     
+            /*
+             * Create a new font from existing glyphs
+             */
             explicit Font(std::vector<Glyph> glyphs);
             
             //Methods
     
+            /*
+             * Measure the size of a string in this font
+             */
             Vector2 measure_string(std::string string);
         };
     }

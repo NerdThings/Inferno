@@ -13,14 +13,30 @@
 #include "Inferno/Input/KeyboardState.h"
 #include "Inferno/Input/Mouse.h"
 #include "Inferno/Input/MouseState.h"
+#include "Inferno/UI/Control.h"
 #include "Inferno/Vector3.h"
 #include "TestWall.h"
+
+Inferno::UI::Control* test_control = nullptr;
+
+class ControlAction : public Inferno::Events::Action {
+public:
+    void invoke() override {
+        exit(0);
+    }
+};
 
 TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768), camera(Inferno::Graphics::Camera(this, 1.0f)) {
     background = new Inferno::Graphics::Sprite(new Inferno::Graphics::Texture2D(1024, 768, Inferno::Graphics::Color::white), Inferno::Vector2(0, 0));
     camera.center_on(Inferno::Vector2(50, 50));
     
     background_depth = -99;
+    
+    test_control = new Inferno::UI::Control(parent_game, Inferno::Vector2(50, 50));
+    test_control->onclick.subscribe(new ControlAction());
+    test_control->back_color = Inferno::Graphics::Color::blue;
+    test_control->width = 100;
+    test_control->height = 100;
 }
 
 void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
@@ -47,12 +63,14 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
     
-    
     Scene::draw(renderer);
     parent_game->graphics_device->pop_view_matrix();
+    test_control->update();
+    test_control->draw(renderer);
 }
 
 void TestScene::update() {
+    
     Scene::update();
 }
 

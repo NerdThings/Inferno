@@ -32,19 +32,19 @@ namespace Inferno {
         
         //Methods
     
-        float Color::get_a() {
+        float Color::a() {
             return (unsigned char)(packed_value >> 24) / 255.0f;
         }
     
-        float Color::get_b() {
+        float Color::b() {
             return (unsigned char)(packed_value >> 16) / 255.0f;
         }
     
-        float Color::get_g() {
+        float Color::g() {
             return (unsigned char)(packed_value >> 8) / 255.0f;
         }
     
-        float Color::get_r() {
+        float Color::r() {
             return (unsigned char)(packed_value) / 255.0f;
         }
         

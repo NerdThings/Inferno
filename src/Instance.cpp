@@ -46,7 +46,7 @@ namespace Inferno {
                 Graphics::Color color_a = colordata_a[color_a_i];
                 Graphics::Color color_b = colordata_b[color_b_i];
                 
-                if (color_a.get_a() > 0 && color_b.get_a() > 0)
+                if (color_a.a() > 0 && color_b.a() > 0)
                     return true;
             }
         }

@@ -161,7 +161,7 @@ namespace Inferno {
         }
     
         void Shader::uniform_set(std::string uniform, Color value) {
-            uniform_set(std::move(uniform), value.get_r(), value.get_g(), value.get_b(), value.get_a());
+            uniform_set(std::move(uniform), value.r(), value.g(), value.b(), value.a());
         }
     
         void Shader::uniform_set(std::string uniform, float value1, float value2, float value3, float value4) {

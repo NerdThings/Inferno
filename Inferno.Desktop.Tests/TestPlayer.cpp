@@ -14,12 +14,25 @@
 #include "Inferno/Scene.h"
 #include "TestWall.h"
 
+#include "Inferno/Events/EventHandler.h"
+
+class TestAction : public Inferno::Events::Action {
+public:
+    void invoke() override {
+        //exit(0);
+    }
+};
+
+Inferno::Events::EventHandler<Inferno::Events::Action> h;
+
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
     Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
     sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(8, 8), 16, 16, 10);
     rotation = 1.5f;
     rotation_origin = Inferno::Vector2(8, 8);
+    
+    h.subscribe(new TestAction());
 }
 
 void TestPlayer::update() {
@@ -43,6 +56,7 @@ void TestPlayer::update() {
     }
     if (s.is_key_down(Inferno::Input::D)) {
         velocity.x += MOVE_SPEED;
+        h.invoke();
     }
     
     if (colliding<TestWall>(Inferno::Vector2(get_next_position().x, get_position().y))) {

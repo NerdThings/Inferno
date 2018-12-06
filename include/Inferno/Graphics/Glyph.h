@@ -12,10 +12,28 @@
 
 namespace Inferno {
     namespace Graphics {
+        /*
+         * A text glyph
+         */
         struct INFERNO_API Glyph {
+            /*
+             * Glyph texture
+             */
             Texture2D* texture;
+            
+            /*
+             * Glyph size
+             */
             Vector2 size;
+            
+            /*
+             * Glyph bearing
+             */
             Vector2 bearing;
+            
+            /*
+             * Glyph advance
+             */
             unsigned int advance;
         };
     }

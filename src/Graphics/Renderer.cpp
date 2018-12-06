@@ -41,10 +41,10 @@ namespace Inferno {
             data->emplace_back(texcoord.y);
     
             //R,G,B,A
-            data->emplace_back(color.get_r());
-            data->emplace_back(color.get_g());
-            data->emplace_back(color.get_b());
-            data->emplace_back(color.get_a());
+            data->emplace_back(color.r());
+            data->emplace_back(color.g());
+            data->emplace_back(color.b());
+            data->emplace_back(color.a());
         }
         
         Matrix Renderer::create_model_matrix(Vector2 origin, float rotation, float scale) {
