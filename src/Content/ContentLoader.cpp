@@ -2,13 +2,12 @@
 // Created by Reece Mackie on 15/11/18.
 //
 
-#include "IL/il.h"
-
 #include <cstring>
 #include <filesystem>
 #include <fstream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include <IL/il.h>
 #include <iostream>
 #include <map>
 

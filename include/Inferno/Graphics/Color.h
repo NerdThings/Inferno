@@ -6,6 +6,7 @@
 #define INFERNO_COLOR_H
 
 #include "Inferno/Inferno.h"
+#include "Inferno/MathHelper.h"
 
 namespace Inferno {
     namespace Graphics {

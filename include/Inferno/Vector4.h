@@ -5,33 +5,81 @@
 #ifndef INFERNO_VECTOR4_H
 #define INFERNO_VECTOR4_H
 
-#include "Inferno.h"
+#include "Inferno/Inferno.h"
+#include "Inferno/Vector2.h"
+#include "Inferno/Vector3.h"
 
 namespace Inferno {
-    struct Vector2;
-    struct Vector3;
-    
     struct INFERNO_API Vector4 {
         //Fields
     
+        /*
+         * X coordinate
+         */
         float x;
+        
+        /*
+         * Y coordinate
+         */
         float y;
+        
+        /*
+         * Z coordinate
+         */
         float z;
+        
+        /*
+         * W coordinate
+         */
         float w;
     
         //Constructors
     
+        /*
+         * Create new Vector4(0, 0, 0, 0)
+         */
         Vector4();
+        
+        /*
+         * Create new Vector4
+         */
         Vector4(float x, float y, float z, float w);
+    
+        /*
+         * Create new Vector4
+         */
         Vector4(Vector2 value, float z, float w);
+    
+        /*
+         * Create new Vector4
+         */
         Vector4(Vector3 value, float w);
+    
+        /*
+         * Create new Vector4
+         */
         explicit Vector4(float value);
     
         //Methods
     
+        /*
+         * Get the magnitude of the vector
+         */
         float get_magnitude();
+    
+        /*
+         * Get the magnitude of the vector squared
+         */
         float get_magnitude_squared();
+    
+        /*
+         * Get the dot product
+         */
         float dot(Vector4 b);
+    
+        /*
+         * Get the distance
+         */
         float distance(Vector4 b);
     
         //Operators

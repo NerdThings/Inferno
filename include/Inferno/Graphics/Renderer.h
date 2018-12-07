@@ -12,6 +12,7 @@
 #include "Inferno/Graphics/Font.h"
 #include "Inferno/Graphics/GraphicsDevice.h"
 #include "Inferno/Graphics/RenderTarget.h"
+#include "Inferno/Graphics/Shader.h"
 #include "Inferno/Graphics/Texture2D.h"
 #include "Inferno/Inferno.h"
 #include "Inferno/Matrix.h"

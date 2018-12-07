@@ -5,7 +5,6 @@
 #include <climits>
 
 #include "Inferno/Graphics/Color.h"
-#include "Inferno/MathHelper.h"
 
 namespace Inferno {
     namespace Graphics {

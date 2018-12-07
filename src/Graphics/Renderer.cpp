@@ -4,27 +4,16 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include <stdexcept>
-
-#include "Inferno/Graphics/Color.h"
-#include "Inferno/Graphics/Font.h"
-#include "Inferno/Graphics/GraphicsDevice.h"
-#include "Inferno/Graphics/Renderer.h"
-#include "Inferno/Graphics/RenderTarget.h"
-#include "Inferno/Graphics/Shader.h"
-#include "Inferno/Graphics/Texture2D.h"
-#include "Inferno/Rectangle.h"
-#include "Inferno/Matrix.h"
-#include "Inferno/Vector2.h"
-#include "Inferno/Vector3.h"
-
 #ifdef OPENGL
 #include <glad/glad.h>
 #endif
-
+#include <stdexcept>
 #ifdef SDL
 #include <SDL_opengl.h>
 #endif
+
+#include "Inferno/Graphics/Renderer.h"
+#include "Inferno/Rectangle.h"
 
 namespace Inferno {
     namespace Graphics {

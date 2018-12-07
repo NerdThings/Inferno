@@ -8,6 +8,7 @@
 #include "Inferno.h"
 
 namespace Inferno {
+    //TODO: This will be commented once it is completed
     class INFERNO_API MathHelper {
     public:
         static double clamp(double value, double min, double max);

@@ -5,11 +5,9 @@
 #ifdef OPENGL
 #include <glad/glad.h>
 #endif
-
 #ifdef SDL
 #include <SDL_opengl.h>
 #endif
-
 #include <stdexcept>
 
 #include "Inferno/Graphics/Shader.h"
