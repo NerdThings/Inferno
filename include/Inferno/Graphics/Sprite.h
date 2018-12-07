@@ -16,28 +16,81 @@
 
 namespace Inferno {
     namespace Graphics {
+        /*
+         * A graphics sprite.
+         * This is an extended texture effectively.
+         */
         class INFERNO_API Sprite {
             //Fields
             
+            /*
+             * The list of textures
+             */
             std::vector<Texture2D*> _textures;
+            
+            /*
+             * Whether or not this is a spritesheet
+             */
             bool _spritesheet = true;
 
         public:
             //Fields
             
+            /*
+             * The animation timer
+             */
             float animation_timer = 0;
+            
+            /*
+             * The current frame
+             */
             int current_frame = 0;
+            
+            /*
+             * The width of a frame
+             */
             int frame_width = 0;
+            
+            /*
+             * The height of a frame
+             */
             int frame_height = 0;
+            
+            /*
+             * The sprite height
+             */
             int height = 0;
+            
+            /*
+             * The sprite image speed
+             */
             float image_speed = 0;
+            
+            /*
+             * The sprite origin
+             */
             Vector2 origin = Vector2(0, 0);
+            
+            /*
+             * The sprite width
+             */
             int width = 0;
             
             //Constructors
             
+            /*
+             * Create a new Sprite
+             */
             Sprite();
+            
+            /*
+             * Create a new Sprite
+             */
             Sprite(Texture2D* texture, Vector2 origin);
+            
+            /*
+             * Create a new Sprite
+             */
             Sprite(Texture2D* texture, Vector2 origin, int frame_width, int frame_height, float image_speed = 30, int starting_frame = 0);
             
             //Disabled for now
@@ -45,15 +98,41 @@ namespace Inferno {
             
             //Deconstructors
             
+            /*
+             * Cleanup a Deleted Sprite
+             */
             ~Sprite();
             
             //Methods
     
+            /*
+             * Get the current texture
+             */
             Texture2D* get_current_texture();
+            
+            /*
+             * Get the frame x coordinate
+             */
             int get_frame_x();
+            
+            /*
+             * Get the frame y coordinate
+             */
             int get_frame_y();
+            
+            /*
+             * Get the source rectangle
+             */
             Rectangle get_source_rectangle();
+            
+            /*
+             * Whether or not the sprite is animated
+             */
             bool is_animated();
+            
+            /*
+             * Update the sprite
+             */
             void update();
         };
     }

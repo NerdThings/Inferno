@@ -32,14 +32,16 @@ namespace Inferno {
         void ControlContainer::draw(Graphics::Renderer *renderer) {
             Control::draw(renderer);
             for (Control* c : _controls) {
-                //TODO: Determine if outside container
-                c->draw(renderer);
+                //Check that the control is within the container
+                if (get_bounds().contains(c->position + position))
+                    c->draw(renderer);
             }
         }
         
         void ControlContainer::update() {
             Control::update();
             for (Control* c : _controls) {
+                //TODO: Make it so that we can disable click events for controls outside the container
                 c->container_offset = position;
                 c->update();
             }

@@ -27,6 +27,11 @@ namespace Inferno {
              */
             std::vector<Glyph> glyphs;
             
+            /*
+             * The character whose dimensions get used when a space or newline is encountered
+             */
+            char space_char = 'I';
+            
             //Constructors
             
             /*

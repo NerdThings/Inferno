@@ -7,11 +7,17 @@
 
 namespace Inferno {
     namespace Graphics {
+        /*
+         * The type of shader
+         */
         enum ShaderType {
             Fragment,
             Vertex
         };
     
+        /*
+         * The language a shader is written in
+         */
         enum ShaderLanguage {
             GLSL,
             GLSL_ES,

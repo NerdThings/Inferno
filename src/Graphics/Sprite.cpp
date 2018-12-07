@@ -9,7 +9,9 @@ namespace Inferno {
         //Constructors
         Sprite::Sprite() = default;
         
-        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true), width(texture->get_width()), height(texture->get_height()), frame_width(texture->get_width()), frame_height(texture->get_height()) {
+        Sprite::Sprite(Texture2D* texture, Vector2 origin) : origin(origin), _spritesheet(true), width(texture->width()), height(
+                texture->height()), frame_width(
+                texture->width()), frame_height(texture->height()) {
             //Add texture
             _textures.emplace_back(texture);
         }
@@ -43,7 +45,7 @@ namespace Inferno {
             int x = 0;
             for (int i = 0; i < current_frame; i++) {
                 x += frame_width;
-                if (x > get_current_texture()->get_width())
+                if (x > get_current_texture()->width())
                     x = 0;
             }
     
@@ -58,7 +60,7 @@ namespace Inferno {
             int y = 0;
             for (int i = 0; i < current_frame; i++) {
                 x += frame_width;
-                if (x > get_current_texture()->get_width()) {
+                if (x > get_current_texture()->width()) {
                     x = 0;
                     y += frame_height;
                 }
@@ -71,12 +73,12 @@ namespace Inferno {
             if (_spritesheet) {
                 return Rectangle(get_frame_x(), get_frame_y(), frame_width, frame_height);
             } else {
-                return Rectangle(0, 0, get_current_texture()->get_width(), get_current_texture()->get_height());
+                return Rectangle(0, 0, get_current_texture()->width(), get_current_texture()->height());
             }
         }
         
         bool Sprite::is_animated() {
-            return (frame_height != get_current_texture()->get_height() || frame_width != get_current_texture()->get_width());
+            return (frame_height != get_current_texture()->height() || frame_width != get_current_texture()->width());
         }
         
         void Sprite::update() {
@@ -98,7 +100,7 @@ namespace Inferno {
             
             //Reset if out of range
             if (_spritesheet) {
-                int count = (get_current_texture()->get_width() / frame_width) * (get_current_texture()->get_height() / frame_height);
+                int count = (get_current_texture()->width() / frame_width) * (get_current_texture()->height() / frame_height);
                 
                 if (current_frame > count - 1)
                     current_frame = 0;

@@ -9,6 +9,9 @@
 
 namespace Inferno {
     namespace Input {
+        /*
+         * Key IDs
+         */
         enum INFERNO_API Key {
             None = 0,
             Backspace = 8,

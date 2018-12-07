@@ -38,10 +38,10 @@ namespace Inferno {
             for (int y = top; y < top + height; y++) {
                 int color_a_x = x - bounds_a.x + source_a.x;
                 int color_a_y = y - bounds_a.y + source_a.y;
-                int color_a_i = color_a_y * sprite_a->get_current_texture()->get_width() + color_a_x;
+                int color_a_i = color_a_y * sprite_a->get_current_texture()->width() + color_a_x;
                 int color_b_x = x - bounds_b.x + source_b.x;
                 int color_b_y = y - bounds_b.y + source_b.y;
-                int color_b_i = color_b_y * sprite_b->get_current_texture()->get_width() + color_b_x;
+                int color_b_i = color_b_y * sprite_b->get_current_texture()->width() + color_b_x;
                 
                 Graphics::Color color_a = colordata_a[color_a_i];
                 Graphics::Color color_b = colordata_b[color_b_i];

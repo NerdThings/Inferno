@@ -14,14 +14,23 @@
 
 namespace Inferno {
     namespace Input {
+        /*
+         * Keyboard input host
+         */
         class INFERNO_API Keyboard {
         public:
 #ifdef INFERNO
+            /*
+             * The internal list of keys
+             */
             static std::vector<Key> internal_keys;
 #endif
             
             //Methods
             
+            /*
+             * Get the keyboard state
+             */
             static KeyboardState get_state();
         };
     }

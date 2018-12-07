@@ -54,22 +54,22 @@ namespace Inferno {
         void Control::update() {
             //Get mouse state
             Input::MouseState state = Input::Mouse::get_state(_parent_game);
-            
+    
             //Control state checks
             if (get_bounds().contains(Vector2(state.x, state.y))) {
                 if (state.left_button == Input::Pressed) {
                     //Change state
                     this->state = Click;
-                    
+            
                     //Fire event
                     onclick.invoke();
-                    
+            
                     //Clear left button
                     Input::Mouse::clear_left_button();
                 } else {
                     //Change state
                     this->state = Hover;
-                    
+            
                     //Fire event
                     onhover.invoke();
                 }

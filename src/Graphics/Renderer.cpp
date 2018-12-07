@@ -316,13 +316,12 @@ namespace Inferno {
             float ty = position.y;
             for (char c : text) {
                 if (c == '\n') {
-                    ty += font.glyphs['A'].size.y + font.glyphs['A'].bearing.y;
+                    ty += font.glyphs[font.space_char].size.y + font.glyphs['A'].bearing.y;
                     tx = position.x;
                     continue;
                 }
                 if (c == ' ') {
-                    //TODO: Make this configurable
-                    tx += font.glyphs['I'].size.x;
+                    tx += font.glyphs[font.space_char].size.x;
                     continue;
                 }
                 
@@ -340,7 +339,7 @@ namespace Inferno {
         }
         
         void Renderer::draw_texture(Texture2D* texture, Vector2 position, Rectangle* source_rectangle, float depth, float rotation, Color color, Vector2 origin) {
-            draw_texture(texture, Rectangle((int) position.x, (int) position.y, texture->get_width(), texture->get_height()), source_rectangle, depth, rotation, color, origin);
+            draw_texture(texture, Rectangle((int) position.x, (int) position.y, texture->width(), texture->height()), source_rectangle, depth, rotation, color, origin);
         }
         
         void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, float rotation, Color color, Vector2 origin) {
@@ -363,10 +362,10 @@ namespace Inferno {
                 if (source_rectangle->rotation != 0)
                     throw std::runtime_error("Cannot rotate texture source rectangle.");
                 
-                tex_left = float(source_rectangle->x) / texture->get_width();
-                tex_right = tex_left + float(source_rectangle->width) / texture->get_width();
-                tex_top = float(source_rectangle->y) / texture->get_height();
-                tex_bottom = tex_top + float(source_rectangle->height) / texture->get_height();
+                tex_left = float(source_rectangle->x) / texture->width();
+                tex_right = tex_left + float(source_rectangle->width) / texture->width();
+                tex_top = float(source_rectangle->y) / texture->height();
+                tex_bottom = tex_top + float(source_rectangle->height) / texture->height();
             }
             
             //Build buffer

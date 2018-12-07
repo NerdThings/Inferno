@@ -104,11 +104,11 @@ namespace Inferno {
             return _cached_data;
         }
         
-        int Texture2D::get_height() {
+        int Texture2D::height() {
             return _height;
         }
         
-        int Texture2D::get_width() {
+        int Texture2D::width() {
             return _width;
         }
         

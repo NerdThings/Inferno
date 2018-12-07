@@ -47,8 +47,8 @@ namespace Inferno {
              */
             void invoke() {
                 for (T* a : _actions) {
-                    auto* action = dynamic_cast<Action*>(a);
-                    action->invoke();
+                    //There is no safeguard because we want an error here if something is wrong
+                    dynamic_cast<Action*>(a)->invoke();
                 }
             }
             

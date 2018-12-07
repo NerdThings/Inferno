@@ -24,14 +24,13 @@ namespace Inferno {
             
             for (char c : string) {
                 if (c == '\n') {
-                    size.y += glyphs['A'].size.y + glyphs['A'].bearing.y;
+                    size.y += glyphs[space_char].size.y + glyphs['A'].bearing.y;
                     size.x += currentWidth;
                     currentWidth = 0;
                     continue;
                 }
                 if (c == ' ') {
-                    //TODO: Make this configurable
-                    currentWidth += glyphs['I'].size.x;
+                    currentWidth += glyphs[space_char].size.x;
                     continue;
                 }
     
