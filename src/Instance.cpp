@@ -117,16 +117,16 @@ namespace Inferno {
     Rectangle Instance::get_bounds() {
         if (collision_rectangle != nullptr) {
             if (sprite == nullptr) {
-                return Rectangle(int(_position.x + collision_rectangle->x), int(_position.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
+                return Rectangle(int(get_position().x + collision_rectangle->x), int(get_position().y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
             }
         
-            return Rectangle(int(_position.x - sprite->origin.x + collision_rectangle->x), int(_position.y - sprite->origin.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
+            return Rectangle(int(get_position().x - sprite->origin.x + collision_rectangle->x), int(get_position().y - sprite->origin.y + collision_rectangle->y), collision_rectangle->width, collision_rectangle->height, rotation, rotation_origin);
         } else {
             if (sprite == nullptr) {
-                return Rectangle(int(_position.x), int(_position.y), get_width(), get_height(), rotation, rotation_origin);
+                return Rectangle(int(get_position().x), int(get_position().y), get_width(), get_height(), rotation, rotation_origin);
             }
         
-            return Rectangle(int(_position.x - sprite->origin.x), int(_position.y - sprite->origin.y), get_width(), get_height(), rotation, rotation_origin);
+            return Rectangle(int(get_position().x - sprite->origin.x), int(get_position().y - sprite->origin.y), get_width(), get_height(), rotation, rotation_origin);
         }
     }
     
