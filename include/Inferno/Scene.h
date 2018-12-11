@@ -60,6 +60,7 @@ namespace Inferno {
          * Add a space to a list of spaces
          */
         void spatial_add_to_space(Vector2 position, std::vector<int>* spaces);
+        
     protected:
         //Fields
         
@@ -122,7 +123,7 @@ namespace Inferno {
         /*
          * Add an instance
          */
-        void add_instance(Instance* instance);
+        virtual void add_instance(Instance* instance);
         
         /*
          * Begin update
@@ -157,7 +158,7 @@ namespace Inferno {
         /*
          * Remove instance
          */
-        void remove_instance(Instance* instance);
+        virtual void remove_instance(Instance* instance);
         
         /*
          * Get spaces for an instance

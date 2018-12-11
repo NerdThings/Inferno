@@ -210,7 +210,7 @@ namespace Inferno {
         /*
          * Get the instance bounds
          */
-        Rectangle get_bounds();
+        virtual Rectangle get_bounds();
         
         /*
          * Get the instance collision mask
@@ -225,12 +225,12 @@ namespace Inferno {
         /*
          * Get the next position
          */
-        Vector2 get_next_position();
+        virtual Vector2 get_next_position();
         
         /*
          * Get the current position
          */
-        Vector2 get_position();
+        virtual Vector2 get_position();
         
         /*
          * Get the instance width
@@ -250,7 +250,7 @@ namespace Inferno {
         /*
          * Set the instance position
          */
-        void set_position(Vector2 position);
+        virtual void set_position(Vector2 position);
         
         /*
          * Set the instance width
