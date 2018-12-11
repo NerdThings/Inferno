@@ -40,11 +40,6 @@ namespace Inferno {
         int _height;
         
         /*
-         * The instance position
-         */
-        Vector2 _position = Vector2(0, 0);
-        
-        /*
          * The instance width
          */
         int _width;
@@ -60,6 +55,15 @@ namespace Inferno {
          * Run a collision check
          */
         bool collision_check(Graphics::Sprite* sprite_a, Graphics::Sprite* sprite_b, Rectangle bounds_a, Rectangle bounds_b, CollisionMode collision_mode_a, CollisionMode collision_mode_b);
+        
+    protected:
+        
+        //Fields
+        
+        /*
+         * The instance position
+         */
+        Vector2 _position = Vector2(0, 0);
         
     public:
         //Fields
