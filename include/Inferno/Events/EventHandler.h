@@ -8,13 +8,14 @@
 #include <vector>
 
 #include "Inferno/Events/Action.h"
+#include "Inferno/Events/ActionArgs.h"
 
 namespace Inferno {
     namespace Events {
         /*
          * An event handler which has subscribed actions
          */
-        template<typename T>
+        template<typename T, typename TArgs = ActionArgs>
         class EventHandler {
             //Fields
             
@@ -30,7 +31,7 @@ namespace Inferno {
              * Create a new event handler
              */
             EventHandler() {
-                (void)static_cast<Action*>((T*)0);
+                (void)static_cast<Action<TArgs>*>((T*)0);
             }
             
             //Methods
@@ -41,14 +42,24 @@ namespace Inferno {
             void clear_subscriptions() {
                 _actions.clear();
             }
-            
+    
             /*
              * Invoke event, in turn invoking all subscribed actions
              */
             void invoke() {
                 for (T* a : _actions) {
                     //There is no safeguard because we want an error here if something is wrong
-                    dynamic_cast<Action*>(a)->invoke();
+                    dynamic_cast<Action<TArgs>*>(a)->invoke();
+                }
+            }
+            
+            /*
+             * Invoke event with args, in turn invoking all subscribed actions
+             */
+            void invoke(TArgs args) {
+                for (T* a : _actions) {
+                    //There is no safeguard because we want an error here if something is wrong
+                    dynamic_cast<Action<TArgs>*>(a)->invoke(args);
                 }
             }
             

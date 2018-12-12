@@ -94,12 +94,12 @@ namespace Inferno {
             /*
              * An event that is called when the control is clicked
              */
-            Events::EventHandler<Events::Action> onclick;
+            Events::EventHandler<Events::Action<>> onclick;
             
             /*
              * An event that is called when the control is hovered over
              */
-            Events::EventHandler<Events::Action> onhover;
+            Events::EventHandler<Events::Action<>> onhover;
             
             /*
              * The state of the control

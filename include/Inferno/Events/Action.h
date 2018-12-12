@@ -5,11 +5,14 @@
 #ifndef INFERNO_ACTION_H
 #define INFERNO_ACTION_H
 
+#include "Inferno/Events/ActionArgs.h"
+
 namespace Inferno {
     namespace Events {
         /*
          * An action which can be used to subscribe to an event handler
          */
+        template <typename TArgs = ActionArgs>
         class Action {
         public:
             //Constructors
@@ -20,11 +23,16 @@ namespace Inferno {
             Action() = default;
             
             //Methods
-            
+    
             /*
              * Invoke the action
              */
             virtual void invoke() {}
+            
+            /*
+             * Invoke the action with args
+             */
+            virtual void invoke(TArgs args) {}
         };
     }
 }

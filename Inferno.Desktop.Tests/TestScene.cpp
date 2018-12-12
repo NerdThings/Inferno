@@ -7,6 +7,8 @@
 
 #include "TestScene.h"
 
+#include "Inferno/Events/Action.h"
+#include "Inferno/Events/EventHandler.h"
 #include "Inferno/Graphics/Glyph.h"
 #include "Inferno/Graphics/GraphicsDevice.h"
 #include "Inferno/Input/Keyboard.h"
@@ -19,7 +21,7 @@
 
 Inferno::UI::Control* test_control = nullptr;
 
-class ControlAction : public Inferno::Events::Action {
+class ControlAction : public Inferno::Events::Action<Inferno::Events::ActionArgs> {
 public:
     void invoke() override {
         exit(0);
