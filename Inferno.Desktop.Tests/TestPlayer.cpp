@@ -10,6 +10,7 @@
 #include "Inferno/Content/ContentLoader.h"
 #include "Inferno/Graphics/Color.h"
 #include "Inferno/Input/Keyboard.h"
+#include "Inferno/Physics/CircleCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Game.h"
 #include "Inferno/Scene.h"
@@ -26,6 +27,8 @@ public:
 
 Inferno::Events::EventHandler<TestAction> h;
 
+Inferno::Physics::CircleCollider* test;
+
 TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
     Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
@@ -38,6 +41,10 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     //Create collider
     collider = new Inferno::Physics::RectangleCollider(this);
     collider->colliding_instance_type = "wall";
+    
+    test = new Inferno::Physics::CircleCollider(this);
+    test->colliding_instance_type = "wall";
+    test->circle = Inferno::Circle(get_position(), 32);
 }
 
 void TestPlayer::update() {
@@ -46,6 +53,9 @@ void TestPlayer::update() {
     
     //Get keyboard state
     auto s = Inferno::Input::Keyboard::get_state();
+    
+    //Update test collider
+    test->circle = Inferno::Circle(get_position(), 32);
 
 #define MOVE_SPEED 1
     
@@ -84,5 +94,12 @@ void TestPlayer::update() {
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
     renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::orange, false, 1, 0, 1.5f, Inferno::Vector2(get_bounds().width / 2, get_bounds().height / 2));
+    
+    Inferno::Graphics::Color color = Inferno::Graphics::Color::red;
+    
+    if (test->check_collisions())
+        color = Inferno::Graphics::Color::blue;
+    
+    renderer->draw_circle(test->circle.centre, test->circle.radius, color, false);
     Instance::draw(renderer);
 }

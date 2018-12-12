@@ -14,6 +14,7 @@
 #include "Inferno/Graphics/RenderTarget.h"
 #include "Inferno/Graphics/Shader.h"
 #include "Inferno/Graphics/Texture2D.h"
+#include "Inferno/Circle.h"
 #include "Inferno/Inferno.h"
 #include "Inferno/Matrix.h"
 #include "Inferno/Rectangle.h"
@@ -84,9 +85,15 @@ namespace Inferno {
             //Methods
             
             /*
-             * Draw a circle
+             * Draw a circle.
+             * OBSOLETE: Will be removed after the colliders-revamp branch is merged
              */
             void draw_circle(Vector2 position, float radius, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24, Vector2 origin = Vector2());
+    
+            /*
+             * Draw a circle
+             */
+            void draw_circle(Circle circle, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24, Vector2 origin = Vector2());
             
             /*
              * Draw a line

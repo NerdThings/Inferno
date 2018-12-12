@@ -136,25 +136,29 @@ namespace Inferno {
         //Methods
         
         void Renderer::draw_circle(Vector2 position, float radius, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
+            draw_circle(Circle(position, radius), color, depth, rotation, filled, line_width, circle_precision, origin);
+        }
+        
+        void Renderer::draw_circle(Circle circle, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
             //Set matrix
-            set_matrix(position + origin, rotation);
-            
+            set_matrix(circle.centre + origin, rotation);
+    
             if (filled) {
 #ifdef OPENGL
                 //Bind blank texture
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
-    
+        
                 //Set texture sampler
                 _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
-                
-                float x = position.x;
-                float y = position.y;
-                
+        
+                float x = circle.centre.x;
+                float y = circle.centre.y;
+        
                 std::vector<float> data;
-                
+        
                 for (float i = 0; i < 2 * M_PI; i += M_PI / circle_precision)
-                    add_to_buffer(Vector3(x + (cosf(i) * radius), y + (sinf(i) * radius), depth), Vector2(0, 0), color, &data);
-                
+                    add_to_buffer(Vector3(x + (cosf(i) * circle.radius), y + (sinf(i) * circle.radius), depth), Vector2(0, 0), color, &data);
+        
                 gl_draw_buffer(GL_POLYGON, data);
 #endif
             } else {
@@ -167,18 +171,18 @@ namespace Inferno {
     
                 //Line width
                 glLineWidth(line_width);
-                
+    
                 std::vector<float> data;
-                
+    
                 for (float i = 0; i < circle_precision; i++) {
                     float theta = 2.0f * float(M_PI) * i / float(circle_precision);
-                    
-                    float x = radius * cosf(theta);
-                    float y = radius * sinf(theta);
-    
-                    add_to_buffer(Vector3(position.x + x, position.y + y, depth), Vector2(0, 0), color, &data);
+        
+                    float x = circle.radius * cosf(theta);
+                    float y = circle.radius * sinf(theta);
+        
+                    add_to_buffer(Vector3(circle.centre.x + x, circle.centre.y + y, depth), Vector2(0, 0), color, &data);
                 }
-                
+    
                 gl_draw_buffer(GL_LINE_LOOP, data);
 #endif
             }

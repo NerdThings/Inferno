@@ -6,6 +6,12 @@
 
 namespace Inferno {
     namespace Physics {
+        //Private Methods
+        
+        bool BaseCollider::run_check(bool fire_events) {
+            return false;
+        }
+        
         //Constructors
         
         BaseCollider::BaseCollider(Inferno::Instance *parent_instance) {

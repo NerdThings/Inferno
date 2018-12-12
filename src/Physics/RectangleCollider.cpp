@@ -2,6 +2,7 @@
 // Created by Reece Mackie on 12/12/18.
 //
 
+#include "Inferno/Physics/CircleCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Instance.h"
 #include "Inferno/Scene.h"
@@ -37,11 +38,20 @@ namespace Inferno {
             for (Instance* instance : nearby) {
                 if (instance == _parent_instance || instance->type != colliding_instance_type)
                     continue;
-            
-                //Rectangle colliders
-                auto * rect_collider = dynamic_cast<RectangleCollider*>(instance->collider);
+    
+                //Get colliders
+                CircleCollider* circle_collider = instance->collider->as<CircleCollider>();
+                RectangleCollider* rect_collider = instance->collider->as<RectangleCollider>();
+                
+                //Collider types
                 if (rect_collider != nullptr) {
                     if (get_rectangle().intersects(rect_collider->get_rectangle())) {
+                        //Restore position
+                        _parent_instance->set_position(last_position);
+                        return true;
+                    }
+                } else if (circle_collider != nullptr) {
+                    if (circle_collider->circle.intersects(get_rectangle())) {
                         //Restore position
                         _parent_instance->set_position(last_position);
                         return true;

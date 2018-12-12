@@ -97,17 +97,25 @@ namespace Inferno {
         //Operators
         
         Vector2 operator+(Vector2 b);
-        Vector2 operator+(int b);
         Vector2 operator+(float b);
+        void operator+=(Vector2 b);
+        void operator+=(float b);
+        
         Vector2 operator-(Vector2 b);
-        Vector2 operator-(int b);
         Vector2 operator-(float b);
+        void operator-=(Vector2 b);
+        void operator-=(float b);
+        
         Vector2 operator/(Vector2 b);
-        Vector2 operator/(int b);
         Vector2 operator/(float b);
+        void operator/=(Vector2 b);
+        void operator/=(float b);
+        
         Vector2 operator*(Vector2 b);
-        Vector2 operator*(int b);
         Vector2 operator*(float b);
+        void operator*=(Vector2 b);
+        void operator*=(float b);
+        
         Vector2 operator-();
         bool operator==(Vector2 b);
         bool operator!=(Vector2 b);

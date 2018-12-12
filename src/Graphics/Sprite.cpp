@@ -21,8 +21,6 @@ namespace Inferno {
             _textures.emplace_back(texture);
         }
         
-        //Sprite::Sprite(std::vector<Texture2D*> textures, Vector2 origin, float image_speed, int starting_frame, double rotation) : _textures(textures), origin(origin), image_speed(image_speed), current_frame(starting_frame), _spritesheet(false) {}
-        
         //Deconstructors
         
         Sprite::~Sprite() {

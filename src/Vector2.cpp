@@ -60,48 +60,72 @@ namespace Inferno {
         return {x + b.x, y + b.y};
     }
     
-    Vector2 Vector2::operator+(int b) {
+    Vector2 Vector2::operator+(float b) {
         return {x + b, y + b};
     }
     
-    Vector2 Vector2::operator+(float b) {
-        return {x + b, y + b};
+    void Vector2::operator+=(Vector2 b) {
+        x += b.x;
+        y += b.y;
+    }
+    
+    void Vector2::operator+=(float b) {
+        x += b;
+        y += b;
     }
     
     Vector2 Vector2::operator-(Vector2 b) {
         return {x - b.x, y - b.y};
     }
     
-    Vector2 Vector2::operator-(int b) {
+    Vector2 Vector2::operator-(float b) {
         return {x - b, y - b};
     }
     
-    Vector2 Vector2::operator-(float b) {
-        return {x - b, y - b};
+    void Vector2::operator-=(Vector2 b) {
+        x -= b.x;
+        y -= b.y;
+    }
+    
+    void Vector2::operator-=(float b) {
+        x -= b;
+        y -= b;
     }
     
     Vector2 Vector2::operator*(Vector2 b) {
         return {x * b.x, y * b.y};
     }
     
-    Vector2 Vector2::operator*(int b) {
+    Vector2 Vector2::operator*(float b) {
         return {x * b, y * b};
     }
     
-    Vector2 Vector2::operator*(float b) {
-        return {x * b, y * b};
+    void Vector2::operator*=(Vector2 b) {
+        x *= b.x;
+        y *= b.y;
+    }
+    
+    void Vector2::operator*=(float b) {
+        x *= b;
+        y *= b;
     }
     
     Vector2 Vector2::operator/(Vector2 b) {
         return {x / b.x, y / b.y};
     }
     
-    Vector2 Vector2::operator/(int b) {
+    Vector2 Vector2::operator/(float b) {
         return {x / b, y / b};
     }
     
-    Vector2 Vector2::operator/(float b) {
-        return {x / b, y / b};
+    void Vector2::operator/=(Vector2 b) {
+        x /= b.x;
+        y /= b.y;
+    }
+    
+    void Vector2::operator/=(float b) {
+        x /= b;
+        y /= b;
     }
     
     Vector2 Vector2::operator-() {

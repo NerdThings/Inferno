@@ -19,7 +19,7 @@ namespace Inferno {
         }
         
         bool LineCollider::check_collisions(Vector2 position) {
-        
+            
         }
         
         void LineCollider::update() {
