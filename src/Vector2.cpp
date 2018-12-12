@@ -47,6 +47,13 @@ namespace Inferno {
         return sqrtf((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
     }
     
+    bool Vector2::intersects(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2) {
+        //Needs testing properly
+        float denominator = (a1.x - a2.x)*(b1.y - b2.y) - (a1.y - a2.y)*(b1.x, b2.x);
+        return denominator != 0;
+    
+    }
+    
     //Operators
     
     Vector2 Vector2::operator+(Vector2 b) {

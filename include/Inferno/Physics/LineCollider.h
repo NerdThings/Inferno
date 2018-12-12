@@ -2,30 +2,32 @@
 // Created by Reece Mackie on 12/12/18.
 //
 
-#ifndef INFERNO_RECTANGLECOLLIDER_H
-#define INFERNO_RECTANGLECOLLIDER_H
+#ifndef INFERNO_LINECOLLIDER_H
+#define INFERNO_LINECOLLIDER_H
+
+#include <vector>
 
 #include "Inferno/Physics/BaseCollider.h"
-#include "Inferno/Inferno.h"
-#include "Inferno/Rectangle.h"
 
 namespace Inferno {
     namespace Physics {
-        class INFERNO_API RectangleCollider : public BaseCollider {
+        class LineCollider : public BaseCollider {
         public:
+            //Fields
+            
+            std::vector<Vector2> points;
             
             //Constructors
-            
-            RectangleCollider(Instance* instance);
+    
+            LineCollider(Instance* instance, std::vector<Vector2> points);
             
             //Methods
             
             bool check_collisions() override;
             bool check_collisions(Vector2 position) override;
-            Rectangle get_rectangle();
             void update() override;
         };
     }
 }
 
-#endif //INFERNO_RECTANGLECOLLIDER_H
+#endif //INFERNO_LINECOLLIDER_H

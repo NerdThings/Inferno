@@ -89,6 +89,11 @@ namespace Inferno {
          */
         float distance(Vector2 b);
         
+        /*
+         * Check intersection between two lines
+         */
+        bool intersects(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2);
+        
         //Operators
         
         Vector2 operator+(Vector2 b);
