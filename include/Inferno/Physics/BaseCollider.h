@@ -54,6 +54,15 @@ namespace Inferno {
             BaseCollider(Instance* parent_instance);
             
             //Methods
+            
+            /*
+             * Get the base collider as another derived type.
+             * Returns nullptr if this is not a member of the provided type
+             */
+            template<typename T>
+            T* as(){
+                return dynamic_cast<T*>(this);
+            }
     
             /*
              * Check for collisions
@@ -66,13 +75,9 @@ namespace Inferno {
             virtual bool check_collisions(Vector2 position);
             
             /*
-             * Get the base collider as another derived type.
-             * Returns nullptr if this is not a member of the provided type
+             * Check if this collider collides with another.
              */
-            template<typename T>
-            T* as(){
-                return dynamic_cast<T*>(this);
-            }
+            virtual bool is_colliding(BaseCollider* b);
             
             /*
              * Run events
