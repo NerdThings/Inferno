@@ -30,6 +30,11 @@ namespace Inferno {
             return false;
         }
         
+        bool BaseCollider::is_colliding(BaseCollider* b) {
+            //Do nothing, this collider is just a base
+            return false;
+        }
+        
         void BaseCollider::update() {
             //Do nothing, this collider is just a base
         }
