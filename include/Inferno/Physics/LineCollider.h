@@ -8,11 +8,12 @@
 #include <vector>
 
 #include "Inferno/Physics/BaseCollider.h"
+#include "Inferno/Inferno.h"
 #include "Inferno/Line.h"
 
 namespace Inferno {
     namespace Physics {
-        class LineCollider : public BaseCollider {
+        class INFERNO_API LineCollider : public BaseCollider {
         public:
             //Fields
             
