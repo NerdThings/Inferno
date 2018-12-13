@@ -11,7 +11,7 @@ namespace Inferno {
     namespace Physics {
         //Private methods
         
-        bool RectangleColloder::run_check(bool fire_events) {
+        bool RectangleCollider::run_check(bool fire_events) {
             //Pass variable
             bool pass = false;
             
