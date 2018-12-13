@@ -12,9 +12,6 @@
 namespace Inferno {
     namespace Physics {
         class INFERNO_API CircleCollider : public BaseCollider {
-            //Methods
-            
-            bool run_check(bool fire_events = false) override;
         public:
             //Fields
             
@@ -22,13 +19,11 @@ namespace Inferno {
             
             //Constructors
             
-            CircleCollider(Instance* instance);
+            explicit CircleCollider(Instance* instance);
             
             //Methods
     
-            bool check_collisions() override;
-            bool check_collisions(Vector2 position) override;
-            void update() override;
+            bool is_colliding(BaseCollider* b) override;
         };
     }
 }

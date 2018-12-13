@@ -12,21 +12,23 @@
 namespace Inferno {
     namespace Physics {
         class INFERNO_API RectangleCollider : public BaseCollider {
-            //Methods
+            //Fields
             
-            bool run_check(bool fire_events = false) override;
+            bool _use_instance_bounds = false;
         public:
+            //Fields
+            
+            Rectangle rectangle = Rectangle(0, 0, 0, 0);
             
             //Constructors
-            
-            RectangleCollider(Instance* instance);
+    
+            explicit RectangleCollider(Instance* instance);
+            RectangleCollider(Instance* instance, Rectangle rectangle);
             
             //Methods
             
-            bool check_collisions() override;
-            bool check_collisions(Vector2 position) override;
+            bool is_colliding(BaseCollider* b) override;
             Rectangle get_rectangle();
-            void update() override;
         };
     }
 }

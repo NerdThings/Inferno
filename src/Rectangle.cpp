@@ -6,16 +6,6 @@
 #include "Inferno/Rectangle.h"
 
 namespace Inferno {
-    //Private methods
-    Matrix Rectangle::get_matrix(bool invert) {
-        float r = rotation;
-        if (invert)
-            r = -r;
-        return Matrix::create_translation(Vector3(-(rotation_origin + Vector2(x, y)), 0))
-               * Matrix::create_rotation_z(r)
-               * Matrix::create_translation(Vector3(rotation_origin + Vector2(x, y), 0));
-    }
-    
     //Constructors
     
     Rectangle::Rectangle(float x, float y, float width, float height, float rotation,
@@ -29,6 +19,10 @@ namespace Inferno {
     }
     
     //Methods
+    
+    Line Rectangle::bottom() {
+        return {bottom_left(), bottom_right()};
+    }
     
     Vector2 Rectangle::bottom_left() {
         return Vector2::transform({x, y + height}, get_matrix());
@@ -45,6 +39,15 @@ namespace Inferno {
     bool Rectangle::contains(Vector2 point) {
         Vector2 translated_point = Vector2::transform(point, get_matrix(true));
         return this->x <= translated_point.x && translated_point.x < this->x + this->width && this->y <= translated_point.y && translated_point.y < this->y + this->height;
+    }
+    
+    Matrix Rectangle::get_matrix(bool invert) {
+        float r = rotation;
+        if (invert)
+            r = -r;
+        return Matrix::create_translation(Vector3(-(rotation_origin + Vector2(x, y)), 0))
+               * Matrix::create_rotation_z(r)
+               * Matrix::create_translation(Vector3(rotation_origin + Vector2(x, y), 0));
     }
     
     //Thanks to https://manski.net/2011/05/rectangle-intersection-test-with-csharp/
@@ -96,6 +99,28 @@ namespace Inferno {
             return false;
         
         return true;
+    }
+    
+    bool Rectangle::intersects(Line b) {
+        //Check for line intersection or the ends inside the rectangle
+        return top().intersects(b)
+               || bottom().intersects(b)
+               || left().intersects(b)
+               || right().intersects(b)
+               || contains(b.p1)
+               || contains(b.p2);
+    }
+    
+    Line Rectangle::left() {
+        return {top_left(), bottom_left()};
+    }
+    
+    Line Rectangle::right() {
+        return {top_right(), bottom_right()};
+    }
+    
+    Line Rectangle::top() {
+        return {top_left(), top_right()};
     }
     
     Vector2 Rectangle::top_left() {

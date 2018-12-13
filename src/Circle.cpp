@@ -2,6 +2,8 @@
 // Created by Reece Mackie on 12/12/18.
 //
 
+#include <cmath>
+
 #include "Inferno/MathHelper.h"
 #include "Inferno/Rectangle.h"
 #include "Inferno/Circle.h"
@@ -26,16 +28,8 @@ namespace Inferno {
     }
     
     bool Circle::intersects(Inferno::Rectangle b) {
+        //TODO
         return false;
-        //TODO: Find a way of doing something like this with rotated rectangles
-        /*
-        //Find closest point to circle within rectangle
-        float closest_x = MathHelper::clamp(centre.x, b.x, b.x + b.width);
-        float closest_y = MathHelper::clamp(centre.y, b.y, b.y + b.height);
-        
-        //Check that point is intersecting
-        return contains(Vector2(closest_x, closest_y));
-         */
     }
     
     //Operators

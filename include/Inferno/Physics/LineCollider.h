@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Inferno/Physics/BaseCollider.h"
+#include "Inferno/Line.h"
 
 namespace Inferno {
     namespace Physics {
@@ -15,17 +16,16 @@ namespace Inferno {
         public:
             //Fields
             
-            std::vector<Vector2> points;
+            std::vector<Line> lines;
             
             //Constructors
     
-            LineCollider(Instance* instance, std::vector<Vector2> points);
+            LineCollider(Instance* instance, std::vector<Line> lines);
             
             //Methods
             
-            bool check_collisions() override;
             bool check_collisions(Vector2 position) override;
-            void update() override;
+            bool is_colliding(BaseCollider* b) override;
         };
     }
 }

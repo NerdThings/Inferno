@@ -6,6 +6,7 @@
 #define INFERNO_CIRCLE_H
 
 #include "Inferno/Inferno.h"
+#include "Inferno/Line.h"
 #include "Inferno/Vector2.h"
 
 namespace Inferno {
@@ -43,6 +44,11 @@ namespace Inferno {
          * Test if a circle is intersecting with this circle
          */
         bool intersects(Circle b);
+    
+        /*
+         * Test if a line is intersecting this circle
+         */
+        bool intersects(Line b);
         
         /*
          * Test if a rectangle is intersecting this circle

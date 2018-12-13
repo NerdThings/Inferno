@@ -11,6 +11,7 @@
 #include "Inferno/Graphics/Color.h"
 #include "Inferno/Input/Keyboard.h"
 #include "Inferno/Physics/CircleCollider.h"
+#include "Inferno/Physics/LineCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Game.h"
 #include "Inferno/Scene.h"
@@ -39,7 +40,8 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     h.subscribe(new TestAction());
     
     //Create collider
-    collider = new Inferno::Physics::RectangleCollider(this);
+    collider = new Inferno::Physics::LineCollider(this, {});
+    //collider = new Inferno::Physics::RectangleCollider(this);
     collider->colliding_instance_type = "wall";
     
     test = new Inferno::Physics::CircleCollider(this);
@@ -48,6 +50,16 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
 }
 
 void TestPlayer::update() {
+    //Set line collider lines
+    std::vector<Inferno::Line> lines;
+    lines.emplace_back(get_bounds().top());
+    lines.emplace_back(get_bounds().bottom());
+    lines.emplace_back(get_bounds().right());
+    lines.emplace_back(get_bounds().left());
+    
+    collider->as<Inferno::Physics::LineCollider>()->lines = lines;
+    
+    
     //Reset velocity
     velocity = Inferno::Vector2(0, 0);
     
@@ -56,7 +68,7 @@ void TestPlayer::update() {
     
     //Update test collider
     test->circle = Inferno::Circle(get_position(), 32);
-
+    
 #define MOVE_SPEED 1
     
     //Move logic
@@ -75,21 +87,18 @@ void TestPlayer::update() {
     }
     
     if (collider->check_collisions(Inferno::Vector2(get_next_position().x, get_position().y))) {
-        while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x + Inferno::MathHelper::sign(velocity.x), get_position().y)))) {
-            set_position(Inferno::Vector2(get_position().x - Inferno::MathHelper::sign(velocity.x), get_position().y));
-        }
+        //while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x + Inferno::MathHelper::sign(velocity.x), get_position().y)))) {
+        //    set_position(Inferno::Vector2(get_position().x - Inferno::MathHelper::sign(velocity.x), get_position().y));
+        //}
         velocity.x = 0;
     }
     
     if (collider->check_collisions(Inferno::Vector2(get_position().x, get_next_position().y))) {
-        while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x, get_position().y + Inferno::MathHelper::sign(velocity.y))))) {
-            set_position(Inferno::Vector2(get_position().x, get_position().y - Inferno::MathHelper::sign(velocity.y)));
-        }
+        //while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x, get_position().y + Inferno::MathHelper::sign(velocity.y))))) {
+        //    set_position(Inferno::Vector2(get_position().x, get_position().y - Inferno::MathHelper::sign(velocity.y)));
+        //}
         velocity.y = 0;
     }
-    
-    if (collider->check_collisions())
-        bool hi = false;
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
@@ -100,6 +109,6 @@ void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
     if (test->check_collisions())
         color = Inferno::Graphics::Color::blue;
     
-    renderer->draw_circle(test->circle.centre, test->circle.radius, color, false);
+    //renderer->draw_circle(test->circle.centre, test->circle.radius, color, false);
     Instance::draw(renderer);
 }

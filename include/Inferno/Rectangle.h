@@ -6,6 +6,7 @@
 #define INFERNO_RECTANGLE_H
 
 #include "Inferno/Inferno.h"
+#include "Inferno/Line.h"
 #include "Inferno/Matrix.h"
 #include "Inferno/Vector2.h"
 #include "Inferno/Vector3.h"
@@ -16,12 +17,6 @@ namespace Inferno {
      */
     struct INFERNO_API Rectangle {
     private:
-        //Methods
-        
-        /*
-         * Create an internal matrix
-         */
-        Matrix get_matrix(bool invert = false);
     public:
         //Fields
         
@@ -70,6 +65,11 @@ namespace Inferno {
         //Methods
         
         /*
+         * Get the bottom line
+         */
+        Line bottom();
+        
+        /*
          * Get the bottom left coordinate
          */
         Vector2 bottom_left();
@@ -88,11 +88,36 @@ namespace Inferno {
          * Test if the rectangle contains a point
          */
         bool contains(Vector2 point);
+    
+        /*
+         * Get the matrix used for rotating the rectangle
+         */
+        Matrix get_matrix(bool invert = false);
         
         /*
          * Test if a rectangle intersects another
          */
         bool intersects(Rectangle b);
+    
+        /*
+         * Test if a line intersects this rectangle
+         */
+        bool intersects(Line b);
+    
+        /*
+         * Get the left line
+         */
+        Line left();
+        
+        /*
+         * Get the right line
+         */
+        Line right();
+        
+        /*
+         * Get the top line
+         */
+        Line top();
         
         /*
          * Get the top left coordinate

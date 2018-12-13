@@ -10,6 +10,9 @@
 #include "Inferno/Vector3.h"
 
 namespace Inferno {
+    /*
+     * This serves no purpose of current, this will be removed soon if no use case is found.
+     */
     struct INFERNO_API Vector4 {
         //Fields
     
