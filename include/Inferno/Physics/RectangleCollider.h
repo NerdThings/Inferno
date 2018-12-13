@@ -12,6 +12,9 @@
 namespace Inferno {
     namespace Physics {
         class INFERNO_API RectangleCollider : public BaseCollider {
+            //Methods
+            
+            bool run_check(bool fire_events = false) override;
         public:
             
             //Constructors
