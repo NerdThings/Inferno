@@ -9,24 +9,11 @@
 
 namespace Inferno {
     namespace Physics {
-        //Constructors
+        //Private methods
         
-        RectangleCollider::RectangleCollider(Inferno::Instance *instance) : BaseCollider(instance) {
-        
-        }
-        
-        //Methods
-        
-        bool RectangleCollider::check_collisions() {
-            return check_collisions(_parent_instance->get_position());
-        }
-    
-        bool RectangleCollider::check_collisions(Vector2 position) {
-            //Save current position
-            Vector2 last_position = _parent_instance->get_position();
-            
-            //Set to target position
-            _parent_instance->set_position(position);
+        bool RectangleColloder::run_check(bool fire_events) {
+            //Pass variable
+            bool pass = false;
             
             //Get the current scene
             Scene* current_scene = _parent_instance->parent_scene;
@@ -46,25 +33,56 @@ namespace Inferno {
                 //Collider types
                 if (rect_collider != nullptr) {
                     if (get_rectangle().intersects(rect_collider->get_rectangle())) {
-                        //Restore position
-                        _parent_instance->set_position(last_position);
-                        return true;
+                        pass = true;
+                        if (fire_events) {
+                            on_collide.invoke(CollisionActionArgs(instance));
+                        } else {
+                            break;
+                        }
                     }
                 } else if (circle_collider != nullptr) {
                     if (circle_collider->circle.intersects(get_rectangle())) {
-                        //Restore position
-                        _parent_instance->set_position(last_position);
-                        return true;
+                        pass = true;
+                        if (fire_events) {
+                            on_collide.invoke(CollisionActionArgs(instance));
+                        } else {
+                            break;
+                        }
                     }
                 } else {
                     //TODO: Do collision checks for other colliders
                 }
             }
+                   
+            return pass;
+        }
+        
+        //Constructors
+        
+        RectangleCollider::RectangleCollider(Inferno::Instance *instance) : BaseCollider(instance) {
+        
+        }
+        
+        //Methods
+        
+        bool RectangleCollider::check_collisions() {
+            return run_check();
+        }
+    
+        bool RectangleCollider::check_collisions(Vector2 position) {
+            //Save current position
+            Vector2 last_position = _parent_instance->get_position();
+            
+            //Set to target position
+            _parent_instance->set_position(position);                    
+            
+            //Check for collision
+            bool pass = run_check();
         
             //Restore position
             _parent_instance->set_position(last_position);
             
-            return false;
+            return pass;
         }
     
         Rectangle RectangleCollider::get_rectangle() {
@@ -72,27 +90,7 @@ namespace Inferno {
         }
         
         void RectangleCollider::update() {
-            Scene* current_scene = _parent_instance->parent_scene;
-    
-            //Get all instances spatially near the parent instance
-            std::vector<Instance*> nearby = current_scene->get_nearby_instances(_parent_instance);
-    
-            //Search for a rectangle collision with other colliders
-            for (Instance* instance : nearby) {
-                if (instance == _parent_instance || instance->type != colliding_instance_type)
-                    continue;
-    
-                //Rectangle colliders
-                auto * rect_collider = dynamic_cast<RectangleCollider*>(instance->collider);
-                if (rect_collider != nullptr) {
-                    if (get_rectangle().intersects(rect_collider->get_rectangle())) {
-                        //Fire collision events
-                        on_collide.invoke(CollisionActionArgs(instance));
-                    }
-                } else {
-                    //TODO: Do collision checks for other colliders
-                }
-            }
+            run_check(true);
         }
     }
 }
