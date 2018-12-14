@@ -25,7 +25,7 @@ void TestWall::draw(Inferno::Graphics::Renderer *renderer) {
     if (s.left_button == Inferno::Input::Pressed)
         rotation += 0.05f;
     
-    renderer->draw_circle(get_position() + Inferno::Vector2(16, 16), 5, Inferno::Graphics::Color::black, 0, rotation, false, 2);
+    renderer->draw_circle(Inferno::Circle(get_position() + Inferno::Vector2(16, 16), 5), Inferno::Graphics::Color::black, 0, rotation, false, 2);
     
     Inferno::Graphics::Color c = Inferno::Graphics::Color::pink;
     

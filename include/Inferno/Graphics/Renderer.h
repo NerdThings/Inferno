@@ -85,12 +85,6 @@ namespace Inferno {
             //Methods
             
             /*
-             * Draw a circle.
-             * OBSOLETE: Will be removed after the colliders-revamp branch is merged
-             */
-            void draw_circle(Vector2 position, float radius, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24, Vector2 origin = Vector2());
-    
-            /*
              * Draw a circle
              */
             void draw_circle(Circle circle, Color color = Color::white, float depth = 0, float rotation = 0, bool filled = true, int line_width = 1, int circle_precision = 24, Vector2 origin = Vector2());
@@ -98,12 +92,12 @@ namespace Inferno {
             /*
              * Draw a line
              */
-            void draw_line(Vector2 pos_a, Vector2 pos_b, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
+            void draw_line(Line line, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
             
             /*
              * Draw some lines
              */
-            void draw_lines(std::vector<Vector2> points, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
+            void draw_lines(std::vector<Line> lines, Color color = Color::white, int line_width = 1, float depth = 0, float rotation = 0, Vector2 origin = Vector2());
             
             /*
              * Draw a rectangle

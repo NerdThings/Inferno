@@ -21,7 +21,7 @@ namespace Inferno {
     //Methods
     
     Line Rectangle::bottom() {
-        return {bottom_left(), bottom_right()};
+        return {bottom_right(), bottom_left()};
     }
     
     Vector2 Rectangle::bottom_left() {
@@ -112,7 +112,7 @@ namespace Inferno {
     }
     
     Line Rectangle::left() {
-        return {top_left(), bottom_left()};
+        return {bottom_left(), top_left()};
     }
     
     Line Rectangle::right() {

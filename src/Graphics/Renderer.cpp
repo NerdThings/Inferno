@@ -135,10 +135,6 @@ namespace Inferno {
         
         //Methods
         
-        void Renderer::draw_circle(Vector2 position, float radius, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
-            draw_circle(Circle(position, radius), color, depth, rotation, filled, line_width, circle_precision, origin);
-        }
-        
         void Renderer::draw_circle(Circle circle, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
             //Set matrix
             set_matrix(circle.centre + origin, rotation);
@@ -188,34 +184,32 @@ namespace Inferno {
             }
         }
         
-        void Renderer::draw_line(Vector2 pos_a, Vector2 pos_b, Color color, int line_width, float depth, float rotation, Vector2 origin) {
+        void Renderer::draw_line(Line line, Color color, int line_width, float depth, float rotation, Vector2 origin) {
             //Set matrix
             set_matrix(origin, rotation);
-            
+
 #ifdef OPENGL
             //Bind blank texture
             glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
-    
+            
             //Set texture sampler
             _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
-    
+            
             //Line width
             glLineWidth(line_width);
-    
+            
             std::vector<float> data;
-    
-            add_to_buffer(Vector3(pos_a.x, pos_a.y, depth), Vector2(0, 0), color, &data);
-            add_to_buffer(Vector3(pos_b.x, pos_b.y, depth), Vector2(0, 0), color, &data);
-    
+            
+            add_to_buffer(Vector3(line.p1.x, line.p1.y, depth), Vector2(0, 0), color, &data);
+            add_to_buffer(Vector3(line.p2.x, line.p2.y, depth), Vector2(0, 0), color, &data);
+            
             gl_draw_buffer(GL_LINES, data);
 #endif
         }
         
-        void Renderer::draw_lines(std::vector<Vector2> points, Color color, int line_width, float depth, float rotation, Vector2 origin) {
-            if (points.size() % 2 != 0)
-                return;
-            for (int i = 0; i < points.size(); i += 2) {
-                draw_line(points[i], points[i + 1], color, line_width, depth, rotation, origin);
+        void Renderer::draw_lines(std::vector<Line> lines, Color color, int line_width, float depth, float rotation, Vector2 origin) {
+            for (int i = 0; i < lines.size(); i++) {
+                draw_line(lines[i], color, line_width, depth, rotation, origin);
             }
         }
         
@@ -241,15 +235,11 @@ namespace Inferno {
                 //Load buffer
                 gl_draw_buffer(GL_QUADS, data);
             } else {
-                std::vector<Vector2> points;
-                points.emplace_back(rect.top_left());
-                points.emplace_back(rect.top_right());
-                points.emplace_back(rect.top_right());
-                points.emplace_back(rect.bottom_right());
-                points.emplace_back(rect.bottom_right());
-                points.emplace_back(rect.bottom_left());
-                points.emplace_back(rect.bottom_left());
-                points.emplace_back(rect.top_left());
+                std::vector<Line> points;
+                points.emplace_back(rect.top());
+                points.emplace_back(rect.right());
+                points.emplace_back(rect.bottom());
+                points.emplace_back(rect.left());
                 draw_lines(points, color, line_width, depth);
             }
 #endif

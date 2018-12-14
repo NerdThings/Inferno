@@ -59,11 +59,11 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0, 0);
     
-    renderer->draw_line(Inferno::Vector2(0, 0), Inferno::Vector2(50, 50), Inferno::Graphics::Color::red, 1, 0, M_PI * 0.25f);
+    renderer->draw_line(Inferno::Line(Inferno::Vector2(0, 0), Inferno::Vector2(50, 50)), Inferno::Graphics::Color::red, 1, 0, M_PI * 0.25f);
     
     renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, true, 1, 0, 0);
     
-    renderer->draw_circle(Inferno::Vector2(s.x, s.y), 40, Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
+    renderer->draw_circle(Inferno::Circle(Inferno::Vector2(s.x, s.y), 40), Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
     
     Scene::draw(renderer);
     parent_game->graphics_device->pop_view_matrix();
