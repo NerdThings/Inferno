@@ -63,6 +63,9 @@ namespace Inferno {
 
 #ifdef OPENGL
             
+            /*
+             * Draw a buffer of data
+             */
             void gl_draw_buffer(int drawmode, std::vector<float> data);
             
 #endif
