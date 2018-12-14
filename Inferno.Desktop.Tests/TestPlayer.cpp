@@ -40,8 +40,8 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     h.subscribe(new TestAction());
     
     //Create collider
-    //collider = new Inferno::Physics::LineCollider(this, {});
-    collider = new Inferno::Physics::RectangleCollider(this);
+    collider = new Inferno::Physics::LineCollider(this, {});
+    //collider = new Inferno::Physics::RectangleCollider(this);
     collider->colliding_instance_type = "wall";
     
     test = new Inferno::Physics::CircleCollider(this);
@@ -51,14 +51,7 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
 
 void TestPlayer::update() {
     //Set line collider lines
-    /*std::vector<Inferno::Line> lines;
-    lines.emplace_back(get_bounds().top());
-    lines.emplace_back(get_bounds().bottom());
-    lines.emplace_back(get_bounds().right());
-    lines.emplace_back(get_bounds().left());
-    
-    collider->as<Inferno::Physics::LineCollider>()->lines = lines;*/
-    
+    collider->as<Inferno::Physics::LineCollider>()->lines = get_bounds().lines();
     
     //Reset velocity
     velocity = Inferno::Vector2(0, 0);
@@ -106,8 +99,9 @@ void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
     
     Inferno::Graphics::Color color = Inferno::Graphics::Color::red;
     
-    if (test->check_collisions())
-        color = Inferno::Graphics::Color::blue;
+    //COLLISIONS IN DRAW IS BAD, DONT DO!
+    //if (test->check_collisions())
+    //    color = Inferno::Graphics::Color::blue;
     
     renderer->draw_circle(test->circle, color, 0, 0, false, 2);
     Instance::draw(renderer);

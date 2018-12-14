@@ -235,12 +235,7 @@ namespace Inferno {
                 //Load buffer
                 gl_draw_buffer(GL_QUADS, data);
             } else {
-                std::vector<Line> points;
-                points.emplace_back(rect.top());
-                points.emplace_back(rect.right());
-                points.emplace_back(rect.bottom());
-                points.emplace_back(rect.left());
-                draw_lines(points, color, line_width, depth);
+                draw_lines(rect.lines(), color, line_width, depth);
             }
 #endif
         }

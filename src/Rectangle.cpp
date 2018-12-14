@@ -103,16 +103,20 @@ namespace Inferno {
     
     bool Rectangle::intersects(Line b) {
         //Check for line intersection or the ends inside the rectangle
-        return top().intersects(b)
-               || bottom().intersects(b)
-               || left().intersects(b)
-               || right().intersects(b)
-               || contains(b.p1)
-               || contains(b.p2);
+        return left().intersects(b);
+               //|| bottom().intersects(b)
+               //|| left().intersects(b)
+               //|| right().intersects(b)
+               //|| contains(b.p1)
+               //|| contains(b.p2);
     }
     
     Line Rectangle::left() {
         return {bottom_left(), top_left()};
+    }
+    
+    std::vector<Line> Rectangle::lines() {
+        return {top(), right(), bottom(), left()};
     }
     
     Line Rectangle::right() {

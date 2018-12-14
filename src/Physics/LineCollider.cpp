@@ -47,13 +47,13 @@ namespace Inferno {
                 //        return true;
                 //}
             } else if (line_collider != nullptr) {
-                //This may also have issues.
-                for (Line line : lines) {
-                    for (Line lineb : line_collider->lines) {
-                        if (line.intersects(lineb))
-                            return true;
-                    }
-                }
+                //THIS HAS ISSUES TOO TODO!!!!!!!!!!!!!
+                //for (Line line : lines) {
+                //    for (Line lineb : line_collider->lines) {
+                //        if (line.intersects(lineb))
+                //            return true;
+                //    }
+                //}
             } else if (circle_collider != nullptr) {
                 //TODO
             } else {

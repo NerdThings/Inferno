@@ -11,18 +11,30 @@
 
 namespace Inferno {
     namespace Physics {
+        /*
+         * Collision detector for circles
+         */
         class INFERNO_API CircleCollider : public BaseCollider {
         public:
             //Fields
             
+            /*
+             * The circle to check for collisions with
+             */
             Circle circle;
             
             //Constructors
             
+            /*
+             * Create a new circle collision detector
+             */
             explicit CircleCollider(Instance* instance);
             
             //Methods
     
+            /*
+             * Determine whether or not a collider is colliding with this one
+             */
             bool is_colliding(BaseCollider* b) override;
         };
     }

@@ -110,6 +110,11 @@ namespace Inferno {
         Line left();
         
         /*
+         * Get all lines in order of draw (top-right-bottom-right)
+         */
+        std::vector<Line> lines();
+        
+        /*
          * Get the right line
          */
         Line right();
