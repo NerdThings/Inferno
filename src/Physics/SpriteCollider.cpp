@@ -61,8 +61,8 @@ namespace Inferno {
             int height = MathHelper::minimum(bounds_a.bottom_right().y, bounds_b.bottom_right().y) - top;
             
             //Check for animations
-            //if (sprite->is_animated())
-            //    throw std::runtime_error("Cannot per pixel check animated sprites");
+            if (sprite->is_animated())
+                throw std::runtime_error("Cannot per pixel check animated sprites");
             
             //Look for collision
             for (int x = left; x < left + width; x++) {

@@ -42,6 +42,10 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     //Create collider
     //collider = new Inferno::Physics::RectangleCollider(this);
     collider = new Inferno::Physics::SpriteCollider(this);
+    
+    Inferno::Graphics::Texture2D* mask = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Mask.png");
+    collider->as<Inferno::Physics::SpriteCollider>()->sprite = new Inferno::Graphics::Sprite(mask, Inferno::Vector2::zero);
+    
     collider->colliding_instance_type = "wall";
     
     test = new Inferno::Physics::CircleCollider(this);
