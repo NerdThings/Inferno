@@ -3,7 +3,6 @@
 //
 
 #include "Inferno/Physics/CircleCollider.h"
-#include "Inferno/Physics/LineCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Instance.h"
 #include "Inferno/Scene.h"
@@ -21,7 +20,6 @@ namespace Inferno {
         bool RectangleCollider::is_colliding(BaseCollider* b) {
             //Get colliders
             auto* circle_collider = b->as<CircleCollider>();
-            auto* line_collider = b->as<LineCollider>();
             auto* rect_collider = b->as<RectangleCollider>();
     
             //Collider types
@@ -29,12 +27,6 @@ namespace Inferno {
                 if (get_rectangle().intersects(rect_collider->get_rectangle())) {
                     return true;
                 }
-            } else if (line_collider != nullptr) {
-                //TODO
-                //for (Line line : line_collider->lines) {
-                //    if (get_rectangle().intersects(line))
-                //        return true;
-                //}
             } else if (circle_collider != nullptr) {
                 if (circle_collider->circle.intersects(get_rectangle())) {
                     return true;

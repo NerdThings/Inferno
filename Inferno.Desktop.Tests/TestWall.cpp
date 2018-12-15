@@ -6,7 +6,6 @@
 
 #include <Inferno/Input/Mouse.h>
 #include <Inferno/Physics/RectangleCollider.h>
-#include <Inferno/Physics/LineCollider.h>
 
 #include "TestWall.h"
 
@@ -16,15 +15,12 @@ TestWall::TestWall(Inferno::Scene *parent_scene, Inferno::Vector2 position) : In
     
     rotation_origin = Inferno::Vector2(16, 16);
     
-    //collider = new Inferno::Physics::RectangleCollider(this);
-    collider = new Inferno::Physics::LineCollider(this, {});
+    collider = new Inferno::Physics::RectangleCollider(this);
     
     type = "wall";
 }
 
 void TestWall::draw(Inferno::Graphics::Renderer *renderer) {
-    
-    collider->as<Inferno::Physics::LineCollider>()->lines = get_bounds().lines();
     
     Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_scene->parent_game);
     if (s.left_button == Inferno::Input::Pressed)

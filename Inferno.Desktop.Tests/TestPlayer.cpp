@@ -11,7 +11,7 @@
 #include "Inferno/Graphics/Color.h"
 #include "Inferno/Input/Keyboard.h"
 #include "Inferno/Physics/CircleCollider.h"
-#include "Inferno/Physics/LineCollider.h"
+#include "Inferno/Physics/SpriteCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Game.h"
 #include "Inferno/Scene.h"
@@ -40,8 +40,8 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     h.subscribe(new TestAction());
     
     //Create collider
-    collider = new Inferno::Physics::LineCollider(this, {});
     //collider = new Inferno::Physics::RectangleCollider(this);
+    collider = new Inferno::Physics::SpriteCollider(this);
     collider->colliding_instance_type = "wall";
     
     test = new Inferno::Physics::CircleCollider(this);
@@ -49,10 +49,9 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
     test->circle = Inferno::Circle(get_position(), 32);
 }
 
+bool collision = false;
+
 void TestPlayer::update() {
-    //Set line collider lines
-    collider->as<Inferno::Physics::LineCollider>()->lines = get_bounds().lines();
-    
     //Reset velocity
     velocity = Inferno::Vector2(0, 0);
     
@@ -76,7 +75,6 @@ void TestPlayer::update() {
     }
     if (s.is_key_down(Inferno::Input::D)) {
         velocity.x += MOVE_SPEED;
-        h.invoke();
     }
     
     if (collider->check_collisions(Inferno::Vector2(get_next_position().x, get_position().y))) {
@@ -92,6 +90,8 @@ void TestPlayer::update() {
         //}
         velocity.y = 0;
     }
+    
+    collision = collider->check_collisions(get_next_position());
 }
 
 void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
@@ -100,9 +100,9 @@ void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
     Inferno::Graphics::Color color = Inferno::Graphics::Color::red;
     
     //COLLISIONS IN DRAW IS BAD, DONT DO!
-    //if (test->check_collisions())
-    //    color = Inferno::Graphics::Color::blue;
-    
+    if (collision)
+        color = Inferno::Graphics::Color::blue;
+       
     renderer->draw_circle(test->circle, color, 0, 0, false, 2);
     Instance::draw(renderer);
 }

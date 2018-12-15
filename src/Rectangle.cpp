@@ -20,6 +20,10 @@ namespace Inferno {
     
     //Methods
     
+    bool Rectangle::axis_aligned() {
+        return rotation == 0;
+    }
+    
     Line Rectangle::bottom() {
         return {bottom_right(), bottom_left()};
     }
@@ -103,12 +107,14 @@ namespace Inferno {
     
     bool Rectangle::intersects(Line b) {
         //Check for line intersection or the ends inside the rectangle
-        return left().intersects(b);
-               //|| bottom().intersects(b)
-               //|| left().intersects(b)
-               //|| right().intersects(b)
-               //|| contains(b.p1)
-               //|| contains(b.p2);
+        
+        for (Line line : lines()) {
+            if (line.intersects(b))
+                return true;
+        }
+        
+        //return contains(b.p1, b.p2);
+        return false;
     }
     
     Line Rectangle::left() {

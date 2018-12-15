@@ -41,6 +41,11 @@ TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768)
     test_control->height = 100;
 }
 
+Inferno::Line a = Inferno::Line({10, 10}, {100, 10});
+Inferno::Line b = Inferno::Line({100, 10}, {100, 100});
+
+bool intersect = false;
+
 void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     parent_game->graphics_device->push_view_matrix();
     parent_game->graphics_device->set_view_matrix(camera.get_translation_matrix());
@@ -49,29 +54,40 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
     
     Inferno::Graphics::Color c;
     
-    if (s.left_button == Inferno::Input::Pressed) {
-        c = Inferno::Graphics::Color(0.5f, 1.0f, 1.0f, 1.0f);
-    } else if (ks.is_key_down(Inferno::Input::Space)) {
-        c = Inferno::Graphics::Color(1.0f, 1.0f, 0.5f, 1.0f);
-    } else {
-        c = Inferno::Graphics::Color(1.0f, 0.5f, 1.0f, 1.0f);
+    //renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0, 0);
+    
+    //renderer->draw_line(Inferno::Line(Inferno::Vector2(0, 0), Inferno::Vector2(50, 50)), Inferno::Graphics::Color::red, 1, 0, M_PI * 0.25f);
+    
+    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, true, 1, 0, 0);
+    
+    //renderer->draw_circle(Inferno::Circle(Inferno::Vector2(s.x, s.y), 40), Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
+    
+    //TEST
+    
+    Inferno::Graphics::Color ac = Inferno::Graphics::Color::blue;
+    Inferno::Graphics::Color bc = Inferno::Graphics::Color::green;
+    
+    if (intersect) {
+        ac = Inferno::Graphics::Color::red;
+        bc = Inferno::Graphics::Color::red;
     }
     
-    renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0, 0);
-    
-    renderer->draw_line(Inferno::Line(Inferno::Vector2(0, 0), Inferno::Vector2(50, 50)), Inferno::Graphics::Color::red, 1, 0, M_PI * 0.25f);
-    
-    renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, true, 1, 0, 0);
-    
-    renderer->draw_circle(Inferno::Circle(Inferno::Vector2(s.x, s.y), 40), Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
+    //renderer->draw_line(a, ac);
+    //renderer->draw_line(b, bc);
     
     Scene::draw(renderer);
     parent_game->graphics_device->pop_view_matrix();
-    test_control->update();
-    test_control->draw(renderer);
+    //test_control->update();
+    //test_control->draw(renderer);
 }
 
 void TestScene::update() {
+    
+    Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game);
+    
+    b = Inferno::Line(Inferno::Vector2(s.x, s.y), Inferno::Vector2(s.x, s.y + 90));
+    
+    intersect = a.intersects(b);
     
     Scene::update();
 }

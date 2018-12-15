@@ -65,6 +65,12 @@ namespace Inferno {
         //Methods
         
         /*
+         * Test to see if this rectangle is not rotated.
+         * Rectangles that are rotated have lesser capabilities.
+         */
+        bool axis_aligned();
+        
+        /*
          * Get the bottom line
          */
         Line bottom();

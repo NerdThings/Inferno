@@ -20,37 +20,31 @@ namespace Inferno {
         return (p2.y - p1.y) / (p2.x - p1.x);
     }
     
-    bool sameSign(float a, float b) {
-        return MathHelper::sign(a) == MathHelper::sign(b);
-    }
-    
     bool Line::intersects(Line b) {
-        float x1 = p1.x;
-        float y1 = p1.y;
+        /*float x1 = p1.x;
         float x2 = p2.x;
-        float y2 = p2.y;
         float x3 = b.p1.x;
-        float y3 = b.p1.y;
         float x4 = b.p2.x;
+    
+        float y1 = p1.y;
+        float y2 = p2.y;
+        float y3 = b.p1.y;
         float y4 = b.p2.y;
-        
-        float ua = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
-        float ub = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
-        
-        float denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-        
-        if (fabsf(denom) <= 0.00001f) {
-            if (fabsf(ua) <= 0.00001f && fabsf(ub) <= 0.00001f) {
-                return true;
-            }
-        } else {
-            ua /= denom;
-            ub /= denom;
-            
-            if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
+    
+        float ua, ub, denom = (y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1);
+        if (denom == 0)
+            return false;
+    
+        ua = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3))/denom;
+        ub = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3))/denom;
+    
+        if (ua >= 0 && ua <= 1) {
+            if (ub >= 0 && ub <= 1)
                 return true;
         }
-        
+    
+        return false;*/
+        //TODO
         return false;
     }
     
