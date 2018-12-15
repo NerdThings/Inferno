@@ -21,6 +21,7 @@ namespace Inferno {
         bool Mouse::internal_x2 = false;
         int Mouse::internal_x = 0;
         int Mouse::internal_y = 0;
+        Matrix Mouse::transform_matrix = Matrix();
 #endif
         
         //Static Methods
@@ -85,7 +86,7 @@ namespace Inferno {
             pos.y /= view_height;
             
             //Apply graphics device view matrix
-            pos = Vector2::transform(pos, Matrix::invert(current_game->graphics_device->get_view_matrix()));
+            pos = Vector2::transform(pos, transform_matrix);
             
             //Create state
             MouseState state;
@@ -100,6 +101,14 @@ namespace Inferno {
             state.scroll_wheel_x = internal_scroll_x;
             
             return state;
+        }
+        
+        void Mouse::use_camera(Graphics::Camera *camera) {
+            transform_matrix = Matrix::invert(camera->get_translation_matrix());
+        }
+        
+        void Mouse::use_transform_matrix(Matrix matrix) {
+            transform_matrix = matrix;
         }
     }
 }
