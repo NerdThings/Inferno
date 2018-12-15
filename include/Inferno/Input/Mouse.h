@@ -5,6 +5,7 @@
 #ifndef INFERNO_MOUSE_H
 #define INFERNO_MOUSE_H
 
+#include "Inferno/Graphics/Camera.h"
 #include "Inferno/Input/MouseState.h"
 #include "Inferno/Inferno.h"
 #include "Inferno/Matrix.h"
@@ -64,6 +65,11 @@ namespace Inferno {
              * Y position
              */
             static int internal_y;
+            
+            /*
+             * The matrix used for transforming the mouse position
+             */
+            static Matrix transform_matrix;
 #endif
             
             //Static Methods
@@ -94,10 +100,20 @@ namespace Inferno {
             static void clear_x_button_2();
             
             /*
-             * Get the current mouse state.
-             * Mouse Position is translated by Graphics Device view matrix
+             * Get the current mouse state
              */
             static MouseState get_state(Game* current_game);
+            
+            /*
+             * Use a camera to transform the mouse position
+             * This will use the inverse matrix as we want to scale back into the view
+             */
+            static void use_camera(Graphics::Camera* camera);
+    
+            /*
+             * Use a matrix to transform the mouse position
+             */
+            static void use_transform_matrix(Matrix matrix);
         };
     }
 }
