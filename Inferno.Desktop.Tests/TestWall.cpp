@@ -9,7 +9,7 @@
 
 #include "TestWall.h"
 
-TestWall::TestWall(Inferno::Scene *parent_scene, Inferno::Vector2 position) : Instance(parent_scene, position, 0, false, true) {
+TestWall::TestWall(Inferno::Scene *parent_scene, Inferno::Vector2 position) : Instance(parent_scene, position, 0) {
     set_width(32);
     set_height(32);
     

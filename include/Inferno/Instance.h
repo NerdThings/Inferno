@@ -55,11 +55,6 @@ namespace Inferno {
         float depth = 0;
         
         /*
-         * Whether or not the instance uses draw calls
-         */
-        bool draws = false;
-        
-        /*
          * The instance parent scene
          */
         Scene* parent_scene = nullptr;
@@ -87,11 +82,6 @@ namespace Inferno {
         std::string type = "";
         
         /*
-         * Whether or not the instance uses update calls
-         */
-        bool updates = false;
-        
-        /*
          * The instance velocity
          * This is added to the position at the end of every frame
          */
@@ -107,7 +97,7 @@ namespace Inferno {
         /*
          * Create a new Instance
          */
-        Instance(Scene* parent_scene, Vector2 position, float depth = 0, bool updates = false, bool draws = false);
+        Instance(Scene* parent_scene, Vector2 position, float depth = 0);
         
         //Deconstructors
         

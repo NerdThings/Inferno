@@ -47,7 +47,6 @@ namespace Inferno {
             
             /*
              * Get the final translation matrix.
-             * This will be passed to the graphics device as the view matrix
              */
             Matrix get_translation_matrix();
             

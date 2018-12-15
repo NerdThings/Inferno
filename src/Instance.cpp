@@ -14,12 +14,10 @@ namespace Inferno {
     
     Instance::Instance(Scene *parent_scene) : parent_scene(parent_scene) {}
     
-    Instance::Instance(Scene *parent_scene, Vector2 position, float depth, bool updates, bool draws) {
+    Instance::Instance(Scene *parent_scene, Vector2 position, float depth) {
         this->parent_scene = parent_scene;
         this->_position = position;
         this->depth = depth;
-        this->updates = updates;
-        this->draws = draws;
     }
     
     //Deconstructors

@@ -30,7 +30,7 @@ Inferno::Events::EventHandler<TestAction> h;
 
 Inferno::Physics::CircleCollider* test;
 
-TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0, true, true) {
+TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0) {
     std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
     Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
     sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(8, 8), 16, 16, 10);
@@ -54,6 +54,7 @@ TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, In
 }
 
 bool collision = false;
+bool test_collide = false;
 
 void TestPlayer::update() {
     //Reset velocity
@@ -64,6 +65,8 @@ void TestPlayer::update() {
     
     //Update test collider
     test->circle = Inferno::Circle(get_position(), 32);
+    
+    test_collide = test->check_collisions();
     
 #define MOVE_SPEED 1
     
@@ -103,10 +106,9 @@ void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
     
     Inferno::Graphics::Color color = Inferno::Graphics::Color::red;
     
-    //COLLISIONS IN DRAW IS BAD, DONT DO!
-    if (collision)
+    if (test_collide)
         color = Inferno::Graphics::Color::blue;
-       
+    
     renderer->draw_circle(test->circle, color, 0, 0, false, 2);
     Instance::draw(renderer);
 }

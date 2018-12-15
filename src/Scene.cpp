@@ -82,8 +82,7 @@ namespace Inferno {
         
         for (Instance* instance : _instances) {
             if (instance != nullptr)
-                if (instance->updates)
-                    instance->begin_update();
+                instance->begin_update();
         }
     }
     
@@ -97,16 +96,14 @@ namespace Inferno {
         
         for (Instance* instance : _instances) {
             if (instance != nullptr)
-                if (instance->draws)
-                    instance->draw(renderer);
+                instance->draw(renderer);
         }
     }
     
     void Scene::end_update() {
         for (Instance* instance : _instances) {
             if (instance != nullptr)
-                if (instance->updates)
-                    instance->end_update();
+                instance->end_update();
         }
     }
     
@@ -205,13 +202,11 @@ namespace Inferno {
         for (Instance* instance : _instances) {
             if (instance != nullptr) {
                 //Update instance
-                if (instance->updates)
-                    instance->update();
+                instance->update();
                 
                 //Update sprite
-                if (instance->draws)
-                    if (instance->sprite != nullptr)
-                        instance->sprite->update();
+                if (instance->sprite != nullptr)
+                    instance->sprite->update();
             }
         }
     }
