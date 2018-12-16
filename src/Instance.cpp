@@ -30,7 +30,8 @@ namespace Inferno {
     
     void Instance::begin_update() {
         //Check for collisions so that the code can handle it
-        collider->update();
+        if (collider != nullptr)
+            collider->update();
     }
     
     void Instance::draw(Graphics::Renderer *renderer) {
