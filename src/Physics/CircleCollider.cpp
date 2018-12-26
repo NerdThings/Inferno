@@ -4,14 +4,14 @@
 
 #include "Inferno/Physics/CircleCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
 #include "Inferno/Scene.h"
 
 namespace Inferno {
     namespace Physics {
         //Constructors
         
-        CircleCollider::CircleCollider(Inferno::Instance *instance) : BaseCollider(instance) {}
+        CircleCollider::CircleCollider(World::Instance *instance) : BaseCollider(instance) {}
         
         //Methods
 

@@ -6,11 +6,13 @@
 #define INFERNO_COLLISIONACTIONARGS_H
 
 namespace Inferno {
-    class Instance;
+    namespace World {
+        class Instance;
+    }
     
     namespace Physics {
         struct CollisionActionArgs {
-            Instance* colliding_instance;
+            World::Instance* colliding_instance;
             
             //Constructors
             
@@ -18,7 +20,7 @@ namespace Inferno {
                 colliding_instance = nullptr;
             }
     
-            explicit CollisionActionArgs(Instance* instance) {
+            explicit CollisionActionArgs(World::Instance* instance) {
                 colliding_instance = instance;
             }
         };

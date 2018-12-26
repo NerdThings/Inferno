@@ -16,4 +16,4 @@ add_executable (Inferno.Desktop.Tests WIN32 ${src})
 target_link_libraries(Inferno.Desktop.Tests Inferno.Desktop)
 
 # Copy content
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Content DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Content DESTINATION ${CMAKE_BINARY_DIR})

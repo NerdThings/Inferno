@@ -4,9 +4,10 @@
 
 #include <algorithm>
 #include <cmath>
+#include <stdexcept>
 
 #include "Inferno/Scene.h"
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
 
 namespace Inferno {
     //Private methods
@@ -24,11 +25,11 @@ namespace Inferno {
         
         //Fill the map with vectors
         for (int i = 0; i < cols * rows; i++) {
-            _spatial_map.insert(std::pair<int, std::vector<Instance*>>(i, std::vector<Instance*>()));
+            _spatial_map.insert(std::pair<int, std::vector<World::Instance*>>(i, std::vector<World::Instance*>()));
         }
         
         //Register all instances into spaces
-        for (Instance* instance : _instances) {
+        for (World::Instance* instance : _instances) {
             if (instance != nullptr) {
                 if (spatialmode == SafeZone && safezone_enabled) { //Check if within safezone
                     if (safezone.contains(instance->get_position())) {
@@ -41,7 +42,7 @@ namespace Inferno {
         }
     }
     
-    void Scene::spatial_register_instance(Instance *instance) {
+    void Scene::spatial_register_instance(World::Instance *instance) {
         std::vector<int> spaces = spatial_get_spaces(instance);
         for (int space : spaces) {
             _spatial_map[space].emplace_back(instance);
@@ -72,7 +73,7 @@ namespace Inferno {
     
     //Methods
     
-    void Scene::add_instance(Instance *instance) {
+    void Scene::add_instance(World::Instance *instance) {
         //Add the instance to the state
         _instances.emplace_back(instance);
     }
@@ -80,7 +81,7 @@ namespace Inferno {
     void Scene::begin_update() {
         spatial_initialise();
         
-        for (Instance* instance : _instances) {
+        for (World::Instance* instance : _instances) {
             if (instance != nullptr)
                 instance->begin_update();
         }
@@ -94,24 +95,24 @@ namespace Inferno {
                                    Graphics::Color::white, background->origin);
         }
         
-        for (Instance* instance : _instances) {
+        for (World::Instance* instance : _instances) {
             if (instance != nullptr)
                 instance->draw(renderer);
         }
     }
     
     void Scene::end_update() {
-        for (Instance* instance : _instances) {
+        for (World::Instance* instance : _instances) {
             if (instance != nullptr)
                 instance->end_update();
         }
     }
     
-    std::vector<Instance*> Scene::get_instances_at(Vector2 position, bool bound_by_safezone) {
-        std::vector<Instance*> ret;
+    std::vector<World::Instance*> Scene::get_instances_at(Vector2 position, bool bound_by_safezone) {
+        std::vector<World::Instance*> ret;
         
         if (bound_by_safezone) {
-            for (Instance* instance : _instances) {
+            for (World::Instance* instance : _instances) {
                 if (instance != nullptr) {
                     if (instance->get_position() == position) {
                         if (safezone.contains(instance->get_position())) {
@@ -121,7 +122,7 @@ namespace Inferno {
                 }
             }
         } else {
-            for (Instance* instance : _instances) {
+            for (World::Instance* instance : _instances) {
                 if (instance != nullptr) {
                     if (instance->get_position() == position) {
                         ret.emplace_back(instance);
@@ -133,13 +134,13 @@ namespace Inferno {
         return ret;
     }
     
-    std::vector<Instance*> Scene::get_nearby_instances(Instance* instance) {
-        std::vector<Instance*> ret;
+    std::vector<World::Instance*> Scene::get_nearby_instances(World::Instance* instance) {
+        std::vector<World::Instance*> ret;
         
         std::vector<int> spaces = spatial_get_spaces(instance);
         
         for (int space : spaces) {
-            for (Instance* inst : _spatial_map[space]) {
+            for (World::Instance* inst : _spatial_map[space]) {
                 if (inst != nullptr) {
                     if (std::find(ret.begin(), ret.end(), inst) == ret.end()) {
                         ret.emplace_back(inst);
@@ -155,12 +156,12 @@ namespace Inferno {
         //User can add code to load the state
     }
     
-    void Scene::remove_instance(Instance *instance) {
+    void Scene::remove_instance(World::Instance *instance) {
         //Remove instance from state
         _instances.erase(std::remove(_instances.begin(), _instances.end(), instance), _instances.end());
     }
     
-    std::vector<int> Scene::spatial_get_spaces(Instance* instance) {
+    std::vector<int> Scene::spatial_get_spaces(World::Instance* instance) {
         return spatial_get_spaces(instance->get_bounds());
     }
     
@@ -180,7 +181,7 @@ namespace Inferno {
         return spaces_in;
     }
     
-    void Scene::spatial_move_instance(Rectangle old_bounds, Rectangle new_bounds, Instance* instance) {
+    void Scene::spatial_move_instance(Rectangle old_bounds, Rectangle new_bounds, World::Instance* instance) {
         std::vector<int> old_spaces = spatial_get_spaces(old_bounds);
         std::vector<int> new_spaces = spatial_get_spaces(new_bounds);
         
@@ -199,7 +200,7 @@ namespace Inferno {
     }
     
     void Scene::update() {
-        for (Instance* instance : _instances) {
+        for (World::Instance* instance : _instances) {
             if (instance != nullptr) {
                 //Update instance
                 instance->update();

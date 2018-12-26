@@ -35,12 +35,12 @@ namespace Inferno {
             /*
              * Create a new rectangle collision detector using an instance's bounds
              */
-            explicit RectangleCollider(Instance* instance);
+            explicit RectangleCollider(World::Instance* instance);
             
             /*
              * Create a new rectangle collision detector using a provided rectangle
              */
-            RectangleCollider(Instance* instance, Rectangle rectangle);
+            RectangleCollider(World::Instance* instance, Rectangle rectangle);
             
             //Methods
             

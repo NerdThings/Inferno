@@ -94,13 +94,13 @@ target_link_libraries(Inferno.Desktop ${HarfBuzz_LIBRARIES})
 IF (WIN32)
 
     # Copy SDL2 DLL to output path )
-    file(COPY ${SDL_DIR}/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY ${SDL_DIR}/SDL2.dll DESTINATION ${CMAKE_BINARY_DIR})
 
     # Copy DevIL DLL to output path
-    file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY ${IL_DIR}/DevIL.dll DESTINATION ${CMAKE_BINARY_DIR})
 
     # Copy freetype DLL to output path
-    file(COPY ${FREETYPE_DIR}/freetype.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY ${FREETYPE_DIR}/freetype.dll DESTINATION ${CMAKE_BINARY_DIR})
 
 ENDIF()
 

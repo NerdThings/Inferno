@@ -3,7 +3,7 @@
 //
 
 #include "Inferno/Physics/BaseCollider.h"
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
 
 namespace Inferno {
     namespace Physics {
@@ -19,12 +19,12 @@ namespace Inferno {
             Scene* current_scene = _parent_instance->parent_scene;
     
             //Get all instances spatially near the parent instance
-            std::vector<Instance*> nearby = current_scene->get_nearby_instances(_parent_instance);
+            std::vector<World::Instance*> nearby = current_scene->get_nearby_instances(_parent_instance);
     
             //Search for a rectangle collision with other colliders
-            for (Instance* instance : nearby) {
+            for (World::Instance* instance : nearby) {
                 //This looks pointless, but it fixes some very strange loop issues
-                if (dynamic_cast<Instance*>(instance) == nullptr)
+                if (dynamic_cast<World::Instance*>(instance) == nullptr)
                     continue;
                 
                 //Skip our parent and instances that don't fit the correct type
@@ -53,7 +53,7 @@ namespace Inferno {
         
         //Constructors
         
-        BaseCollider::BaseCollider(Inferno::Instance *parent_instance) {
+        BaseCollider::BaseCollider(World::Instance *parent_instance) {
             _parent_instance = parent_instance;
         }
         

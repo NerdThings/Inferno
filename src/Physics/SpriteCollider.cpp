@@ -5,7 +5,8 @@
 #include "Inferno/Physics/CircleCollider.h"
 #include "Inferno/Physics/RectangleCollider.h"
 #include "Inferno/Physics/SpriteCollider.h"
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
+#include <stdexcept>
 
 namespace Inferno {
     namespace Physics {
@@ -85,9 +86,9 @@ namespace Inferno {
         
         //Constructors
         
-        SpriteCollider::SpriteCollider(Instance *instance) : BaseCollider(instance), sprite(instance->sprite) {}
+        SpriteCollider::SpriteCollider(World::Instance *instance) : BaseCollider(instance), sprite(instance->sprite) {}
         
-        SpriteCollider::SpriteCollider(Instance *instance, Graphics::Sprite *sprite) : BaseCollider(instance), sprite(sprite) {}
+        SpriteCollider::SpriteCollider(World::Instance *instance, Graphics::Sprite *sprite) : BaseCollider(instance), sprite(sprite) {}
         
         //Methods
         

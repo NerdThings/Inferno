@@ -18,14 +18,16 @@
 #include "Inferno/Vector2.h"
 #include "TestPlayer.h"
 
-class TestScene : public Inferno::Scene {
-    Inferno::Graphics::Sprite* tmb = nullptr;
+using namespace Inferno;
+
+class TestScene : public Scene {
+    Graphics::Sprite* tmb = nullptr;
     TestPlayer* player;
-    Inferno::Graphics::Font fnt;
-    Inferno::Graphics::Camera camera;
+    Graphics::Font fnt;
+    Graphics::Camera camera;
 public:
-    explicit TestScene(Inferno::Game* parent_game);
-    void draw(Inferno::Graphics::Renderer* renderer) override;
+    explicit TestScene(Game* parent_game);
+    void draw(Graphics::Renderer* renderer) override;
 	void update() override;
 	void loaded() override;
 	void unloaded() override;

@@ -5,13 +5,15 @@
 #ifndef INFERNO_TESTPLAYER_H
 #define INFERNO_TESTPLAYER_H
 
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
 
-class TestPlayer : public Inferno::Instance {
+using namespace Inferno;
+
+class TestPlayer : public World::Instance {
 public:
-    explicit TestPlayer(Inferno::Scene* parent_scene);
+    explicit TestPlayer(Scene* parent_scene);
     void update() override;
-    void draw(Inferno::Graphics::Renderer* renderer) override;
+    void draw(Graphics::Renderer* renderer) override;
 };
 
 

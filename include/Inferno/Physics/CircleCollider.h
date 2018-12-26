@@ -28,7 +28,7 @@ namespace Inferno {
             /*
              * Create a new circle collision detector
              */
-            explicit CircleCollider(Instance* instance);
+            explicit CircleCollider(World::Instance* instance);
             
             //Methods
     

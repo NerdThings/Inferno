@@ -5,12 +5,14 @@
 #ifndef INFERNO_TESTWALL_H
 #define INFERNO_TESTWALL_H
 
-#include "Inferno/Instance.h"
+#include "Inferno/World/Instance.h"
 
-class TestWall : public Inferno::Instance {
+using namespace Inferno;
+
+class TestWall : public World::Instance {
 public:
-    TestWall(Inferno::Scene* parent_scene, Inferno::Vector2 position);
-    void draw(Inferno::Graphics::Renderer* renderer) override;
+    TestWall(Scene* parent_scene, Vector2 position);
+    void draw(Graphics::Renderer* renderer) override;
 };
 
 

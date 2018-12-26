@@ -15,8 +15,11 @@
 #include "Inferno/Vector2.h"
 
 namespace Inferno {
-    class Instance;
     class Game;
+
+    namespace World {
+        class Instance;
+    }
     
     /*
      * Spatial hashing mode
@@ -37,12 +40,12 @@ namespace Inferno {
         /*
          * The instances within the scene
          */
-        std::vector<Instance*> _instances;
+        std::vector<World::Instance*> _instances;
         
         /*
          * Spatial hashing map
          */
-        std::map<int, std::vector<Instance*>> _spatial_map;
+        std::map<int, std::vector<World::Instance*>> _spatial_map;
     
         //Methods
     
@@ -54,7 +57,7 @@ namespace Inferno {
         /*
          * Register an instance into spatial hashing
          */
-        void spatial_register_instance(Instance* instance);
+        void spatial_register_instance(World::Instance* instance);
         
         /*
          * Add a space to a list of spaces
@@ -123,7 +126,7 @@ namespace Inferno {
         /*
          * Add an instance
          */
-        virtual void add_instance(Instance* instance);
+        virtual void add_instance(World::Instance* instance);
         
         /*
          * Begin update
@@ -143,12 +146,12 @@ namespace Inferno {
         /*
          * Get instances at the given position
          */
-        std::vector<Instance*> get_instances_at(Vector2 position, bool bound_by_safezone = false);
+        std::vector<World::Instance*> get_instances_at(Vector2 position, bool bound_by_safezone = false);
         
         /*
          * Get instances near another
          */
-        std::vector<Instance*> get_nearby_instances(Instance* instance);
+        std::vector<World::Instance*> get_nearby_instances(World::Instance* instance);
         
         /*
          * Loaded event
@@ -158,12 +161,12 @@ namespace Inferno {
         /*
          * Remove instance
          */
-        virtual void remove_instance(Instance* instance);
+        virtual void remove_instance(World::Instance* instance);
         
         /*
          * Get spaces for an instance
          */
-        std::vector<int> spatial_get_spaces(Instance* instance);
+        std::vector<int> spatial_get_spaces(World::Instance* instance);
         
         /*
          * Get spaces for a rectangle
@@ -173,7 +176,7 @@ namespace Inferno {
         /*
          * Update the position of an instance
          */
-        void spatial_move_instance(Rectangle old_bounds, Rectangle new_bounds, Instance* instance);
+        void spatial_move_instance(Rectangle old_bounds, Rectangle new_bounds, World::Instance* instance);
         
         /*
          * Unloaded event

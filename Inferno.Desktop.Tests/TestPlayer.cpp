@@ -19,38 +19,38 @@
 
 #include "Inferno/Events/EventHandler.h"
 
-class TestAction : public Inferno::Events::Action<> {
+class TestAction : public Events::Action<> {
 public:
     void invoke() override {
         //exit(0);
     }
 };
 
-Inferno::Events::EventHandler<TestAction> h;
+Events::EventHandler<TestAction> h;
 
-Inferno::Physics::CircleCollider* test;
+Physics::CircleCollider* test;
 
-TestPlayer::TestPlayer(Inferno::Scene* parent_scene) : Instance(parent_scene, Inferno::Vector2(0, 0), 0) {
-    std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
-    Inferno::Graphics::Texture2D* texture = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
-    sprite = new Inferno::Graphics::Sprite(texture, Inferno::Vector2(8, 8), 16, 16, 10);
+TestPlayer::TestPlayer(Scene* parent_scene) : Instance(parent_scene, Vector2(0, 0), 0) {
+    std::string working_dir = Content::ContentLoader::get_working_directory();
+    Graphics::Texture2D* texture = Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
+    sprite = new Graphics::Sprite(texture, Vector2(8, 8), 16, 16, 10);
     //rotation = 1.5f;
-    //rotation_origin = Inferno::Vector2(8, 8);
+    //rotation_origin = Vector2(8, 8);
     
     h.subscribe(new TestAction());
     
     //Create collider
-    //collider = new Inferno::Physics::RectangleCollider(this);
-    collider = new Inferno::Physics::SpriteCollider(this);
+    //collider = new Physics::RectangleCollider(this);
+    collider = new Physics::SpriteCollider(this);
     
-    Inferno::Graphics::Texture2D* mask = Inferno::Content::ContentLoader::load_texture(working_dir + "/Content/Test_Mask.png");
-    collider->as<Inferno::Physics::SpriteCollider>()->sprite = new Inferno::Graphics::Sprite(mask, Inferno::Vector2::zero);
+    Graphics::Texture2D* mask = Content::ContentLoader::load_texture(working_dir + "/Content/Test_Mask.png");
+    collider->as<Physics::SpriteCollider>()->sprite = new Graphics::Sprite(mask, Vector2::zero);
     
     collider->colliding_instance_type = "wall";
     
-    test = new Inferno::Physics::CircleCollider(this);
+    test = new Physics::CircleCollider(this);
     test->colliding_instance_type = "wall";
-    test->circle = Inferno::Circle(get_position(), 32);
+    test->circle = Circle(get_position(), 32);
 }
 
 bool collision = false;
@@ -58,42 +58,42 @@ bool test_collide = false;
 
 void TestPlayer::update() {
     //Reset velocity
-    velocity = Inferno::Vector2(0, 0);
+    velocity = Vector2(0, 0);
     
     //Get keyboard state
-    auto s = Inferno::Input::Keyboard::get_state();
+    auto s = Input::Keyboard::get_state();
     
     //Update test collider
-    test->circle = Inferno::Circle(get_position(), 32);
+    test->circle = Circle(get_position(), 32);
     
     test_collide = test->check_collisions();
     
 #define MOVE_SPEED 1
     
     //Move logic
-    if (s.is_key_down(Inferno::Input::W)) {
+    if (s.is_key_down(Input::W)) {
         velocity.y -= MOVE_SPEED;
     }
-    if (s.is_key_down(Inferno::Input::S)) {
+    if (s.is_key_down(Input::S)) {
         velocity.y += MOVE_SPEED;
     }
-    if (s.is_key_down(Inferno::Input::A)) {
+    if (s.is_key_down(Input::A)) {
         velocity.x -= MOVE_SPEED;
     }
-    if (s.is_key_down(Inferno::Input::D)) {
+    if (s.is_key_down(Input::D)) {
         velocity.x += MOVE_SPEED;
     }
     
-    if (collider->check_collisions(Inferno::Vector2(get_next_position().x, get_position().y))) {
-        //while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x + Inferno::MathHelper::sign(velocity.x), get_position().y)))) {
-        //    set_position(Inferno::Vector2(get_position().x - Inferno::MathHelper::sign(velocity.x), get_position().y));
+    if (collider->check_collisions(Vector2(get_next_position().x, get_position().y))) {
+        //while (collider->check_collisions(Vector2(Vector2(get_position().x + MathHelper::sign(velocity.x), get_position().y)))) {
+        //    set_position(Vector2(get_position().x - MathHelper::sign(velocity.x), get_position().y));
         //}
         velocity.x = 0;
     }
     
-    if (collider->check_collisions(Inferno::Vector2(get_position().x, get_next_position().y))) {
-        //while (collider->check_collisions(Inferno::Vector2(Inferno::Vector2(get_position().x, get_position().y + Inferno::MathHelper::sign(velocity.y))))) {
-        //    set_position(Inferno::Vector2(get_position().x, get_position().y - Inferno::MathHelper::sign(velocity.y)));
+    if (collider->check_collisions(Vector2(get_position().x, get_next_position().y))) {
+        //while (collider->check_collisions(Vector2(Vector2(get_position().x, get_position().y + MathHelper::sign(velocity.y))))) {
+        //    set_position(Vector2(get_position().x, get_position().y - MathHelper::sign(velocity.y)));
         //}
         velocity.y = 0;
     }
@@ -101,13 +101,13 @@ void TestPlayer::update() {
     collision = collider->check_collisions(get_next_position());
 }
 
-void TestPlayer::draw(Inferno::Graphics::Renderer *renderer) {
-    renderer->draw_rectangle(get_bounds(), Inferno::Graphics::Color::orange, false, 1, 0, 1.5f, Inferno::Vector2(get_bounds().width / 2, get_bounds().height / 2));
+void TestPlayer::draw(Graphics::Renderer *renderer) {
+    renderer->draw_rectangle(get_bounds(), Graphics::Color::orange, false, 1, 0, 1.5f, Vector2(get_bounds().width / 2, get_bounds().height / 2));
     
-    Inferno::Graphics::Color color = Inferno::Graphics::Color::red;
+    Graphics::Color color = Graphics::Color::red;
     
     if (test_collide)
-        color = Inferno::Graphics::Color::blue;
+        color = Graphics::Color::blue;
     
     renderer->draw_circle(test->circle, color, 0, 0, false, 2);
     Instance::draw(renderer);

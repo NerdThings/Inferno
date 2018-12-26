@@ -19,57 +19,57 @@
 #include "Inferno/Vector3.h"
 #include "TestWall.h"
 
-Inferno::UI::Control* test_control = nullptr;
+UI::Control* test_control = nullptr;
 
-class ControlAction : public Inferno::Events::Action<Inferno::Events::ActionArgs> {
+class ControlAction : public Events::Action<Events::ActionArgs> {
 public:
     void invoke() override {
         exit(0);
     }
 };
 
-TestScene::TestScene(Inferno::Game* parent_game) : Scene(parent_game, 1024, 768), camera(Inferno::Graphics::Camera(this, 1.0f)) {
-    background = new Inferno::Graphics::Sprite(new Inferno::Graphics::Texture2D(1024, 768, Inferno::Graphics::Color::white), Inferno::Vector2(0, 0));
-    camera.center_on(Inferno::Vector2(50, 50));
+TestScene::TestScene(Game* parent_game) : Scene(parent_game, 1024, 768), camera(Graphics::Camera(this, 1.0f)) {
+    background = new Graphics::Sprite(new Graphics::Texture2D(1024, 768, Graphics::Color::white), Vector2(0, 0));
+    camera.center_on(Vector2(50, 50));
     
     background_depth = -99;
     
-    test_control = new Inferno::UI::Control(parent_game, Inferno::Vector2(50, 50));
+    test_control = new UI::Control(parent_game, Vector2(50, 50));
     test_control->onclick.subscribe(new ControlAction());
-    test_control->back_color = Inferno::Graphics::Color::blue;
+    test_control->back_color = Graphics::Color::blue;
     test_control->width = 100;
     test_control->height = 100;
 }
 
-Inferno::Line a = Inferno::Line({10, 10}, {100, 10});
-Inferno::Line b = Inferno::Line({100, 10}, {100, 100});
+Line a = Line({10, 10}, {100, 10});
+Line b = Line({100, 10}, {100, 100});
 
 bool intersect = false;
 
-void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
+void TestScene::draw(Graphics::Renderer *renderer) {
     parent_game->graphics_device->push_view_matrix();
     parent_game->graphics_device->set_view_matrix(camera.get_translation_matrix());
-    Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game);
-    Inferno::Input::KeyboardState ks = Inferno::Input::Keyboard::get_state();
+    Input::MouseState s = Input::Mouse::get_state(parent_game);
+    Input::KeyboardState ks = Input::Keyboard::get_state();
     
-    Inferno::Graphics::Color c;
+    Graphics::Color c;
     
-    //renderer->draw_text("Hello World.\nThis is super cool!", Inferno::Vector2(60, 60), fnt, Inferno::Graphics::Color::black, 0, 0);
+    //renderer->draw_text("Hello World.\nThis is super cool!", Vector2(60, 60), fnt, Graphics::Color::black, 0, 0);
     
-    //renderer->draw_line(Inferno::Line(Inferno::Vector2(0, 0), Inferno::Vector2(50, 50)), Inferno::Graphics::Color::red, 1, 0, M_PI * 0.25f);
+    //renderer->draw_line(Line(Vector2(0, 0), Vector2(50, 50)), Graphics::Color::red, 1, 0, M_PI * 0.25f);
     
-    //renderer->draw_rectangle(Inferno::Rectangle(s.x, s.y, 50, 50), c, true, 1, 0, 0);
+    //renderer->draw_rectangle(Rectangle(s.x, s.y, 50, 50), c, true, 1, 0, 0);
     
-    //renderer->draw_circle(Inferno::Circle(Inferno::Vector2(s.x, s.y), 40), Inferno::Graphics::Color::red, 0, 1.5f, false, 2, 48);
+    //renderer->draw_circle(Circle(Vector2(s.x, s.y), 40), Graphics::Color::red, 0, 1.5f, false, 2, 48);
     
     //TEST
     
-    Inferno::Graphics::Color ac = Inferno::Graphics::Color::blue;
-    Inferno::Graphics::Color bc = Inferno::Graphics::Color::green;
+    Graphics::Color ac = Graphics::Color::blue;
+    Graphics::Color bc = Graphics::Color::green;
     
     if (intersect) {
-        ac = Inferno::Graphics::Color::red;
-        bc = Inferno::Graphics::Color::red;
+        ac = Graphics::Color::red;
+        bc = Graphics::Color::red;
     }
     
     //renderer->draw_line(a, ac);
@@ -83,9 +83,9 @@ void TestScene::draw(Inferno::Graphics::Renderer *renderer) {
 
 void TestScene::update() {
     
-    Inferno::Input::MouseState s = Inferno::Input::Mouse::get_state(parent_game);
+    Input::MouseState s = Input::Mouse::get_state(parent_game);
     
-    b = Inferno::Line(Inferno::Vector2(s.x, s.y), Inferno::Vector2(s.x, s.y + 90));
+    b = Line(Vector2(s.x, s.y), Vector2(s.x, s.y + 90));
     
     intersect = a.intersects(b);
     
@@ -96,10 +96,10 @@ void TestScene::loaded() {
     player = new TestPlayer(this);
     add_instance(player);
     
-    add_instance(new TestWall(this, Inferno::Vector2(20, 20)));
+    add_instance(new TestWall(this, Vector2(20, 20)));
     
-    std::string working_dir = Inferno::Content::ContentLoader::get_working_directory();
-    fnt = Inferno::Content::ContentLoader::load_font(working_dir + "/Content/Roboto-Black.ttf", 36);
+    std::string working_dir = Content::ContentLoader::get_working_directory();
+    fnt = Content::ContentLoader::load_font(working_dir + "/Content/Roboto-Black.ttf", 36);
 }
 
 void TestScene::unloaded() {

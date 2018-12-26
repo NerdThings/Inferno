@@ -32,12 +32,12 @@ namespace Inferno {
             /*
              * Create a new Sprite Collider using the instance's texture
              */
-            SpriteCollider(Instance* instance);
+            SpriteCollider(World::Instance* instance);
        
             /*
              * Create a new Sprite Collider using a custom sprite
              */
-            SpriteCollider(Instance* instance, Graphics::Sprite* sprite);
+            SpriteCollider(World::Instance* instance, Graphics::Sprite* sprite);
             
             //Methods
             

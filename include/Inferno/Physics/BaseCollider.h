@@ -13,7 +13,9 @@
 #include "Inferno/Vector2.h"
 
 namespace Inferno {
-    class Instance;
+    namespace World {
+        class Instance;
+    }
     
     namespace Physics {
         /*
@@ -28,7 +30,7 @@ namespace Inferno {
             /*
              * The instance that the collider is attached to
              */
-            Instance* _parent_instance;
+            World::Instance* _parent_instance;
             
             //Methods
             
@@ -51,7 +53,7 @@ namespace Inferno {
             /*
              * Create a blank collider
              */
-            BaseCollider(Instance* parent_instance);
+            BaseCollider(World::Instance* parent_instance);
             
             //Methods
             
