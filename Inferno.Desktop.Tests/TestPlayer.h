@@ -6,10 +6,11 @@
 #define INFERNO_TESTPLAYER_H
 
 #include "Inferno/World/Instance.h"
+#include "Inferno/World/UpdatableInstance.h"
 
 using namespace Inferno;
 
-class TestPlayer : public World::Instance {
+class TestPlayer : public World::UpdatableInstance {
 public:
     explicit TestPlayer(Scene* parent_scene);
     void update() override;

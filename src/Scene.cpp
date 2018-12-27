@@ -8,6 +8,7 @@
 
 #include "Inferno/Scene.h"
 #include "Inferno/World/Instance.h"
+#include "Inferno/World/UpdatableInstance.h"
 
 namespace Inferno {
     //Private methods
@@ -83,7 +84,11 @@ namespace Inferno {
         
         for (World::Instance* instance : _instances) {
             if (instance != nullptr)
-                instance->begin_update();
+                continue;
+            //Updatable instance
+            World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
+            if (updatable != nullptr)
+                updatable->begin_update();
         }
     }
     
@@ -103,8 +108,12 @@ namespace Inferno {
     
     void Scene::end_update() {
         for (World::Instance* instance : _instances) {
-            if (instance != nullptr)
-                instance->end_update();
+            if (instance == nullptr)
+                continue;
+            //Updatable instance
+            World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
+            if (updatable != nullptr)
+                updatable->end_update();
         }
     }
     
@@ -202,8 +211,10 @@ namespace Inferno {
     void Scene::update() {
         for (World::Instance* instance : _instances) {
             if (instance != nullptr) {
-                //Update instance
-                instance->update();
+                //Updatable instance
+                World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
+                if (updatable != nullptr)
+                    updatable->update();
                 
                 //Update sprite
                 if (instance->sprite != nullptr)

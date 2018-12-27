@@ -63,7 +63,7 @@ ENDIF()
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../include")
 
 # Add Library
-add_library (Inferno.Desktop SHARED ${src})
+add_library (Inferno.Desktop SHARED ${src} ../include/Inferno/World/UpdatableInstance.h ../src/World/UpdatableInstance.cpp)
 
 # Remove any prefixes
 SET_TARGET_PROPERTIES(Inferno.Desktop PROPERTIES PREFIX "")

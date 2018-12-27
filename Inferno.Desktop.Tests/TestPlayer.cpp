@@ -30,7 +30,7 @@ Events::EventHandler<TestAction> h;
 
 Physics::CircleCollider* test;
 
-TestPlayer::TestPlayer(Scene* parent_scene) : Instance(parent_scene, Vector2(0, 0), 0) {
+TestPlayer::TestPlayer(Scene* parent_scene) : UpdatableInstance(parent_scene, Vector2(0, 0), 0) {
     std::string working_dir = Content::ContentLoader::get_working_directory();
     Graphics::Texture2D* texture = Content::ContentLoader::load_texture(working_dir + "/Content/Test_Sprite.png");
     sprite = new Graphics::Sprite(texture, Vector2(8, 8), 16, 16, 10);

@@ -16,8 +16,8 @@ namespace Inferno {
     namespace World
     {
 		/*
-	 * A game instance
-	 */
+         * A game instance
+         */
 		class INFERNO_API Instance {
 			//Fields
 
@@ -108,19 +108,9 @@ namespace Inferno {
 			//Methods
 
 			/*
-			 * Begin updating the instance
-			 */
-			virtual void begin_update();
-
-			/*
 			 * Draw the instance
 			 */
 			virtual void draw(Graphics::Renderer* renderer);
-
-			/*
-			 * End instance update
-			 */
-			virtual void end_update();
 
 			/*
 			 * Get the instance bounds
@@ -161,11 +151,6 @@ namespace Inferno {
 			 * Set the instance width
 			 */
 			void set_width(int width);
-
-			/*
-			 * Update the instance
-			 */
-			virtual void update();
 		};
     }
 }
