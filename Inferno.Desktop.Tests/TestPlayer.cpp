@@ -40,11 +40,11 @@ TestPlayer::TestPlayer(Scene* parent_scene) : UpdatableInstance(parent_scene, Ve
     h.subscribe(new TestAction());
     
     //Create collider
-    //collider = new Physics::RectangleCollider(this);
-    collider = new Physics::SpriteCollider(this);
+    collider = new Physics::RectangleCollider(this);
+    //collider = new Physics::SpriteCollider(this);
     
     Graphics::Texture2D* mask = Content::ContentLoader::load_texture(working_dir + "/Content/Test_Mask.png");
-    collider->as<Physics::SpriteCollider>()->sprite = new Graphics::Sprite(mask, Vector2::zero);
+    //collider->as<Physics::SpriteCollider>()->sprite = new Graphics::Sprite(mask, Vector2::zero);
     
     collider->colliding_instance_type = "wall";
     

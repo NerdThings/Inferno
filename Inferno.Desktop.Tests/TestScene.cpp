@@ -96,7 +96,9 @@ void TestScene::loaded() {
     player = new TestPlayer(this);
     add_instance(player);
     
-    add_instance(new TestWall(this, Vector2(20, 20)));
+    for (int i = 0; i < 50; i++) {
+        add_instance(new TestWall(this, Vector2(i * 16, 20)));
+    }
     
     std::string working_dir = Content::ContentLoader::get_working_directory();
     fnt = Content::ContentLoader::load_font(working_dir + "/Content/Roboto-Black.ttf", 36);

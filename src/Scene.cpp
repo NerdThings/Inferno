@@ -77,18 +77,19 @@ namespace Inferno {
     void Scene::add_instance(World::Instance *instance) {
         //Add the instance to the state
         _instances.emplace_back(instance);
+
+        //Add if updatable
+        auto updatable = dynamic_cast<World::UpdatableInstance*>(instance);
+        if (updatable != nullptr)
+            _instances_updatable.emplace_back(updatable);
     }
     
     void Scene::begin_update() {
         spatial_initialise();
         
-        for (World::Instance* instance : _instances) {
+        for (World::UpdatableInstance* instance : _instances_updatable) {
             if (instance != nullptr)
-                continue;
-            //Updatable instance
-            World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
-            if (updatable != nullptr)
-                updatable->begin_update();
+                instance->begin_update();
         }
     }
     
@@ -107,13 +108,9 @@ namespace Inferno {
     }
     
     void Scene::end_update() {
-        for (World::Instance* instance : _instances) {
-            if (instance == nullptr)
-                continue;
-            //Updatable instance
-            World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
-            if (updatable != nullptr)
-                updatable->end_update();
+        for (World::UpdatableInstance* instance : _instances_updatable) {
+            if (instance != nullptr)
+                instance->end_update();
         }
     }
     
@@ -168,6 +165,11 @@ namespace Inferno {
     void Scene::remove_instance(World::Instance *instance) {
         //Remove instance from state
         _instances.erase(std::remove(_instances.begin(), _instances.end(), instance), _instances.end());
+
+        //Remove if updatable
+        auto updatable = dynamic_cast<World::UpdatableInstance*>(instance);
+        if (updatable != nullptr)
+            _instances_updatable.erase(std::remove(_instances_updatable.begin(), _instances_updatable.end(), updatable), _instances_updatable.end());
     }
     
     std::vector<int> Scene::spatial_get_spaces(World::Instance* instance) {
@@ -209,13 +211,13 @@ namespace Inferno {
     }
     
     void Scene::update() {
+        for (World::UpdatableInstance* instance : _instances_updatable) {
+            if (instance != nullptr)
+                instance->update();
+        }
+
         for (World::Instance* instance : _instances) {
             if (instance != nullptr) {
-                //Updatable instance
-                World::UpdatableInstance* updatable = dynamic_cast<World::UpdatableInstance*>(instance);
-                if (updatable != nullptr)
-                    updatable->update();
-                
                 //Update sprite
                 if (instance->sprite != nullptr)
                     instance->sprite->update();

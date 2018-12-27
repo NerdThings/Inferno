@@ -19,6 +19,7 @@ namespace Inferno {
 
     namespace World {
         class Instance;
+        class UpdatableInstance;
     }
     
     /*
@@ -41,6 +42,11 @@ namespace Inferno {
          * The instances within the scene
          */
         std::vector<World::Instance*> _instances;
+
+        /*
+         * The updatable instances within the scene
+         */
+        std::vector<World::UpdatableInstance*> _instances_updatable;
         
         /*
          * Spatial hashing map
