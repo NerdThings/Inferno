@@ -33,5 +33,5 @@ void TestWall::draw(Graphics::Renderer *renderer) {
     //if (get_bounds().contains(Vector2(s.x, s.y)))
     //    c = Graphics::Color::red;
     
-    renderer->draw_rectangle(get_bounds(), c, true, 1, 0);
+    renderer->draw_rectangle(get_bounds(), c, false, 1, 0);
 }

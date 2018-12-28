@@ -28,7 +28,7 @@ public:
     }
 };
 
-TestScene::TestScene(Game* parent_game) : Scene(parent_game, 1024, 768), camera(Graphics::Camera(this, 1.0f)) {
+TestScene::TestScene(Game* parent_game) : Scene(parent_game, 1024, 768), camera(Graphics::Camera(this, 2.0f)) {
     background = new Graphics::Sprite(new Graphics::Texture2D(1024, 768, Graphics::Color::white), Vector2(0, 0));
     camera.center_on(Vector2(50, 50));
     
@@ -92,7 +92,7 @@ void TestScene::update() {
     Scene::update();
 
     camera.center_on(player->get_position());
-    safezone = Inferno::Rectangle(player->get_position().x - 100.0f, player->get_position().y - 100.0f, 200.0f, 200.0f);
+    safezone = Inferno::Rectangle(player->get_position().x - 150.0f, player->get_position().y - 150.0f, 300.0f, 300.0f);
 }
 
 void TestScene::loaded() {
@@ -102,7 +102,7 @@ void TestScene::loaded() {
     player = new TestPlayer(this);
     add_instance(player);
     
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 500; i++) { //500 = current max tested before major performance drop
         add_instance(new TestWall(this, Vector2(i * 32, 20)));
     }
     

@@ -165,6 +165,10 @@ namespace Inferno {
         running = true;
         
         while (running) {
+            //Stop locked fps > 60 (Doesn't perform well enough to be viable)
+            if (frames_per_second > 60 && locked_framerate)
+                throw std::runtime_error("Cannot lock framerate to a value above 60fps.");
+
             //Run window events
             if (!game_window->run_events())
                 running = false;

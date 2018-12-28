@@ -88,8 +88,15 @@ namespace Inferno {
         spatial_initialise();
         
         for (World::UpdatableInstance* instance : _instances_updatable) {
-            if (instance != nullptr)
+            if (instance != nullptr) {
+                if (spatialmode == SafeZone && safezone_enabled) {
+                    if (!safezone.intersects(instance->get_bounds())) {
+                        continue;
+                    }
+                }
+
                 instance->begin_update();
+            }
         }
     }
     
@@ -118,8 +125,15 @@ namespace Inferno {
     
     void Scene::end_update() {
         for (World::UpdatableInstance* instance : _instances_updatable) {
-            if (instance != nullptr)
+            if (instance != nullptr) {
+                if (spatialmode == SafeZone && safezone_enabled) {
+                    if (!safezone.intersects(instance->get_bounds())) {
+                        continue;
+                    }
+                }
+
                 instance->end_update();
+            }
         }
     }
     
@@ -221,8 +235,15 @@ namespace Inferno {
     
     void Scene::update() {
         for (World::UpdatableInstance* instance : _instances_updatable) {
-            if (instance != nullptr)
+            if (instance != nullptr) {
+                if (spatialmode == SafeZone && safezone_enabled) {
+                    if (!safezone.intersects(instance->get_bounds())) {
+                        continue;
+                    }
+                }
+
                 instance->update();
+            }
         }
 
         for (World::Instance* instance : _instances) {
