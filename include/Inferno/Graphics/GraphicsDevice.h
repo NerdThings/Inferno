@@ -43,11 +43,6 @@ namespace Inferno {
             Matrix _model_matrix;
             
             /*
-             * The graphics device parent game
-             */
-            Game* _parent_game = nullptr;
-            
-            /*
              * The current projection matrix
              */
             Matrix _projection_matrix;
@@ -82,6 +77,13 @@ namespace Inferno {
              */
             Matrix _view_matrix;
         public:
+            //Fields
+
+            /*
+             * The graphics device parent game
+             */
+            Game* parent_game = nullptr;
+
             //Constructors
         
             /*

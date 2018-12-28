@@ -102,8 +102,17 @@ namespace Inferno {
         }
         
         for (World::Instance* instance : _instances) {
-            if (instance != nullptr)
+            if (instance != nullptr) {
+                if (safezone_enabled) {
+                    if (!safezone.intersects(instance->get_bounds())) {
+                        if (!draw_outside_safezone) {
+                            continue;
+                        }
+                    }
+                }
+
                 instance->draw(renderer);
+            }
         }
     }
     

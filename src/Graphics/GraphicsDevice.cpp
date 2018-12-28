@@ -18,7 +18,7 @@ namespace Inferno {
     namespace Graphics {
         //Constructors
         
-        GraphicsDevice::GraphicsDevice(Game *game) : _parent_game(game)
+        GraphicsDevice::GraphicsDevice(Game *game) : parent_game(game)
         {
             //Create default shaders
             //TODO: GLSL_ES and HLSL Source
@@ -55,7 +55,7 @@ namespace Inferno {
             use_shader(default_shader);
             
             //Projection matrix
-            Vector2 window_size = _parent_game->game_window->get_size();
+            Vector2 window_size = parent_game->game_window->get_size();
             _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
             
             //View matrix
@@ -163,7 +163,7 @@ namespace Inferno {
                 _projection_matrix = Matrix::create_orthographic_off_center(0, target->width, target->height, 0, -101, 101);
                 glViewport(0, 0, target->width, target->height);
             } else {
-                Vector2 window_size = _parent_game->game_window->get_size();
+                Vector2 window_size = parent_game->game_window->get_size();
                 _projection_matrix = Matrix::create_orthographic_off_center(0, window_size.x, window_size.y, 0, -101, 101);
                 glViewport(0, 0, window_size.x, window_size.y);
             }

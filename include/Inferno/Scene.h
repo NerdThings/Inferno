@@ -72,7 +72,12 @@ namespace Inferno {
         
     protected:
         //Fields
-        
+
+        /*
+         * Determines if instances should be drawn if outside the safezone
+         */
+        bool draw_outside_safezone = true;
+
         /*
          * The state height
          */

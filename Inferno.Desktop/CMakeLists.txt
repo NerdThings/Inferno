@@ -4,8 +4,16 @@
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
+message(${CMAKE_SYSTEM_NAME})
+
+IF (CYGWIN)
+    message("CYGWIN FOUND")
+ENDIF()
+
 # Find SDL2
-IF (UNIX)
+IF (UNIX AND NOT CYGWIN)
+
+    message("Running UNIX Setup")
 
     # Search for UNIX SDL2
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
@@ -55,7 +63,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/DevIL/include")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../deps/freetype/include")
 
 # Check SDL is on the UNIX system
-IF (UNIX)
+IF (UNIX AND NOT CYGWIN)
     find_package(SDL2 REQUIRED)
 ENDIF()
 
@@ -72,7 +80,7 @@ SET_TARGET_PROPERTIES(Inferno.Desktop PROPERTIES PREFIX "")
 target_compile_definitions(Inferno.Desktop PRIVATE INFERNO=1 SDL=1 OPENGL=1 INFERNO_API_EXPORTS=1)
 
 # Link stdc++fs
-IF (UNIX)
+IF (UNIX AND NOT CYGWIN)
     target_link_libraries(Inferno.Desktop stdc++fs)
 ENDIF()
 
@@ -91,7 +99,7 @@ target_link_libraries(Inferno.Desktop ${FREETYPE_LIBRARIES})
 # Link Harfbuzz
 target_link_libraries(Inferno.Desktop ${HarfBuzz_LIBRARIES})
 
-IF (WIN32)
+IF (WIN32 OR CYGWIN)
 
     # Copy SDL2 DLL to output path )
     file(COPY ${SDL_DIR}/SDL2.dll DESTINATION ${CMAKE_BINARY_DIR})

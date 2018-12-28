@@ -68,7 +68,7 @@ void TestPlayer::update() {
     
     test_collide = test->check_collisions();
     
-#define MOVE_SPEED 1
+#define MOVE_SPEED 2
     
     //Move logic
     if (s.is_key_down(Input::W)) {
@@ -102,13 +102,13 @@ void TestPlayer::update() {
 }
 
 void TestPlayer::draw(Graphics::Renderer *renderer) {
-    renderer->draw_rectangle(get_bounds(), Graphics::Color::orange, false, 1, 0, 1.5f, Vector2(get_bounds().width / 2, get_bounds().height / 2));
+    //renderer->draw_rectangle(get_bounds(), Graphics::Color::orange, false, 1, 0, 1.5f, Vector2(get_bounds().width / 2, get_bounds().height / 2));
     
-    Graphics::Color color = Graphics::Color::red;
+    //Graphics::Color color = Graphics::Color::red;
     
-    if (test_collide)
-        color = Graphics::Color::blue;
+    //if (test_collide)
+    //    color = Graphics::Color::blue;
     
-    renderer->draw_circle(test->circle, color, 0, 0, false, 2);
+    //renderer->draw_circle(test->circle, color, 0, 0, false, 2);
     Instance::draw(renderer);
 }

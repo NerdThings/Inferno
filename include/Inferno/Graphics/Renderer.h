@@ -33,6 +33,7 @@ namespace Inferno {
              * A blank texture used to satisfy shaders
              */
             Texture2D* _blank_texture = nullptr;
+
 #ifdef OPENGL
             /*
              * The current vertex array
@@ -55,7 +56,7 @@ namespace Inferno {
              * Create a model matrix
              */
             Matrix create_model_matrix(Vector2 origin = Vector2(), float rotation = 0, float scale = 1);
-            
+
             /*
              * Send the matrix to the shader
              */
@@ -86,6 +87,12 @@ namespace Inferno {
             ~Renderer();
             
             //Methods
+
+            void begin_draw();
+
+            bool drawable(Vector2 pos);
+
+            bool drawable(Rectangle rect);
             
             /*
              * Draw a circle
@@ -131,6 +138,8 @@ namespace Inferno {
              * Draw a texture
              */
             void draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle = nullptr, float depth = 0, float rotation = 0, Color color = Color::white, Vector2 origin = Vector2::zero);
+
+            void end_draw();
         };
     }
 }

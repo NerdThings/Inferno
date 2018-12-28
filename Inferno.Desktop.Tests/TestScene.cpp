@@ -90,14 +90,20 @@ void TestScene::update() {
     intersect = a.intersects(b);
     
     Scene::update();
+
+    camera.center_on(player->get_position());
+    safezone = Inferno::Rectangle(player->get_position().x - 100.0f, player->get_position().y - 100.0f, 200.0f, 200.0f);
 }
 
 void TestScene::loaded() {
+    safezone_enabled = true;
+    draw_outside_safezone = false;
+
     player = new TestPlayer(this);
     add_instance(player);
     
-    for (int i = 0; i < 50; i++) {
-        add_instance(new TestWall(this, Vector2(i * 16, 20)));
+    for (int i = 0; i < 1000; i++) {
+        add_instance(new TestWall(this, Vector2(i * 32, 20)));
     }
     
     std::string working_dir = Content::ContentLoader::get_working_directory();

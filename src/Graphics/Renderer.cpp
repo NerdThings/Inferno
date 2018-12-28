@@ -13,6 +13,7 @@
 #endif
 
 #include "Inferno/Graphics/Renderer.h"
+#include "Inferno/Game.h"
 #include "Inferno/Rectangle.h"
 
 namespace Inferno {
@@ -68,40 +69,14 @@ namespace Inferno {
 #ifdef OPENGL
 
         void Renderer::gl_draw_buffer(int drawmode, std::vector<float> data){
-            //Get shader attrib locations
-            unsigned int gl_program = _graphics_device->get_current_shader()->gl_program;
-            int position_loc = glGetAttribLocation(gl_program, "inf_position");
-            int texcoord_loc = glGetAttribLocation(gl_program, "inf_texcoord");
-            int color_loc = glGetAttribLocation(gl_program, "inf_color");
-    
-            //Check shaders have been configured correctly
-            if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
-                throw std::runtime_error("Shaders are not correctly configured.");
-            
             //Get data from vector
             float* dat = data.data();
             
             //Send data to buffer
-            glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
             glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), dat, GL_STATIC_DRAW);
-    
-            //Enable attributes
-            glEnableVertexAttribArray(position_loc);
-            glEnableVertexAttribArray(texcoord_loc);
-            glEnableVertexAttribArray(color_loc);
-    
-            //Configure attributes
-            glVertexAttribPointer(position_loc, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*) nullptr);
-            glVertexAttribPointer(texcoord_loc, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(3*sizeof(float)));
-            glVertexAttribPointer(color_loc, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(5*sizeof(float)));
-    
+
             //Draw
             glDrawArrays(drawmode, 0, data.size() / 9);
-    
-            //Disable attributes
-            glDisableVertexAttribArray(position_loc);
-            glDisableVertexAttribArray(texcoord_loc);
-            glDisableVertexAttribArray(color_loc);
     
             //Flush
             glFlush();
@@ -134,8 +109,84 @@ namespace Inferno {
         }
         
         //Methods
+
+        void Renderer::begin_draw() {
+#ifdef OPENGL
+            //Get shader attrib locations
+            unsigned int gl_program = _graphics_device->get_current_shader()->gl_program;
+            int position_loc = glGetAttribLocation(gl_program, "inf_position");
+            int texcoord_loc = glGetAttribLocation(gl_program, "inf_texcoord");
+            int color_loc = glGetAttribLocation(gl_program, "inf_color");
+
+            //Check shaders have been configured correctly
+            if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
+                throw std::runtime_error("Shaders are not correctly configured.");
+
+            //Send data to buffer
+            glBindBuffer(GL_ARRAY_BUFFER, _vertex_array);
+
+            //Enable attributes
+            glEnableVertexAttribArray(position_loc);
+            glEnableVertexAttribArray(texcoord_loc);
+            glEnableVertexAttribArray(color_loc);
+
+            //Configure attributes
+            glVertexAttribPointer(position_loc, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*) nullptr);
+            glVertexAttribPointer(texcoord_loc, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(3*sizeof(float)));
+            glVertexAttribPointer(color_loc, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (void*)(5*sizeof(float)));
+#endif
+        }
+
+        bool Renderer::drawable(Vector2 pos) {
+            //Bounds
+            Rectangle bounds = Rectangle(0, 0, 0, 0);
+
+            //Get the bounds rectangle
+            RenderTarget* target = _graphics_device->get_current_target();
+            if (target != nullptr) {
+                bounds = Rectangle(0, 0, target->width, target->height);
+            } else {
+                //Get game bounds
+                Vector2 dims = _graphics_device->parent_game->get_virtual_dimensions();
+                bounds = Rectangle(0, 0, dims.x, dims.y);
+            }
+
+            return bounds.contains(pos);
+        }
+
+        bool Renderer::drawable(Rectangle rect) {
+            //Bounds
+            Rectangle bounds = Rectangle(0, 0, 0, 0);
+
+            //Get the bounds rectangle
+            RenderTarget* target = _graphics_device->get_current_target();
+            if (target != nullptr) {
+                bounds = Rectangle(0, 0, target->width, target->height);
+            } else {
+                //Get game bounds
+                Vector2 dims = _graphics_device->parent_game->get_virtual_dimensions();
+                bounds = Rectangle(0, 0, dims.x, dims.y);
+            }
+
+            return bounds.intersects(rect);
+        }
         
         void Renderer::draw_circle(Circle circle, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
+            //Test if drawable
+            Vector2 far_left = Vector2(circle.centre.x - circle.radius, circle.centre.y);
+            Vector2 far_right = Vector2(circle.centre.x + circle.radius, circle.centre.y);
+            Vector2 far_top = Vector2(circle.centre.x, circle.centre.y - circle.radius);
+            Vector2 far_bottom = Vector2(circle.centre.x, circle.centre.y + circle.radius);
+
+            bool can_draw = drawable(circle.centre)
+                            || drawable(far_left)
+                            || drawable(far_right)
+                            || drawable(far_top)
+                            || drawable(far_bottom);
+
+            if (!can_draw)
+                return;
+
             //Set matrix
             set_matrix(circle.centre + origin, rotation);
     
@@ -185,35 +236,42 @@ namespace Inferno {
         }
         
         void Renderer::draw_line(Line line, Color color, int line_width, float depth, float rotation, Vector2 origin) {
+            draw_lines({line}, color, line_width, depth, rotation, origin);
+        }
+        
+        void Renderer::draw_lines(std::vector<Line> lines, Color color, int line_width, float depth, float rotation, Vector2 origin) {
             //Set matrix
             set_matrix(origin, rotation);
 
 #ifdef OPENGL
             //Bind blank texture
             glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
-            
+
             //Set texture sampler
             _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
-            
+
             //Line width
             glLineWidth(line_width);
-            
+
             std::vector<float> data;
-            
-            add_to_buffer(Vector3(line.p1.x, line.p1.y, depth), Vector2(0, 0), color, &data);
-            add_to_buffer(Vector3(line.p2.x, line.p2.y, depth), Vector2(0, 0), color, &data);
-            
+
+            for (Line line : lines) {
+                //Check this line is drawable
+                if (drawable(line.p1) || drawable(line.p2)) {
+                    add_to_buffer(Vector3(line.p1.x, line.p1.y, depth), Vector2(0, 0), color, &data);
+                    add_to_buffer(Vector3(line.p2.x, line.p2.y, depth), Vector2(0, 0), color, &data);
+                }
+            }
+
             gl_draw_buffer(GL_LINES, data);
 #endif
         }
         
-        void Renderer::draw_lines(std::vector<Line> lines, Color color, int line_width, float depth, float rotation, Vector2 origin) {
-            for (auto line : lines) {
-                draw_line(line, color, line_width, depth, rotation, origin);
-            }
-        }
-        
         void Renderer::draw_rectangle(Rectangle rect, Color color, bool filled, int line_width, float depth, float rotation, Vector2 origin) {
+            //Test if drawable
+            if (!drawable(rect))
+                return;
+
 #ifdef OPENGL
             if (filled) {
                 //Set matrix
@@ -221,7 +279,7 @@ namespace Inferno {
                 
                 //Bind blank texture
                 glBindTexture(GL_TEXTURE_2D, _blank_texture->id);
-    
+
                 //Set texture sampler
                 _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
     
@@ -246,12 +304,16 @@ namespace Inferno {
         
         void Renderer::draw_render_target(RenderTarget* target, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, float rotation, Color color) {
 #ifdef OPENGL
+            //Test if drawable
+            if (!drawable(destination_rectangle))
+                return;
+
             //Set matrix
             set_matrix(Vector2(destination_rectangle.x, destination_rectangle.y), rotation);
     
             //Bind rendered texture
             glBindTexture(GL_TEXTURE_2D, target->rendered_texture);
-    
+
             //Set texture sampler
             _graphics_device->get_current_shader()->uniform_set("inf_texture", 0);
             
@@ -284,8 +346,16 @@ namespace Inferno {
         }
         
         void Renderer::draw_text(std::string text, Vector2 position, Font font, Color color, float depth, float rotation) {
+            //Measure string in this font
             Vector2 size = font.measure_string(text);
-            
+
+            //Calculate bounds for draw test
+            Rectangle bounds = Rectangle(position.x, position.y, size.x, size.y);
+
+            //Test if drawable
+            if (!drawable(bounds))
+                return;
+
             //TODO: Implement rotation
             if (rotation != 0)
                 throw std::runtime_error("Cannot currently rotate text.");
@@ -320,6 +390,10 @@ namespace Inferno {
         
         void Renderer::draw_texture(Texture2D* texture, Rectangle destination_rectangle, Rectangle* source_rectangle, float depth, float rotation, Color color, Vector2 origin) {
 #ifdef OPENGL
+            //Test if drawable
+            if (!drawable(destination_rectangle))
+                return;
+
             //Set matrix
             set_matrix(origin + Vector2(destination_rectangle.x, destination_rectangle.y), rotation);
             
@@ -354,6 +428,25 @@ namespace Inferno {
             
             //Draw
             gl_draw_buffer(GL_QUADS, data);
+#endif
+        }
+
+        void Renderer::end_draw() {
+#ifdef OPENGL
+            //Get shader attrib locations
+            unsigned int gl_program = _graphics_device->get_current_shader()->gl_program;
+            int position_loc = glGetAttribLocation(gl_program, "inf_position");
+            int texcoord_loc = glGetAttribLocation(gl_program, "inf_texcoord");
+            int color_loc = glGetAttribLocation(gl_program, "inf_color");
+
+            //Check shaders have been configured correctly
+            if (position_loc < 0 || texcoord_loc < 0 || color_loc < 0)
+                throw std::runtime_error("Shaders are not correctly configured.");
+
+            //Disable attributes
+            glDisableVertexAttribArray(position_loc);
+            glDisableVertexAttribArray(texcoord_loc);
+            glDisableVertexAttribArray(color_loc);
 #endif
         }
     }

@@ -21,17 +21,17 @@ TestWall::TestWall(Scene *parent_scene, Vector2 position) : Instance(parent_scen
 }
 
 void TestWall::draw(Graphics::Renderer *renderer) {
-    
+    //return;
     //Input::MouseState s = Input::Mouse::get_state(parent_scene->parent_game);
     //if (s.left_button == Input::Pressed)
     //    rotation += 0.05f;
     
-    renderer->draw_circle(Circle(get_position() + Vector2(16, 16), 5), Graphics::Color::black, 0, rotation, false, 2);
+    //renderer->draw_circle(Circle(get_position() + Vector2(16, 16), 5), Graphics::Color::black, 0, rotation, false, 2);
     
     Graphics::Color c = Graphics::Color::pink;
     
     //if (get_bounds().contains(Vector2(s.x, s.y)))
     //    c = Graphics::Color::red;
     
-    renderer->draw_rectangle(get_bounds(), c, false, 1, 0);
+    renderer->draw_rectangle(get_bounds(), c, true, 1, 0);
 }

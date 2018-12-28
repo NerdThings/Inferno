@@ -67,7 +67,6 @@ namespace Inferno {
         graphics_device->set_render_target(nullptr);
         
         //Draw target
-        //renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), Graphics::Color(255, 255, 255, 255), 0);
         renderer->draw_render_target(render_target, Rectangle(bar_width, bar_height, view_width, view_height), nullptr, 0, 0, Graphics::Color(255, 255, 255, 255));
     }
     
@@ -166,31 +165,42 @@ namespace Inferno {
         running = true;
         
         while (running) {
-            int current = get_time();
-            const float delta = current - previous;
-            previous = current;
-            lag += delta;
-            
-            while (lag >= 1000.0f / frames_per_second) {
-                lag -= 1000.0f / frames_per_second;
-
-                if (locked_framerate) {
-                    //Draw
-                    draw();
-    
-                    //Present
-                    game_window->present();
-                }
-            }
-    
             //Run window events
             if (!game_window->run_events())
                 running = false;
-            
-            if (!locked_framerate) {
+
+            //Run game specific rendering
+            if (locked_framerate) {
+                int current = get_time();
+                const float delta = current - previous;
+                previous = current;
+                lag += delta;
+
+                while (lag >= 1000.0f / frames_per_second) {
+                    lag -= 1000.0f / frames_per_second;
+
+                    //Begin draw
+                    renderer->begin_draw();
+
+                    //Draw
+                    draw();
+
+                    //End draw
+                    renderer->end_draw();
+
+                    //Present
+                    game_window->present();
+                }
+            } else {
+                //Begin draw
+                renderer->begin_draw();
+
                 //Draw
                 draw();
-    
+
+                //End draw
+                renderer->end_draw();
+
                 //Present
                 game_window->present();
             }
