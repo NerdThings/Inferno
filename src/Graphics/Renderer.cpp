@@ -173,16 +173,9 @@ namespace Inferno {
         
         void Renderer::draw_circle(Circle circle, Color color, float depth, float rotation, bool filled, int line_width, int circle_precision, Vector2 origin) {
             //Test if drawable
-            Vector2 far_left = Vector2(circle.centre.x - circle.radius, circle.centre.y);
-            Vector2 far_right = Vector2(circle.centre.x + circle.radius, circle.centre.y);
-            Vector2 far_top = Vector2(circle.centre.x, circle.centre.y - circle.radius);
-            Vector2 far_bottom = Vector2(circle.centre.x, circle.centre.y + circle.radius);
+            Rectangle bounds = Rectangle(circle.centre.x - circle.radius, circle.centre.y - circle.radius, circle.radius * 2, circle.radius * 2);
 
-            bool can_draw = drawable(circle.centre)
-                            || drawable(far_left)
-                            || drawable(far_right)
-                            || drawable(far_top)
-                            || drawable(far_bottom);
+            bool can_draw = drawable(bounds);
 
             if (!can_draw)
                 return;

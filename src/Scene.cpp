@@ -82,10 +82,15 @@ namespace Inferno {
         auto updatable = dynamic_cast<World::UpdatableInstance*>(instance);
         if (updatable != nullptr)
             _instances_updatable.emplace_back(updatable);
+
+        //Update spatial hash
+        if (is_loaded)
+            spatial_initialise();
     }
     
     void Scene::begin_update() {
-        spatial_initialise();
+        //Trialing new system, this will no longer be called each frame
+        //spatial_initialise();
         
         for (World::UpdatableInstance* instance : _instances_updatable) {
             if (instance != nullptr) {
@@ -182,7 +187,11 @@ namespace Inferno {
     }
     
     void Scene::loaded() {
-        //User can add code to load the state
+        //Init hashing
+        spatial_initialise();
+
+        //Mark as loaded
+        is_loaded = true;
     }
     
     void Scene::remove_instance(World::Instance *instance) {
@@ -193,6 +202,10 @@ namespace Inferno {
         auto updatable = dynamic_cast<World::UpdatableInstance*>(instance);
         if (updatable != nullptr)
             _instances_updatable.erase(std::remove(_instances_updatable.begin(), _instances_updatable.end(), updatable), _instances_updatable.end());
+
+        //Update spatial hash
+        if (is_loaded)
+            spatial_initialise();
     }
     
     std::vector<int> Scene::spatial_get_spaces(World::Instance* instance) {
@@ -200,6 +213,7 @@ namespace Inferno {
     }
     
     std::vector<int> Scene::spatial_get_spaces(Rectangle rectangle) {
+        //TODO: Fix the major fault here
         std::vector<int> spaces_in;
         
         Vector2 topleft = rectangle.top_left();
@@ -230,7 +244,7 @@ namespace Inferno {
     }
     
     void Scene::unloaded() {
-        //User can add code to unload the state
+        is_loaded = false;
     }
     
     void Scene::update() {

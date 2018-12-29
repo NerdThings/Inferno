@@ -109,6 +109,6 @@ void TestPlayer::draw(Graphics::Renderer *renderer) {
     //if (test_collide)
     //    color = Graphics::Color::blue;
     
-    //renderer->draw_circle(test->circle, color, 0, 0, false, 2);
+    renderer->draw_circle(test->circle, Graphics::Color::red, 0, 0, false, 2);
     Instance::draw(renderer);
 }

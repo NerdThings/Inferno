@@ -47,6 +47,12 @@ namespace Inferno {
          * The updatable instances within the scene
          */
         std::vector<World::UpdatableInstance*> _instances_updatable;
+
+        /*
+         * Whether or not the state is loaded.
+         * This should not be changed by user code
+         */
+        bool is_loaded = false;
         
         /*
          * Spatial hashing map

@@ -10,10 +10,10 @@
 #include "TestWall.h"
 
 TestWall::TestWall(Scene *parent_scene, Vector2 position) : Instance(parent_scene, position, 0) {
-    set_width(32);
-    set_height(32);
+    set_width(128);
+    set_height(128);
     
-    rotation_origin = Vector2(16, 16);
+    rotation_origin = Vector2(64, 64);
     
     collider = new Physics::RectangleCollider(this);
     

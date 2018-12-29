@@ -102,8 +102,8 @@ void TestScene::loaded() {
     player = new TestPlayer(this);
     add_instance(player);
     
-    for (int i = 0; i < 500; i++) { //500 = current max tested before major performance drop
-        add_instance(new TestWall(this, Vector2(i * 32, 20)));
+    for (int i = 0; i < 1000; i++) { //500 = current max tested before major performance drop
+        add_instance(new TestWall(this, Vector2(i * 128, 20)));
     }
     
     std::string working_dir = Content::ContentLoader::get_working_directory();
