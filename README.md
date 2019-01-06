@@ -1,3 +1,5 @@
+# [Inferno has been cancelled](https://www.nerdthings.co.uk/2019/01/06/inferno-cancelled/)
+
 # Inferno
 Inferno is a 2D Game Engine written in C++ that is designed for use in our team to produce our games.
 
